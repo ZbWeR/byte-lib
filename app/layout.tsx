@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Geist_Mono, Inter } from "next/font/google"
 
 import "./globals.css"
+import { AppShell } from "@/components/app-shell"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
@@ -13,7 +14,10 @@ const fontMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "UESTC Byte Lib · 成电人的电子图书馆",
+  title: {
+    default: "UESTC Byte Lib · 成电人的电子图书馆",
+    template: "%s · UESTC Byte Lib",
+  },
   description:
     "6 个分类、49 个站外链接、16 个概念名词。把成电人真正用得上的网站和黑话收进一个轻量的电子图书馆。",
 }
@@ -34,7 +38,9 @@ export default function RootLayout({
       )}
     >
       <body className="overflow-x-hidden">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <AppShell>{children}</AppShell>
+        </ThemeProvider>
       </body>
     </html>
   )

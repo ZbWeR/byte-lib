@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { Search01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { useEffect, useState } from "react"
@@ -8,17 +9,17 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Kbd } from "@/components/ui/kbd"
 import { Separator } from "@/components/ui/separator"
-import { navigate, type Route } from "@/hooks/use-hash-route"
+import { glossaryPath, HOME_PATH } from "@/lib/paths"
 import { cn } from "@/lib/utils"
 
 type SiteHeaderProps = {
-  route: Route
+  pathname: string
   onSearch: () => void
 }
 
-export function SiteHeader({ route, onSearch }: SiteHeaderProps) {
+export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
   const [scrolled, setScrolled] = useState(false)
-  const isGlossary = route.name === "glossary"
+  const isGlossary = pathname.startsWith("/glossary")
 
   useEffect(() => {
     const onScroll = () => {
@@ -41,9 +42,8 @@ export function SiteHeader({ route, onSearch }: SiteHeaderProps) {
           scrolled && "h-12 shadow-lg"
         )}
       >
-        <button
-          type="button"
-          onClick={() => navigate("#/")}
+        <Link
+          href={HOME_PATH}
           className="flex items-center gap-0 rounded-full pr-1 outline-none focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="回到图书馆首页"
         >
@@ -54,7 +54,7 @@ export function SiteHeader({ route, onSearch }: SiteHeaderProps) {
           <span className="text-[15px] font-medium tracking-tight">
             Byte Lib
           </span>
-        </button>
+        </Link>
 
         <Separator orientation="vertical" className="mx-2 h-5" />
 
@@ -66,9 +66,8 @@ export function SiteHeader({ route, onSearch }: SiteHeaderProps) {
             }}
             aria-hidden
           />
-          <button
-            type="button"
-            onClick={() => navigate("#/")}
+          <Link
+            href={HOME_PATH}
             className={cn(
               "relative z-10 rounded-full px-4 py-1 text-[13px] transition-colors",
               !isGlossary
@@ -77,10 +76,9 @@ export function SiteHeader({ route, onSearch }: SiteHeaderProps) {
             )}
           >
             图书馆
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate("#/glossary")}
+          </Link>
+          <Link
+            href={glossaryPath()}
             className={cn(
               "relative z-10 rounded-full px-4 py-1 text-[13px] transition-colors",
               isGlossary
@@ -89,7 +87,7 @@ export function SiteHeader({ route, onSearch }: SiteHeaderProps) {
             )}
           >
             词典
-          </button>
+          </Link>
         </div>
 
         <Button

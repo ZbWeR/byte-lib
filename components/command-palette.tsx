@@ -22,9 +22,10 @@ import {
   CommandList,
 } from "@/components/ui/command"
 import { Kbd } from "@/components/ui/kbd"
-import { navigate } from "@/hooks/use-hash-route"
+import { useNavigate } from "@/hooks/use-navigate"
 import { categoryBySlug } from "@/lib/data/categories"
 import { categoryIcon } from "@/lib/category-icons"
+import { categoryPath, glossaryPath, HOME_PATH } from "@/lib/paths"
 import { filterSearch } from "@/lib/search"
 
 const SUGGESTIONS = ["教务", "LaTeX", "保研"] as const
@@ -37,6 +38,7 @@ type CommandPaletteProps = {
 export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
   const [query, setQuery] = useState("")
   const { resolvedTheme, setTheme } = useTheme()
+  const navigate = useNavigate()
 
   const results = useMemo(() => filterSearch(query), [query])
   const total =
@@ -105,7 +107,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   key={item.id}
                   value={`category:${item.id}`}
                   onSelect={() => {
-                    navigate(`#/c/${item.category.slug}`)
+                    navigate(categoryPath(item.category.slug))
                     close()
                   }}
                 >
@@ -163,7 +165,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   key={item.id}
                   value={`term:${item.id}`}
                   onSelect={() => {
-                    navigate(`#/glossary?term=${item.term.id}`)
+                    navigate(glossaryPath(item.term.id))
                     close()
                   }}
                 >
@@ -189,9 +191,9 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   value={`nav:${item.id}`}
                   onSelect={() => {
                     if (item.id === "home") {
-                      navigate("#/")
+                      navigate(HOME_PATH)
                     } else if (item.id === "glossary") {
-                      navigate("#/glossary")
+                      navigate(glossaryPath())
                     } else {
                       setTheme(resolvedTheme === "dark" ? "light" : "dark")
                     }

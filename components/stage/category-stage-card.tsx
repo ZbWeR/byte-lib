@@ -1,16 +1,17 @@
 "use client"
 
+import Link from "next/link"
 import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import type { CSSProperties } from "react"
+import type { CSSProperties, MouseEvent } from "react"
 
 import { Favicon } from "@/components/favicon"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { navigate } from "@/hooks/use-hash-route"
 import { accentClasses } from "@/lib/accents"
 import { categoryIcon } from "@/lib/category-icons"
 import type { Category, LibraryLink } from "@/lib/data/types"
+import { categoryPath } from "@/lib/paths"
 import { cn } from "@/lib/utils"
 
 type CategoryStageCardProps = {
@@ -27,7 +28,7 @@ type CategoryStageCardProps = {
 function stageTransform(offset: number) {
   const abs = Math.abs(offset)
   const sign = offset === 0 ? 0 : offset > 0 ? 1 : -1
-  const x = abs === 0 ? 0 : abs === 1 ? 0.8 : abs === 2 ? 1.42 : 1.9
+  const x = abs === 0 ? 0 : abs === 1 ? 0.86 : abs === 2 ? 1.52 : 2
   const scale = abs === 0 ? 1 : abs === 1 ? 0.84 : abs === 2 ? 0.7 : 0.62
   const opacity = abs === 0 ? 1 : abs === 1 ? 0.4 : abs === 2 ? 0.14 : 0
   const blur = abs === 0 ? 0 : abs === 1 ? 3 : abs === 2 ? 6 : 8
@@ -62,6 +63,14 @@ export function CategoryStageCard({
   const extra = Math.max(0, totalCount - previewLinks.length)
   const enterDelay = Math.min(t.abs, 2) * 60
 
+  const onCardClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (active || event.metaKey || event.ctrlKey || event.shiftKey) {
+      return
+    }
+    event.preventDefault()
+    onActivate()
+  }
+
   return (
     <div
       data-stage-card=""
@@ -69,13 +78,13 @@ export function CategoryStageCard({
       data-offset={offset}
       aria-current={active ? "true" : undefined}
       className={cn(
-        "stage-card-face absolute top-1/2 left-1/2 h-[600px] w-[var(--card-w)]",
+        "stage-card-face absolute top-1/2 left-1/2 h-[var(--card-h)] w-[var(--card-w)]",
         t.abs >= 2 && "max-[900px]:hidden"
       )}
       style={
         {
           marginLeft: "calc(var(--card-w) / -2)",
-          marginTop: -300,
+          marginTop: "calc(var(--card-h) / -2)",
           transform: `translateX(calc(${t.x} * var(--card-w))) scale(${t.scale}) rotateY(${t.rotateY}deg)`,
           opacity: t.opacity,
           zIndex: t.zIndex,
@@ -86,19 +95,13 @@ export function CategoryStageCard({
         } as CSSProperties
       }
     >
-      <button
-        type="button"
+      <Link
+        href={categoryPath(category.slug)}
         aria-label={`进入 ${category.name} 分类`}
-        onClick={() => {
-          if (active) {
-            navigate(`#/c/${category.slug}`)
-          } else {
-            onActivate()
-          }
-        }}
+        onClick={onCardClick}
         style={{ animationDelay: `${enterDelay}ms` }}
         className={cn(
-          "group relative flex h-full w-full animate-in flex-col gap-5 overflow-hidden rounded-4xl border border-border/70 bg-card p-8 text-left surface-shadow duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring",
+          "group relative flex h-full w-full animate-in flex-col gap-4 overflow-hidden rounded-4xl border border-border/70 bg-card p-6 text-left surface-shadow duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring",
           classes.ring,
           active && "hover:-translate-y-1 hover:shadow-lg"
         )}
@@ -109,7 +112,7 @@ export function CategoryStageCard({
             classes.wash
           )}
         />
-        <div className="relative flex flex-1 flex-col gap-5">
+        <div className="relative flex flex-1 flex-col gap-4">
           <div className="flex items-center justify-between">
             <span className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground/70 uppercase tabular-nums">
               {String(index + 1).padStart(2, "0")}
@@ -122,37 +125,37 @@ export function CategoryStageCard({
 
           <div
             className={cn(
-              "grid size-11 place-items-center rounded-2xl bg-muted",
+              "grid size-9 place-items-center rounded-2xl bg-muted",
               classes.text
             )}
           >
             <HugeiconsIcon
               icon={categoryIcon(category.slug)}
               strokeWidth={2}
-              className="size-5"
+              className="size-4"
             />
           </div>
 
           <p className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
             {category.nameEn}
           </p>
-          <h2 className="text-[2.6rem] leading-[1.1] font-medium tracking-tight">
+          <h2 className="text-[2rem] leading-[1.1] font-medium tracking-tight">
             {category.name}
           </h2>
-          <p className="text-[15px] leading-relaxed text-muted-foreground">
+          <p className="text-[13px] leading-relaxed text-muted-foreground">
             {category.tagline}
           </p>
 
           <Separator className="opacity-60" />
 
-          <ul className="flex flex-col gap-2.5">
+          <ul className="flex flex-col gap-2">
             {previewLinks.map((link) => (
-              <li key={link.id} className="flex min-w-0 items-center gap-2.5">
+              <li key={link.id} className="flex min-w-0 items-center gap-2">
                 <Favicon
                   url={link.url}
                   title={link.title}
                   accent={category.accent}
-                  className="size-7 shrink-0 rounded-lg"
+                  className="size-6 shrink-0 rounded-lg"
                 />
                 <span className="truncate text-[13px] text-foreground/80">
                   {link.title}
@@ -160,7 +163,7 @@ export function CategoryStageCard({
               </li>
             ))}
             {extra > 0 ? (
-              <li className="pl-[38px] font-mono text-[11px] text-muted-foreground tabular-nums">
+              <li className="pl-[32px] font-mono text-[11px] text-muted-foreground tabular-nums">
                 +{extra} 个站点
               </li>
             ) : null}
@@ -188,7 +191,7 @@ export function CategoryStageCard({
             />
           </div>
         </div>
-      </button>
+      </Link>
     </div>
   )
 }
