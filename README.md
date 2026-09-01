@@ -21,6 +21,17 @@ pnpm dev --port 43917
 （`app/api/icon`），它只是转发请求并读取上游状态码，没有它页面也能正常渲染，
 只是所有图标都会退化成字母图章。
 
+## 部署到 Vercel
+
+这是标准的 Next.js App Router 项目，Vercel 会按 `vercel.json` 识别框架并用 pnpm 安装依赖。
+仓库没有需要配置的环境变量。
+
+在 [Vercel](https://vercel.com/new) 导入本仓库即可；或在已登录 CLI 的情况下：
+
+```bash
+pnpm dlx vercel --prod --yes
+```
+
 其它命令：
 
 ```bash
