@@ -9,7 +9,20 @@ import {
 } from "react"
 
 const THRESHOLD = 42
-const LOCK_MS = 520
+/**
+ * 触控板一次滑动会连发几十个 wheel 事件，惯性尾巴可以持续一秒以上。
+ * 单纯用固定冷却时间挡不住：冷却一过，还在滑行的同一个手势就会再走一格。
+ * 所以触发后直接「卸掉扳机」，只有当滚轮真正静默 REARM_IDLE_MS 之后才重新武装，
+ * 这样无论手势多长，一次滑动都只走一格。
+ */
+const REARM_IDLE_MS = 160
+/**
+ * 鼠标滚轮和触控板必须区别对待：滚轮是离散的，一格通常 100px 以上、间隔上百毫秒，
+ * 用「等静默」那套会把连续拨轮吃掉，手感发木；触控板是高频小增量。
+ * 所以大增量按「一格一步」处理，只用一个短冷却防止动画被打断。
+ */
+const NOTCH_DELTA = 100
+const NOTCH_GAP_MS = 220
 const IDLE_MS = 180
 const DRAG_STEP_PX = 60
 const RUBBER_PX = 10
@@ -44,7 +57,9 @@ export function useStageNav({
 }: UseStageNavOptions) {
   const stageRef = useRef<HTMLElement | null>(null)
   const accRef = useRef(0)
-  const lockedUntilRef = useRef(0)
+  const armedRef = useRef(true)
+  const lastStepAtRef = useRef(0)
+  const rearmTimerRef = useRef(0)
   const idleTimerRef = useRef(0)
   const rubberTimerRef = useRef(0)
   const dragStartXRef = useRef<number | null>(null)
@@ -99,14 +114,31 @@ export function useStageNav({
         return
       }
       event.preventDefault()
-      const now = Date.now()
-      if (now < lockedUntilRef.current) {
-        return
-      }
+
+      // 只要事件流还没断，就把「重新武装」不断往后推迟。
+      window.clearTimeout(rearmTimerRef.current)
+      rearmTimerRef.current = window.setTimeout(() => {
+        armedRef.current = true
+        accRef.current = 0
+      }, REARM_IDLE_MS)
+
       const d =
         Math.abs(event.deltaX) > Math.abs(event.deltaY)
           ? event.deltaX
           : event.deltaY
+      const now = Date.now()
+      const isNotch = Math.abs(d) >= NOTCH_DELTA
+
+      if (!armedRef.current) {
+        // 惯性尾巴一律吞掉；但离散的滚轮大格应当继续响应
+        if (!isNotch || now - lastStepAtRef.current < NOTCH_GAP_MS) {
+          accRef.current = 0
+          return
+        }
+        armedRef.current = true
+        accRef.current = 0
+      }
+
       accRef.current += d
       window.clearTimeout(idleTimerRef.current)
       idleTimerRef.current = window.setTimeout(() => {
@@ -115,7 +147,8 @@ export function useStageNav({
       if (Math.abs(accRef.current) >= THRESHOLD) {
         step(Math.sign(accRef.current))
         accRef.current = 0
-        lockedUntilRef.current = now + LOCK_MS
+        armedRef.current = false
+        lastStepAtRef.current = now
       }
     }
 
@@ -265,6 +298,7 @@ export function useStageNav({
     return () => {
       window.clearTimeout(idleTimerRef.current)
       window.clearTimeout(rubberTimerRef.current)
+      window.clearTimeout(rearmTimerRef.current)
     }
   }, [])
 
