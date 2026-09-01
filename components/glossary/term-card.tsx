@@ -20,6 +20,8 @@ export function TermCard({ term, expanded }: TermCardProps) {
 
   return (
     <article
+      data-term-card=""
+      data-term-id={term.id}
       className={cn(
         "rounded-3xl border border-border/70 bg-card p-5 surface-shadow transition-all duration-[var(--dur-micro)]",
         expanded && "ring-1 ring-border"

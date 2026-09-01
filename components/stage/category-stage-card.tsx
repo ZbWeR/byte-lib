@@ -64,6 +64,10 @@ export function CategoryStageCard({
 
   return (
     <div
+      data-stage-card=""
+      data-slug={category.slug}
+      data-offset={offset}
+      aria-current={active ? "true" : undefined}
       className={cn(
         "stage-card-face absolute top-1/2 left-1/2 h-[600px] w-[var(--card-w)]",
         t.abs >= 2 && "max-[900px]:hidden"
@@ -141,24 +145,26 @@ export function CategoryStageCard({
 
           <Separator className="opacity-60" />
 
-          <div className="flex items-center">
-            <div className="flex -space-x-2">
-              {previewLinks.map((link) => (
+          <ul className="flex flex-col gap-2.5">
+            {previewLinks.map((link) => (
+              <li key={link.id} className="flex min-w-0 items-center gap-2.5">
                 <Favicon
-                  key={link.id}
                   url={link.url}
                   title={link.title}
                   accent={category.accent}
-                  className="size-8 rounded-xl ring-2 ring-background"
+                  className="size-7 shrink-0 rounded-lg"
                 />
-              ))}
-            </div>
+                <span className="truncate text-[13px] text-foreground/80">
+                  {link.title}
+                </span>
+              </li>
+            ))}
             {extra > 0 ? (
-              <span className="ml-3 font-mono text-[11px] text-muted-foreground tabular-nums">
-                +{extra} 更多
-              </span>
+              <li className="pl-[38px] font-mono text-[11px] text-muted-foreground tabular-nums">
+                +{extra} 个站点
+              </li>
             ) : null}
-          </div>
+          </ul>
 
           <div className="flex flex-wrap gap-1.5">
             {category.tags.slice(0, 4).map((tag) => (

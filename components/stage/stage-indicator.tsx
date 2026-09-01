@@ -1,5 +1,8 @@
 "use client"
 
+import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
+import { HugeiconsIcon } from "@hugeicons/react"
+
 import { accentClasses } from "@/lib/accents"
 import { categories } from "@/lib/data/categories"
 import { cn } from "@/lib/utils"
@@ -40,13 +43,26 @@ export function StageIndicator({
           )
         })}
       </div>
+      {/* 箭头用矢量图标而不是 ← → 字符：等宽字体不一定收录这两个码位，
+          缺字形时会掉成豆腐块。 */}
       <p
         className={cn(
-          "font-mono text-[10px] tracking-[0.18em] text-muted-foreground uppercase transition-opacity duration-700",
+          "inline-flex items-center gap-1.5 font-mono text-[10px] tracking-[0.18em] text-muted-foreground transition-opacity duration-700",
           showHint ? "opacity-100" : "pointer-events-none opacity-0"
         )}
       >
-        滚动或 ← → 切换
+        滚动或
+        <HugeiconsIcon
+          icon={ArrowLeft01Icon}
+          strokeWidth={2.5}
+          className="size-3"
+        />
+        <HugeiconsIcon
+          icon={ArrowRight01Icon}
+          strokeWidth={2.5}
+          className="size-3"
+        />
+        切换
       </p>
     </div>
   )
