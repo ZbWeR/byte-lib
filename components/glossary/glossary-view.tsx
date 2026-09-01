@@ -7,6 +7,7 @@ import {
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { useMemo, useState } from "react"
+import { useSearchParams } from "next/navigation"
 
 import { TermCard } from "@/components/glossary/term-card"
 import { Button } from "@/components/ui/button"
@@ -15,10 +16,6 @@ import { glossary, glossaryGroups } from "@/lib/data/glossary"
 import type { GlossaryGroup } from "@/lib/data/types"
 import { matchesHaystack } from "@/lib/search"
 import { cn } from "@/lib/utils"
-
-type GlossaryViewProps = {
-  term?: string
-}
 
 function termHaystack(item: (typeof glossary)[number]) {
   return [
@@ -30,7 +27,9 @@ function termHaystack(item: (typeof glossary)[number]) {
   ].join(" ")
 }
 
-export function GlossaryView({ term }: GlossaryViewProps) {
+export function GlossaryView() {
+  const searchParams = useSearchParams()
+  const term = searchParams.get("term")
   const [query, setQuery] = useState("")
   const [group, setGroup] = useState<GlossaryGroup | null>(null)
 

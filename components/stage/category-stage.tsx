@@ -2,28 +2,23 @@
 
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { useEffect, useState, type Dispatch, type SetStateAction } from "react"
+import { useEffect, useState } from "react"
 
+import { usePaletteOpen } from "@/components/palette-open"
 import { CategoryStageCard } from "@/components/stage/category-stage-card"
 import { StageIndicator } from "@/components/stage/stage-indicator"
 import { Button } from "@/components/ui/button"
-import { navigate } from "@/hooks/use-hash-route"
+import { useNavigate } from "@/hooks/use-navigate"
 import { useStageNav } from "@/hooks/use-stage-nav"
 import { categories } from "@/lib/data/categories"
 import { linksByCategory } from "@/lib/data/links"
+import { categoryPath } from "@/lib/paths"
 import { cn } from "@/lib/utils"
 
-type CategoryStageProps = {
-  index: number
-  setIndex: Dispatch<SetStateAction<number>>
-  enabled: boolean
-}
-
-export function CategoryStage({
-  index,
-  setIndex,
-  enabled,
-}: CategoryStageProps) {
+export function CategoryStage() {
+  const paletteOpen = usePaletteOpen()
+  const navigate = useNavigate()
+  const [index, setIndex] = useState(0)
   const [reducedMotion, setReducedMotion] = useState(false)
   const [showHint, setShowHint] = useState(true)
 
@@ -31,8 +26,13 @@ export function CategoryStage({
     count: categories.length,
     index,
     setIndex,
-    enabled,
-    onEnter: () => navigate(`#/c/${categories[index]?.slug}`),
+    enabled: !paletteOpen,
+    onEnter: () => {
+      const slug = categories[index]?.slug
+      if (slug) {
+        navigate(categoryPath(slug))
+      }
+    },
   })
 
   useEffect(() => {
@@ -51,11 +51,11 @@ export function CategoryStage({
   return (
     <section
       ref={stageRef}
-      className="group relative h-svh touch-none overflow-hidden overscroll-none [--card-w:520px] [perspective:1800px] max-[900px]:[--card-w:min(520px,86vw)]"
+      className="group relative h-svh touch-none overflow-hidden overscroll-none [--card-h:500px] [--card-w:400px] [perspective:1800px] max-[900px]:[--card-w:min(400px,82vw)]"
     >
       <div className="absolute inset-0 flex items-center justify-center [transform-style:preserve-3d]">
         {categories.map((category, i) => {
-          const preview = (linksByCategory[category.slug] ?? []).slice(0, 5)
+          const preview = (linksByCategory[category.slug] ?? []).slice(0, 4)
           const total = (linksByCategory[category.slug] ?? []).length
           return (
             <CategoryStageCard

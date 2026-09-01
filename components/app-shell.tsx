@@ -1,18 +1,16 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { usePathname, useRouter } from "next/navigation"
+import { useEffect, useState, type ReactNode } from "react"
 
-import { CategoryDetail } from "@/components/category/category-detail"
 import { CommandPalette } from "@/components/command-palette"
-import { GlossaryView } from "@/components/glossary/glossary-view"
-import { NotFoundView } from "@/components/not-found-view"
+import { PaletteOpenContext } from "@/components/palette-open"
 import { SiteHeader } from "@/components/site-header"
-import { CategoryStage } from "@/components/stage/category-stage"
 import { TooltipProvider } from "@/components/ui/tooltip"
-import { navigate, routeKey, useHashRoute } from "@/hooks/use-hash-route"
 import { isTypingTarget } from "@/hooks/use-stage-nav"
 import { accentClasses } from "@/lib/accents"
 import { categories, categoryBySlug } from "@/lib/data/categories"
+import { HOME_PATH, pathFromLegacyHash } from "@/lib/paths"
 import type { AccentKey } from "@/lib/data/types"
 import { cn } from "@/lib/utils"
 
@@ -20,28 +18,42 @@ const NOISE_BG = `url("data:image/svg+xml,${encodeURIComponent(
   `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>`
 )}")`
 
-function ambientAccent(
-  routeName: string,
-  stageIndex: number,
-  slug?: string
-): AccentKey {
-  if (routeName === "category" && slug) {
-    return categoryBySlug.get(slug)?.accent ?? "lime"
+function accentFromPath(pathname: string): AccentKey {
+  const match = pathname.match(/^\/c\/([^/]+)/)
+  if (match?.[1]) {
+    return categoryBySlug.get(match[1])?.accent ?? "lime"
   }
-  return categories[stageIndex]?.accent ?? "lime"
+  return categories[0]?.accent ?? "lime"
 }
 
-export function AppShell() {
-  const route = useHashRoute()
-  const [paletteOpen, setPaletteOpen] = useState(false)
-  const [stageIndex, setStageIndex] = useState(0)
+function HashRedirect() {
+  const router = useRouter()
 
-  if (route.name === "category") {
-    const next = categories.findIndex((item) => item.slug === route.slug)
-    if (next >= 0 && next !== stageIndex) {
-      setStageIndex(next)
+  useEffect(() => {
+    const next = pathFromLegacyHash(window.location.hash)
+    if (!next) {
+      return
     }
-  }
+    const current = `${window.location.pathname}${window.location.search}`
+    if (next === current || (next === HOME_PATH && current === HOME_PATH)) {
+      if (window.location.hash) {
+        window.history.replaceState(null, "", next)
+      }
+      return
+    }
+    router.replace(next)
+  }, [router])
+
+  return null
+}
+
+export function AppShell({ children }: { children: ReactNode }) {
+  const pathname = usePathname()
+  const router = useRouter()
+  const [paletteOpen, setPaletteOpen] = useState(false)
+  const isHome = pathname === HOME_PATH
+  const isCategory = pathname.startsWith("/c/")
+  const accent = accentFromPath(pathname)
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -69,35 +81,30 @@ export function AppShell() {
         return
       }
 
-      if (event.key === "Escape" && !paletteOpen && route.name === "category") {
-        navigate("#/")
+      if (event.key === "Escape" && !paletteOpen && isCategory) {
+        router.push(HOME_PATH)
       }
     }
 
     window.addEventListener("keydown", onKeyDown)
     return () => window.removeEventListener("keydown", onKeyDown)
-  }, [paletteOpen, route.name])
+  }, [isCategory, paletteOpen, router])
 
   useEffect(() => {
-    if (route.name === "stage") {
-      const html = document.documentElement
-      const prev = html.style.overflow
-      html.style.overflow = "hidden"
-      return () => {
-        html.style.overflow = prev
-      }
+    if (!isHome) {
+      return
     }
-  }, [route.name])
-
-  const accent = ambientAccent(
-    route.name,
-    stageIndex,
-    route.name === "category" ? route.slug : undefined
-  )
-  const key = routeKey(route)
+    const html = document.documentElement
+    const prev = html.style.overflow
+    html.style.overflow = "hidden"
+    return () => {
+      html.style.overflow = prev
+    }
+  }, [isHome])
 
   return (
     <TooltipProvider>
+      <HashRedirect />
       <div className="relative min-h-svh">
         <div className="pointer-events-none fixed inset-0 -z-10">
           <div
@@ -112,27 +119,11 @@ export function AppShell() {
           />
         </div>
 
-        <SiteHeader route={route} onSearch={() => setPaletteOpen(true)} />
+        <SiteHeader pathname={pathname} onSearch={() => setPaletteOpen(true)} />
 
-        <div
-          key={key}
-          className="animate-in duration-300 fade-in-0 slide-in-from-bottom-2"
-        >
-          {route.name === "stage" ? (
-            <CategoryStage
-              index={stageIndex}
-              setIndex={setStageIndex}
-              enabled={!paletteOpen}
-            />
-          ) : null}
-          {route.name === "category" ? (
-            <CategoryDetail slug={route.slug} focus={route.focus} />
-          ) : null}
-          {route.name === "glossary" ? (
-            <GlossaryView term={route.term} />
-          ) : null}
-          {route.name === "not-found" ? <NotFoundView raw={route.raw} /> : null}
-        </div>
+        <PaletteOpenContext.Provider value={paletteOpen}>
+          {children}
+        </PaletteOpenContext.Provider>
 
         <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
       </div>

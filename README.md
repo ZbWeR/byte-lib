@@ -21,6 +21,17 @@ pnpm dev --port 43917
 （`app/api/icon`），它只是转发请求并读取上游状态码，没有它页面也能正常渲染，
 只是所有图标都会退化成字母图章。
 
+## 部署到 Vercel
+
+这是标准的 Next.js App Router 项目，Vercel 会按 `vercel.json` 识别框架并用 pnpm 安装依赖。
+仓库没有需要配置的环境变量。
+
+在 [Vercel](https://vercel.com/new) 导入本仓库即可；或在已登录 CLI 的情况下：
+
+```bash
+pnpm dlx vercel --prod --yes
+```
+
 其它命令：
 
 ```bash
@@ -45,15 +56,15 @@ pnpm format      # prettier --write
 
 ## 路由
 
-全站是单个 Next.js 页面，路由完全由 URL hash 驱动，因此每个视图都能直接分享：
+分类、词典都是独立的 Next.js 页面，地址可直接分享：
 
-| 地址                        | 视图                     |
-| --------------------------- | ------------------------ |
-| `#/`                        | 分类舞台（首页）         |
-| `#/c/<slug>`                | 分类详情                 |
-| `#/c/<slug>?focus=<linkId>` | 分类详情，并高亮某条链接 |
-| `#/glossary`                | 概念词典                 |
-| `#/glossary?term=<termId>`  | 概念词典，并展开某个词条 |
+| 地址                       | 视图                     |
+| -------------------------- | ------------------------ |
+| `/`                        | 分类舞台（首页）         |
+| `/c/<slug>`                | 分类详情                 |
+| `/c/<slug>?focus=<linkId>` | 分类详情，并高亮某条链接 |
+| `/glossary`                | 概念词典                 |
+| `/glossary?term=<termId>`  | 概念词典，并展开某个词条 |
 
 `<slug>` 取值：`campus` `learn` `research` `code` `tools` `future`。
 
@@ -72,11 +83,13 @@ pnpm format      # prettier --write
 
 ```
 app/
-  layout.tsx            字体、主题 Provider、中文 metadata
-  page.tsx              Server Component，只渲染 <AppShell />
+  layout.tsx            字体、主题、AppShell 外壳
+  page.tsx              首页分类舞台
+  c/[slug]/page.tsx     六个分类详情页
+  glossary/page.tsx     概念词典
   globals.css           设计令牌：分类强调色、glass / surface-shadow、动效、reduced-motion
 components/
-  app-shell.tsx         哈希路由分发 + 命令面板状态 + 氛围层
+  app-shell.tsx         header + 氛围层 + 命令面板
   site-header.tsx       固定居中的玻璃胶囊顶栏
   command-palette.tsx   ⌘K 全局搜索
   link-card.tsx         链接卡片（新标签页打开）
@@ -87,8 +100,8 @@ app/api/icon/route.ts   favicon 代理：读到上游真实状态码，查不到
   glossary/             概念词典
   ui/                   shadcn 组件（未改动）
 hooks/
-  use-hash-route.ts     hash 路由
   use-stage-nav.ts      滚轮 / 键盘 / 拖拽导航
+  use-navigate.ts       App Router 跳转
 lib/
   accents.ts            AccentKey → 静态 Tailwind 类名查表
   search.ts             命令面板检索

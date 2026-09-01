@@ -5,7 +5,8 @@ import type { GlossaryTerm } from "@/lib/data/types"
 import { categoryBySlug } from "@/lib/data/categories"
 import { Favicon } from "@/components/favicon"
 import { Badge } from "@/components/ui/badge"
-import { navigate } from "@/hooks/use-hash-route"
+import { useNavigate } from "@/hooks/use-navigate"
+import { categoryPath, glossaryPath } from "@/lib/paths"
 import { cn } from "@/lib/utils"
 
 type TermCardProps = {
@@ -17,6 +18,7 @@ export function TermCard({ term, expanded }: TermCardProps) {
   const related = (term.relatedLinkIds ?? [])
     .map((id) => linkById.get(id))
     .filter((link) => link != null)
+  const navigate = useNavigate()
 
   return (
     <article
@@ -31,7 +33,7 @@ export function TermCard({ term, expanded }: TermCardProps) {
         type="button"
         aria-expanded={expanded}
         onClick={() =>
-          navigate(expanded ? "#/glossary" : `#/glossary?term=${term.id}`)
+          navigate(expanded ? glossaryPath() : glossaryPath(term.id))
         }
         className="w-full text-left outline-none"
       >
@@ -83,7 +85,7 @@ export function TermCard({ term, expanded }: TermCardProps) {
                     key={link.id}
                     type="button"
                     onClick={() =>
-                      navigate(`#/c/${link.categorySlug}?focus=${link.id}`)
+                      navigate(categoryPath(link.categorySlug, link.id))
                     }
                     className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-muted/40 py-1 pr-3 pl-1 text-[12px] transition-colors hover:bg-muted"
                   >

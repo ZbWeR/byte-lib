@@ -1,26 +1,30 @@
 "use client"
 
+import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 import { ArrowLeft01Icon, Idea01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { useEffect, useMemo, useState } from "react"
 
 import { LinkCard } from "@/components/link-card"
-import { Button } from "@/components/ui/button"
-import { navigate } from "@/hooks/use-hash-route"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { categories, categoryBySlug } from "@/lib/data/categories"
 import { categoryIcon } from "@/lib/category-icons"
 import { linksByCategory } from "@/lib/data/links"
+import { categoryPath, HOME_PATH } from "@/lib/paths"
 import { cn } from "@/lib/utils"
 
 type CategoryDetailProps = {
   slug: string
-  focus?: string
 }
 
-export function CategoryDetail({ slug, focus }: CategoryDetailProps) {
+export function CategoryDetail({ slug }: CategoryDetailProps) {
   const category = categoryBySlug.get(slug)
+  const searchParams = useSearchParams()
+  const focus = searchParams.get("focus")
   const [tag, setTag] = useState<string | null>(null)
-  const [highlighted, setHighlighted] = useState<string | null>(focus ?? null)
+  const [expiredFocus, setExpiredFocus] = useState<string | null>(null)
+  const highlighted = focus && expiredFocus !== focus ? focus : null
 
   const allLinks = useMemo(() => linksByCategory[slug] ?? [], [slug])
 
@@ -31,12 +35,13 @@ export function CategoryDetail({ slug, focus }: CategoryDetailProps) {
     const scrollTimer = window.setTimeout(() => {
       document.getElementById(focus)?.scrollIntoView({ block: "center" })
     }, 80)
-    const timer = window.setTimeout(() => setHighlighted(null), 2000)
+    const timer = window.setTimeout(() => setExpiredFocus(focus), 2000)
     return () => {
       window.clearTimeout(scrollTimer)
       window.clearTimeout(timer)
     }
   }, [focus])
+
   const filtered = useMemo(() => {
     if (!tag) {
       return allLinks
@@ -53,10 +58,10 @@ export function CategoryDetail({ slug, focus }: CategoryDetailProps) {
   return (
     <section className="mx-auto max-w-6xl px-6 pt-28 pb-24">
       <div className="flex flex-wrap items-center gap-3">
-        <Button type="button" variant="ghost" onClick={() => navigate("#/")}>
+        <Link href={HOME_PATH} className={buttonVariants({ variant: "ghost" })}>
           <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={2} />
           图书馆
-        </Button>
+        </Link>
         <p className="text-[13px] text-muted-foreground">
           图书馆
           <span className="mx-1.5 text-muted-foreground/50">/</span>
@@ -87,10 +92,9 @@ export function CategoryDetail({ slug, focus }: CategoryDetailProps) {
         {categories.map((item) => {
           const current = item.slug === slug
           return (
-            <button
+            <Link
               key={item.slug}
-              type="button"
-              onClick={() => navigate(`#/c/${item.slug}`)}
+              href={categoryPath(item.slug)}
               className={cn(
                 "flex items-center gap-2 rounded-full border px-3 py-1.5 text-[13px] transition-all",
                 current
@@ -104,7 +108,7 @@ export function CategoryDetail({ slug, focus }: CategoryDetailProps) {
                 className="size-3.5"
               />
               {item.name}
-            </button>
+            </Link>
           )
         })}
       </div>

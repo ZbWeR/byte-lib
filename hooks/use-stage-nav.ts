@@ -8,22 +8,18 @@ import {
   type SetStateAction,
 } from "react"
 
-const THRESHOLD = 42
+const THRESHOLD = 22
 /**
- * 触控板一次滑动会连发几十个 wheel 事件，惯性尾巴可以持续一秒以上。
- * 单纯用固定冷却时间挡不住：冷却一过，还在滑行的同一个手势就会再走一格。
- * 所以触发后直接「卸掉扳机」，只有当滚轮真正静默 REARM_IDLE_MS 之后才重新武装，
- * 这样无论手势多长，一次滑动都只走一格。
+ * 触发翻页后先锁一小段，把同一记触控板手势的惯性尾巴丢掉。
+ * 冷却还没结束时，只有鼠标滚轮的离散格、或明显更大的新一记轻扫，才能再翻一页。
  */
-const REARM_IDLE_MS = 160
-/**
- * 鼠标滚轮和触控板必须区别对待：滚轮是离散的，一格通常 100px 以上、间隔上百毫秒，
- * 用「等静默」那套会把连续拨轮吃掉，手感发木；触控板是高频小增量。
- * 所以大增量按「一格一步」处理，只用一个短冷却防止动画被打断。
- */
-const NOTCH_DELTA = 100
-const NOTCH_GAP_MS = 220
-const IDLE_MS = 180
+const BURST_LOCK_MS = 70
+const STEP_COOLDOWN_MS = 200
+const FLICK_DELTA = 28
+const NOTCH_DELTA = 80
+const NOTCH_GAP_MS = 90
+const IDLE_MS = 120
+const CLICK_SLOP_PX = 16
 const DRAG_STEP_PX = 60
 const RUBBER_PX = 10
 const RUBBER_MS = 300
@@ -57,13 +53,21 @@ export function useStageNav({
 }: UseStageNavOptions) {
   const stageRef = useRef<HTMLElement | null>(null)
   const accRef = useRef(0)
-  const armedRef = useRef(true)
   const lastStepAtRef = useRef(0)
-  const rearmTimerRef = useRef(0)
   const idleTimerRef = useRef(0)
   const rubberTimerRef = useRef(0)
   const dragStartXRef = useRef<number | null>(null)
+  const dragTargetRef = useRef<EventTarget | null>(null)
+  const draggingRef = useRef(false)
   const suppressClickRef = useRef(false)
+  const capturedIdRef = useRef<number | null>(null)
+  const indexRef = useRef(index)
+  const onEnterRef = useRef(onEnter)
+
+  useEffect(() => {
+    indexRef.current = index
+    onEnterRef.current = onEnter
+  }, [index, onEnter])
 
   const setShiftX = useCallback((value: number, withTransition: boolean) => {
     const el = stageRef.current
@@ -92,7 +96,7 @@ export function useStageNav({
       if (dir === 0) {
         return false
       }
-      const next = index + dir
+      const next = indexRef.current + dir
       if (next < 0 || next >= count) {
         rubber(dir)
         return false
@@ -100,7 +104,7 @@ export function useStageNav({
       setIndex(next)
       return true
     },
-    [count, index, rubber, setIndex]
+    [count, rubber, setIndex]
   )
 
   useEffect(() => {
@@ -115,28 +119,29 @@ export function useStageNav({
       }
       event.preventDefault()
 
-      // 只要事件流还没断，就把「重新武装」不断往后推迟。
-      window.clearTimeout(rearmTimerRef.current)
-      rearmTimerRef.current = window.setTimeout(() => {
-        armedRef.current = true
-        accRef.current = 0
-      }, REARM_IDLE_MS)
-
-      const d =
+      let d =
         Math.abs(event.deltaX) > Math.abs(event.deltaY)
           ? event.deltaX
           : event.deltaY
-      const now = Date.now()
-      const isNotch = Math.abs(d) >= NOTCH_DELTA
+      if (event.deltaMode === 1) {
+        d *= 16
+      } else if (event.deltaMode === 2) {
+        d *= 800
+      }
 
-      if (!armedRef.current) {
-        // 惯性尾巴一律吞掉；但离散的滚轮大格应当继续响应
-        if (!isNotch || now - lastStepAtRef.current < NOTCH_GAP_MS) {
-          accRef.current = 0
-          return
-        }
-        armedRef.current = true
-        accRef.current = 0
+      const now = Date.now()
+      const sinceStep = now - lastStepAtRef.current
+      const isNotch = Math.abs(d) >= NOTCH_DELTA
+      const isFlick = Math.abs(d) >= FLICK_DELTA
+
+      if (sinceStep < BURST_LOCK_MS) {
+        return
+      }
+      if (sinceStep < STEP_COOLDOWN_MS && !isNotch && !isFlick) {
+        return
+      }
+      if (isNotch && sinceStep < NOTCH_GAP_MS) {
+        return
       }
 
       accRef.current += d
@@ -144,11 +149,13 @@ export function useStageNav({
       idleTimerRef.current = window.setTimeout(() => {
         accRef.current = 0
       }, IDLE_MS)
-      if (Math.abs(accRef.current) >= THRESHOLD) {
-        step(Math.sign(accRef.current))
+
+      if (Math.abs(accRef.current) >= THRESHOLD || isNotch) {
+        const moved = step(Math.sign(accRef.current || d))
         accRef.current = 0
-        armedRef.current = false
-        lastStepAtRef.current = now
+        if (moved) {
+          lastStepAtRef.current = now
+        }
       }
     }
 
@@ -212,13 +219,13 @@ export function useStageNav({
         return
       }
       if (key === "Enter" || key === " ") {
-        onEnter?.()
+        onEnterRef.current?.()
       }
     }
 
     window.addEventListener("keydown", onKeyDown)
     return () => window.removeEventListener("keydown", onKeyDown)
-  }, [count, enabled, onEnter, setIndex, step])
+  }, [count, enabled, setIndex, step])
 
   useEffect(() => {
     const el = stageRef.current
@@ -229,6 +236,16 @@ export function useStageNav({
     const isChrome = (target: EventTarget | null) =>
       target instanceof Element &&
       Boolean(target.closest("[data-stage-chrome]"))
+
+    const releaseCapture = (pointerId: number) => {
+      if (capturedIdRef.current !== pointerId) {
+        return
+      }
+      if (el.hasPointerCapture(pointerId)) {
+        el.releasePointerCapture(pointerId)
+      }
+      capturedIdRef.current = null
+    }
 
     const onPointerDown = (event: PointerEvent) => {
       if (!enabled) {
@@ -241,8 +258,9 @@ export function useStageNav({
         return
       }
       dragStartXRef.current = event.clientX
+      dragTargetRef.current = event.target
+      draggingRef.current = false
       suppressClickRef.current = false
-      el.setPointerCapture(event.pointerId)
     }
 
     const onPointerMove = (event: PointerEvent) => {
@@ -250,8 +268,16 @@ export function useStageNav({
         return
       }
       const dx = event.clientX - dragStartXRef.current
-      if (Math.abs(dx) > 8) {
+      if (!draggingRef.current) {
+        if (Math.abs(dx) <= CLICK_SLOP_PX) {
+          return
+        }
+        draggingRef.current = true
         suppressClickRef.current = true
+        if (!el.hasPointerCapture(event.pointerId)) {
+          el.setPointerCapture(event.pointerId)
+          capturedIdRef.current = event.pointerId
+        }
       }
       setShiftX(dx * 0.35, false)
     }
@@ -261,14 +287,39 @@ export function useStageNav({
         return
       }
       const dx = event.clientX - dragStartXRef.current
+      const target = dragTargetRef.current
+      const wasDragging = draggingRef.current
       dragStartXRef.current = null
-      if (el.hasPointerCapture(event.pointerId)) {
-        el.releasePointerCapture(event.pointerId)
+      dragTargetRef.current = null
+      draggingRef.current = false
+      releaseCapture(event.pointerId)
+
+      if (wasDragging) {
+        if (Math.abs(dx) > DRAG_STEP_PX) {
+          step(dx < 0 ? 1 : -1)
+        }
+        setShiftX(0, true)
+        return
       }
-      if (Math.abs(dx) > DRAG_STEP_PX) {
-        step(dx < 0 ? 1 : -1)
+
+      setShiftX(0, false)
+      if (!(target instanceof Element)) {
+        return
       }
-      setShiftX(0, true)
+      const card = target.closest("[data-stage-card]")
+      if (!card) {
+        return
+      }
+      const offset = Number(card.getAttribute("data-offset"))
+      if (offset === 0) {
+        suppressClickRef.current = true
+        onEnterRef.current?.()
+        return
+      }
+      if (Number.isInteger(offset) && offset !== 0) {
+        suppressClickRef.current = true
+        setIndex(indexRef.current + offset)
+      }
     }
 
     const onClickCapture = (event: MouseEvent) => {
@@ -292,13 +343,12 @@ export function useStageNav({
       el.removeEventListener("pointercancel", endPointer)
       el.removeEventListener("click", onClickCapture, true)
     }
-  }, [enabled, setShiftX, step])
+  }, [enabled, setIndex, setShiftX, step])
 
   useEffect(() => {
     return () => {
       window.clearTimeout(idleTimerRef.current)
       window.clearTimeout(rubberTimerRef.current)
-      window.clearTimeout(rearmTimerRef.current)
     }
   }, [])
 
