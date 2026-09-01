@@ -50,23 +50,23 @@
 在 `app/globals.css` 的 `@theme inline` 块里覆盖：
 
 ```css
---font-sans: var(--font-inter), "PingFang SC", "HarmonyOS Sans SC",
-  "Hiragino Sans GB", "Source Han Sans SC", "Noto Sans CJK SC",
-  "Microsoft YaHei", sans-serif;
+--font-sans:
+  var(--font-inter), "PingFang SC", "HarmonyOS Sans SC", "Hiragino Sans GB",
+  "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
 ```
 
 不要用 `next/font` 加载中文字体（体积几 MB，得不偿失）。系统中文字体正是苹果式观感的来源。
 
 排版约定：
 
-| 用途                    | 类名                                                                  |
-| ----------------------- | --------------------------------------------------------------------- |
-| 舞台卡片分类名          | `text-[2.6rem] leading-[1.1] font-medium tracking-tight`              |
-| 详情页 / 词典页大标题   | `text-3xl font-medium tracking-tight`                                 |
-| 英文副标、编号、快捷键  | `font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground` |
-| 卡片标题                | `text-[15px] font-medium leading-snug`                                |
-| 正文描述                | `text-[13px] leading-relaxed text-muted-foreground`                   |
-| 数字（计数、序号）      | 一律加 `font-mono tabular-nums`                                       |
+| 用途                   | 类名                                                                      |
+| ---------------------- | ------------------------------------------------------------------------- |
+| 舞台卡片分类名         | `text-[2.6rem] leading-[1.1] font-medium tracking-tight`                  |
+| 详情页 / 词典页大标题  | `text-3xl font-medium tracking-tight`                                     |
+| 英文副标、编号、快捷键 | `font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground` |
+| 卡片标题               | `text-[15px] font-medium leading-snug`                                    |
+| 正文描述               | `text-[13px] leading-relaxed text-muted-foreground`                       |
+| 数字（计数、序号）     | 一律加 `font-mono tabular-nums`                                           |
 
 中文正文行高要比英文松：正文统一 `leading-relaxed`，标题 `leading-tight`。
 中文不要用 `font-bold`（系统中文字体加粗容易糊），最重只到 `font-medium`。
@@ -139,11 +139,11 @@ export const accentClasses: Record<AccentKey, AccentClasses> = {
 
 `--radius: 0.625rem`（10px），预设已把 `rounded-2xl`→18px、`rounded-3xl`→22px、`rounded-4xl`→26px。
 
-| 元素            | 圆角                                 |
-| --------------- | ------------------------------------ |
-| 顶部胶囊 header | `rounded-full`                       |
-| 舞台分类卡片    | `rounded-4xl`                        |
-| 链接卡片 / 词条卡片 | `rounded-3xl`                     |
+| 元素                     | 圆角                           |
+| ------------------------ | ------------------------------ |
+| 顶部胶囊 header          | `rounded-full`                 |
+| 舞台分类卡片             | `rounded-4xl`                  |
+| 链接卡片 / 词条卡片      | `rounded-3xl`                  |
 | favicon 底座、chip、按钮 | `rounded-2xl` / `rounded-full` |
 
 在 `globals.css` 里加两个工具类（用 `@utility`，Tailwind v4 写法）：
@@ -209,14 +209,14 @@ export const accentClasses: Record<AccentKey, AccentClasses> = {
 全站是**一个** Next.js 页面（`app/page.tsx`），路由完全由 hash 驱动。这样 `#/glossary` 这类地址
 能直接工作，也不依赖服务端。
 
-| hash                                 | 视图         |
-| ------------------------------------ | ------------ |
-| `#/`、`` 空 ``、`#`                  | 分类舞台     |
-| `#/c/<slug>`                         | 分类详情     |
-| `#/c/<slug>?focus=<linkId>`          | 分类详情，高亮并滚动到某条链接 |
-| `#/glossary`                         | 概念词典     |
-| `#/glossary?term=<termId>`           | 词典，展开某词条 |
-| 其它                                 | NotFound 视图 |
+| hash                        | 视图                           |
+| --------------------------- | ------------------------------ |
+| `#/`、`空`、`#`             | 分类舞台                       |
+| `#/c/<slug>`                | 分类详情                       |
+| `#/c/<slug>?focus=<linkId>` | 分类详情，高亮并滚动到某条链接 |
+| `#/glossary`                | 概念词典                       |
+| `#/glossary?term=<termId>`  | 词典，展开某词条               |
+| 其它                        | NotFound 视图                  |
 
 `hooks/use-hash-route.ts`：
 
@@ -303,12 +303,12 @@ section.relative.h-svh.overflow-hidden          舞台容器，[perspective:1800
 
 `offset = index - activeIndex`，`w` = 卡片宽度：
 
-| \|offset\| | translateX | scale | opacity | blur | rotateY        | z-index | pointer-events |
-| ---------- | ---------- | ----- | ------- | ---- | -------------- | ------- | -------------- |
-| 0          | 0          | 1     | 1       | 0    | 0              | 40      | auto           |
-| 1          | ±0.80w     | 0.84  | 0.40    | 3px  | ∓7deg          | 30      | auto           |
-| 2          | ±1.42w     | 0.70  | 0.14    | 6px  | ∓10deg         | 20      | none           |
-| ≥3         | ±1.90w     | 0.62  | 0       | 8px  | ∓10deg         | 10      | none           |
+| \|offset\| | translateX | scale | opacity | blur | rotateY | z-index | pointer-events |
+| ---------- | ---------- | ----- | ------- | ---- | ------- | ------- | -------------- |
+| 0          | 0          | 1     | 1       | 0    | 0       | 40      | auto           |
+| 1          | ±0.80w     | 0.84  | 0.40    | 3px  | ∓7deg   | 30      | auto           |
+| 2          | ±1.42w     | 0.70  | 0.14    | 6px  | ∓10deg  | 20      | none           |
+| ≥3         | ±1.90w     | 0.62  | 0       | 8px  | ∓10deg  | 10      | none           |
 
 符号：offset 为正（右侧）时 translateX 为正、rotateY 为负。
 写成 `transform: translateX(...) scale(...) rotateY(...)`，配合容器的 `perspective`。
@@ -332,14 +332,15 @@ section.relative.h-svh.overflow-hidden          舞台容器，[perspective:1800
    写 `{count} 个站点`，数字 `tabular-nums`。
 2. 分类图标：`size-11 rounded-2xl` 的浅色底座（`bg-muted`），内部 `size-5` 图标用强调色 `accentClasses[k].text`。
    图标映射（hugeicons，名称已核对，照抄）：
-   | slug | icon |
-   | --- | --- |
-   | `campus` | `Building06Icon` |
-   | `learn` | `Book02Icon` |
-   | `research` | `SearchVisualIcon` |
-   | `code` | `SourceCodeIcon` |
-   | `tools` | `Wrench01Icon` |
-   | `future` | `GraduationScrollIcon` |
+
+   | slug       | icon                   |
+   | ---------- | ---------------------- |
+   | `campus`   | `Building06Icon`       |
+   | `learn`    | `Book02Icon`           |
+   | `research` | `SearchVisualIcon`     |
+   | `code`     | `SourceCodeIcon`       |
+   | `tools`    | `Wrench01Icon`         |
+   | `future`   | `GraduationScrollIcon` |
 
    下面这些图标名已逐个核对过确实存在于 `@hugeicons/core-free-icons`，可直接 import：
    `Building06Icon` `Book02Icon` `SearchVisualIcon` `SourceCodeIcon` `Wrench01Icon`
@@ -349,12 +350,16 @@ section.relative.h-svh.overflow-hidden          舞台容器，[perspective:1800
    需要别的图标时，先 `ls node_modules/@hugeicons/core-free-icons/dist/types | grep -i <关键词>`
    确认名字 —— 名字写错会直接编译失败。
    用法：`<HugeiconsIcon icon={Book02Icon} className="size-5" strokeWidth={2} />`。
+
 3. `nameEn` — 英文副标（mono 小字规格见 1.2）。
 4. `name` — 大标题。
 5. `tagline` — `text-[15px] text-muted-foreground leading-relaxed`。
 6. 分隔线 `Separator className="opacity-60"`。
-7. **代表站点 favicon 行**：取该分类前 5 条链接，`<Favicon>` 排成一行，
-   `-space-x-2` 叠压，每个带 `ring-2 ring-background rounded-xl`；后面跟 `+{n} 更多` 小字。
+7. **代表站点列表**：取该分类前 5 条链接，每行一个 `<Favicon className="size-7">` 加站点标题
+   （`truncate text-[13px]`），行间 `gap-2.5`；末尾补一行 `+{n} 个站点`。
+   > 初版规范这里写的是叠压的 favicon 头像行。实际做出来发现 600px 高的卡片只有上半部分有内容，
+   > CTA 下方空出近 200px，看起来像布局出错而不是留白。改成带名字的列表既填满了卡片，
+   > 也真正告诉读者这个分类里装了什么。
 8. 底部标签 chips：`category.tags.slice(0,4)`，`Badge variant="outline"` 风格，`text-[11px]`。
 9. CTA：`进入分类` + `ArrowRight01Icon`，hover 时箭头 `translate-x-1`。仅激活卡片可见。
 
@@ -372,20 +377,41 @@ section.relative.h-svh.overflow-hidden          舞台容器，[perspective:1800
 
 **滚轮 / 触控板** —— 触控板会连发几十个事件，必须做累积 + 冷却，否则一划过好几张：
 
+**固定时长的冷却是挡不住触控板的**：一次滑动的惯性尾巴能持续一秒以上，冷却一过，
+同一个手势就会再走一格。所以触发后直接「卸掉扳机」，只有当滚轮事件流真正静默之后才重新武装 ——
+这样无论手势多长，一次滑动都只走一格。
+
+同时鼠标滚轮要区别对待：滚轮是离散的（一格通常 ≥100px、间隔上百毫秒），
+套用「等静默」那套会把连续拨轮吃掉，手感发木。所以大增量走单独的快速通道。
+
 ```
-const THRESHOLD = 42      // 触发一步的累积量
-const LOCK_MS   = 520     // 触发后的冷却，略短于 --dur-stage
-const IDLE_MS   = 180     // 静默这么久就清空累积
+const THRESHOLD      = 42   // 触发一步的累积量
+const REARM_IDLE_MS  = 160  // 滚轮静默这么久才重新武装（关键）
+const NOTCH_DELTA    = 100  // 超过这个增量判定为鼠标滚轮的离散一格
+const NOTCH_GAP_MS   = 220  // 两格之间的最小间隔，避免动画被打断
+const IDLE_MS        = 180  // 未触发时清空累积
 
 onWheel(e):
   if (!enabled) return
-  e.preventDefault()                       // 阻止页面滚动，监听时必须 { passive: false }
-  if (lockedUntil > now) return            // 冷却中：连吞掉惯性尾巴
+  e.preventDefault()                   // 阻止页面滚动，监听时必须 { passive: false }
+
+  // 只要事件流还没断，就不断把「重新武装」往后推
+  clearTimeout(rearmTimer)
+  rearmTimer = setTimeout(() => { armed = true; acc = 0 }, REARM_IDLE_MS)
+
   const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY
+  const isNotch = Math.abs(d) >= NOTCH_DELTA
+
+  if (!armed) {
+    // 惯性尾巴一律吞掉；但滚轮的离散大格应当继续响应
+    if (!isNotch || now - lastStepAt < NOTCH_GAP_MS) { acc = 0; return }
+    armed = true; acc = 0
+  }
+
   acc += d
   clearTimeout(idleTimer); idleTimer = setTimeout(() => acc = 0, IDLE_MS)
   if (Math.abs(acc) >= THRESHOLD) {
-    step(Math.sign(acc)); acc = 0; lockedUntil = now + LOCK_MS
+    step(Math.sign(acc)); acc = 0; armed = false; lastStepAt = now
   }
 ```
 
@@ -458,11 +484,22 @@ pointerup 时若 `|dx| > 60` 走一步，然后恢复 transition 归零。用 Po
 
 `components/favicon.tsx`，`"use client"`：
 
-- 用 `https://icons.duckduckgo.com/ip3/{host}.ico`（国内可达性优于 Google 的 s2 接口）。
+- **经自家的 `/api/icon?host=<host>` 代理去取，不要在 `<img>` 里直连第三方图标服务。**
+  原因是 `icons.duckduckgo.com` 对查不到的站点会返回「404 + 一张合法的 48×48 灰色占位图」，
+  浏览器照样解码成功，于是 `onError` 永远不触发、monogram 兜底形同虚设，
+  页面上会出现一排一模一样的灰圈（实测 49 个域名里有 9 个中招）。
+  放到服务端（`app/api/icon/route.ts`）就能读到真实状态码：上游不 ok 就回 404，
+  让 `<img>` 正常报错并走 monogram。顺带解决了国内直连该服务不稳的问题，也能加缓存。
+  代理必须校验 host 在收录名单内，否则就成了任意 URL 转发器。
+  注意前端传的 host 已去掉 `www.`，而图标服务认完整域名，映射表两边都要对上。
 - **用原生 `<img>`，不要 `next/image`**（否则得配 `images.remotePatterns`，且这些图标本就不需要优化）。
   加 `loading="lazy" decoding="async" referrerPolicy="no-referrer" alt=""`。
   若 ESLint 的 `@next/next/no-img-element` 报错，就在该文件顶部加一行 `/* eslint-disable @next/next/no-img-element */`。
 - **失败回退**：`onError` 置 state，改渲染字母 monogram —— 站点标题首个字符，
+  中文站点会得到「网」「统」「本」这类单字图章，比 16px 的杂色小图标还好看。
+  **另外必须在挂载后补查一次 `img.complete && img.naturalWidth === 0`**：
+  首屏的 `<img>` 是服务端渲染的，浏览器在 hydration 之前就开始（并可能已经失败）加载，
+  那次 error 事件没人监听，`onError` 永远不会被调用，图标会永久停留在破图状态。
   底色用该分类强调色的 12% 混色，`font-medium`。这就是本项目的「加载失败态」，必须实现。
 - 外层统一 `rounded-2xl border border-border/60 bg-muted/40 p-1.5 grid place-items-center`，
   让不同尺寸、不同底色的 favicon 看起来整齐。
@@ -619,3 +656,9 @@ export const metadata: Metadata = {
    特别是不要引入 framer-motion、pinyin-pro、lucide-react。
 9. **不要改 `lib/data/**` 的内容。** URL 和文案都是逐条核对过的。
 10. 数字务必 `tabular-nums`，否则切换分类时计数会跳动。
+11. **开发服务器如果绑 `--hostname 0.0.0.0`，Next 16 会把 `127.0.0.1` 当成跨源开发主机，
+    对 `/_next` 下的所有静态 chunk 返回 403。** 结果是客户端 JS 一个都加载不到，
+    页面看着正常但完全没有交互（键盘失灵、滚轮变成翻页、主题按钮因为等 mount 而一直是空占位）。
+    症状很容易被误判成「代码写错了」。已在 `next.config.ts` 里配 `allowedDevOrigins` 解决。
+12. **`<img>` 的 `onError` 在 SSR 首屏会漏事件**，见 §6 的 Favicon 说明。
+    凡是「服务端渲染 + 依赖 error/load 事件」的场景都要在 `useEffect` 里补查一次真实状态。
