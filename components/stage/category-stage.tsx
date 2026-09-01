@@ -9,11 +9,10 @@ import { CategoryStageCard } from "@/components/stage/category-stage-card"
 import { StageIndicator } from "@/components/stage/stage-indicator"
 import { Button } from "@/components/ui/button"
 import { useNavigate } from "@/hooks/use-navigate"
-import { useStageNav } from "@/hooks/use-stage-nav"
+import { useStageNav, wrapOffset } from "@/hooks/use-stage-nav"
 import { categories } from "@/lib/data/categories"
 import { linksByCategory } from "@/lib/data/links"
 import { categoryPath } from "@/lib/paths"
-import { cn } from "@/lib/utils"
 
 export function CategoryStage() {
   const paletteOpen = usePaletteOpen()
@@ -57,13 +56,13 @@ export function CategoryStage() {
         {categories.map((category, i) => {
           const preview = (linksByCategory[category.slug] ?? []).slice(0, 4)
           const total = (linksByCategory[category.slug] ?? []).length
+          const offset = wrapOffset(i, index, categories.length)
           return (
             <CategoryStageCard
               key={category.slug}
               category={category}
-              index={i}
-              offset={i - index}
-              active={i === index}
+              offset={offset}
+              active={offset === 0}
               onActivate={() => setIndex(i)}
               previewLinks={preview}
               totalCount={total}
@@ -80,10 +79,7 @@ export function CategoryStage() {
         data-stage-chrome
         aria-label="上一个分类"
         onClick={() => step(-1)}
-        className={cn(
-          "absolute top-1/2 left-6 z-50 -translate-y-1/2 rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100",
-          index === 0 && "group-hover:opacity-40"
-        )}
+        className="absolute top-1/2 left-6 z-50 -translate-y-1/2 rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100"
       >
         <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={2} />
       </Button>
@@ -94,10 +90,7 @@ export function CategoryStage() {
         data-stage-chrome
         aria-label="下一个分类"
         onClick={() => step(1)}
-        className={cn(
-          "absolute top-1/2 right-6 z-50 -translate-y-1/2 rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100",
-          index === categories.length - 1 && "group-hover:opacity-40"
-        )}
+        className="absolute top-1/2 right-6 z-50 -translate-y-1/2 rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100"
       >
         <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
       </Button>

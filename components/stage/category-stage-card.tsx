@@ -16,7 +16,6 @@ import { cn } from "@/lib/utils"
 
 type CategoryStageCardProps = {
   category: Category
-  index: number
   offset: number
   active: boolean
   onActivate: () => void
@@ -50,7 +49,6 @@ function stageTransform(offset: number) {
 
 export function CategoryStageCard({
   category,
-  index,
   offset,
   active,
   onActivate,
@@ -113,10 +111,7 @@ export function CategoryStageCard({
           )}
         />
         <div className="relative flex flex-1 flex-col gap-4">
-          <div className="flex items-center justify-between">
-            <span className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground/70 uppercase tabular-nums">
-              {String(index + 1).padStart(2, "0")}
-            </span>
+          <div className="flex items-center justify-end">
             <Badge variant="secondary">
               <span className="font-mono tabular-nums">{totalCount}</span>
               {" 个站点"}

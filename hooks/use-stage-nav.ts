@@ -24,6 +24,28 @@ const DRAG_STEP_PX = 60
 const RUBBER_PX = 10
 const RUBBER_MS = 300
 
+export function wrapIndex(value: number, count: number) {
+  if (count <= 0) {
+    return 0
+  }
+  return ((value % count) + count) % count
+}
+
+/** Shortest signed distance on a ring, so the last card sits left of the first. */
+export function wrapOffset(i: number, active: number, count: number) {
+  if (count <= 0) {
+    return 0
+  }
+  let offset = i - active
+  const half = count / 2
+  if (offset > half) {
+    offset -= count
+  } else if (offset < -half) {
+    offset += count
+  }
+  return offset
+}
+
 export function isTypingTarget(target: EventTarget | null) {
   if (!(target instanceof HTMLElement)) {
     return false
@@ -93,15 +115,14 @@ export function useStageNav({
 
   const step = useCallback(
     (dir: number) => {
-      if (dir === 0) {
+      if (dir === 0 || count <= 0) {
         return false
       }
-      const next = indexRef.current + dir
-      if (next < 0 || next >= count) {
+      if (count === 1) {
         rubber(dir)
         return false
       }
-      setIndex(next)
+      setIndex(wrapIndex(indexRef.current + dir, count))
       return true
     },
     [count, rubber, setIndex]
@@ -311,14 +332,13 @@ export function useStageNav({
         return
       }
       const offset = Number(card.getAttribute("data-offset"))
+      // Let the center card's <Link> receive the real click so it can navigate.
       if (offset === 0) {
-        suppressClickRef.current = true
-        onEnterRef.current?.()
         return
       }
-      if (Number.isInteger(offset) && offset !== 0) {
+      if (Number.isInteger(offset)) {
         suppressClickRef.current = true
-        setIndex(indexRef.current + offset)
+        setIndex(wrapIndex(indexRef.current + offset, count))
       }
     }
 
@@ -343,7 +363,7 @@ export function useStageNav({
       el.removeEventListener("pointercancel", endPointer)
       el.removeEventListener("click", onClickCapture, true)
     }
-  }, [enabled, setIndex, setShiftX, step])
+  }, [count, enabled, setIndex, setShiftX, step])
 
   useEffect(() => {
     return () => {
