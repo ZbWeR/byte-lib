@@ -32,7 +32,7 @@ function parseRgb(color: string) {
 }
 
 function sideBand(width: number) {
-  return Math.min(Math.max(width * 0.18, 88), 260)
+  return Math.min(Math.max(width * 0.28, 120), 420)
 }
 
 export function DotField({ className }: DotFieldProps) {

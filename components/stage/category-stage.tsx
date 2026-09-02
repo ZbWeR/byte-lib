@@ -59,15 +59,24 @@ export function CategoryStage() {
     >
       <div className="relative z-10 mx-auto w-full shrink-0 px-6 pt-16 pb-0 text-center sm:pt-20">
         <h1 className="sr-only">从你的学院开始 · UESTC Byte Lib</h1>
-        <Image
-          src="/iuestc-byte-lib.png"
-          alt="iUESTC Byte Lib"
-          width={1280}
-          height={580}
-          priority
-          unoptimized
-          className="mx-auto h-auto w-[min(34rem,92vw)] select-none sm:w-[min(40rem,78vw)]"
-        />
+        <div className="relative mx-auto w-[min(28rem,86vw)] sm:w-[min(32rem,68vw)]">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 -z-10"
+          >
+            <div className="absolute top-[18%] left-1/2 h-28 w-[70%] -translate-x-1/2 rounded-full bg-[#ff5aa5]/40 blur-[56px] dark:bg-[#ff5aa5]/30" />
+            <div className="absolute bottom-[22%] left-[32%] h-24 w-[42%] -translate-x-1/2 rounded-full bg-[#6ec8ff]/45 blur-[48px] dark:bg-[#6ec8ff]/32" />
+          </div>
+          <Image
+            src="/iuestc-byte-lib.png"
+            alt="iUESTC Byte Lib"
+            width={1280}
+            height={580}
+            priority
+            unoptimized
+            className="relative h-auto w-full select-none"
+          />
+        </div>
       </div>
 
       <div className="relative min-h-0 flex-1 overflow-hidden [transform-style:preserve-3d]">
