@@ -19,10 +19,17 @@ export type Category = {
 export type LibraryLink = {
   id: string
   categorySlug: string
+  collegeName?: string
   title: string
   url: string
   description: string
   tags: string[]
+  createdAt?: string
+  updatedAt?: string
+  charCount?: number
+  pv?: number
+  uv?: number
+  likeCount?: number
   /** 需要校园网 / 图书馆代理才能完整访问 */
   campusOnly?: boolean
   /** 搜索用的额外关键词：拼音首字母、英文别名、俗称 */
@@ -67,6 +74,12 @@ export type WikiDoc = {
   nodeToken: string
   objToken: string
   objType: string
+  createdAt?: string
+  updatedAt?: string
+  charCount?: number
+  pv?: number
+  uv?: number
+  likeCount?: number
 }
 
 export type WikiCatalog = {
@@ -83,5 +96,7 @@ export type WikiCatalog = {
     collegeCount: number
     docCount: number
     skippedUntitled: number
+    withStats?: number
+    withCharCount?: number
   }
 }

@@ -16,11 +16,14 @@
  * 没有可用凭证时：若已有 catalog.json 且未设 CATALOG_SYNC_REQUIRED=1，则沿用旧文件并警告。
  */
 
-import { spawnSync } from "node:child_process"
+import { execFile, spawnSync } from "node:child_process"
 import { createHash } from "node:crypto"
 import { existsSync, readFileSync, writeFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
+import { promisify } from "node:util"
+
+const execFileAsync = promisify(execFile)
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..")
 const OUT_FILE = join(ROOT, "lib/data/catalog.json")
@@ -51,6 +54,8 @@ const COLLEGE_SLUGS = {
 const args = new Set(process.argv.slice(2))
 const allowStale =
   args.has("--allow-stale") || process.env.CATALOG_ALLOW_STALE === "1"
+const skipEnrich =
+  args.has("--skip-enrich") || process.env.CATALOG_SKIP_ENRICH === "1"
 const syncRequired =
   args.has("--require") || process.env.CATALOG_SYNC_REQUIRED === "1"
 
@@ -90,12 +95,84 @@ function runLark(bin, argv) {
       LARKSUITE_CLI_NO_UPDATE_NOTIFIER: "1",
       LARKSUITE_CLI_NO_SKILLS_NOTIFIER: "1",
     },
+    maxBuffer: 20 * 1024 * 1024,
   })
   if (result.status !== 0) {
     const detail = (result.stderr || result.stdout || "").trim()
     throw new Error(detail || `lark-cli exited ${result.status}`)
   }
   return JSON.parse(result.stdout)
+}
+
+async function runLarkAsync(bin, argv) {
+  try {
+    const { stdout } = await execFileAsync(bin, argv, {
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        LARKSUITE_CLI_NO_UPDATE_NOTIFIER: "1",
+        LARKSUITE_CLI_NO_SKILLS_NOTIFIER: "1",
+      },
+      maxBuffer: 20 * 1024 * 1024,
+    })
+    return JSON.parse(stdout)
+  } catch (error) {
+    const detail = [error.stderr, error.stdout, error.message]
+      .filter(Boolean)
+      .join("\n")
+      .trim()
+    throw new Error(detail || "lark-cli failed")
+  }
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+async function mapPool(items, limit, fn) {
+  const results = new Array(items.length)
+  let next = 0
+  async function worker() {
+    while (next < items.length) {
+      const index = next
+      next += 1
+      results[index] = await fn(items[index], index)
+    }
+  }
+  const workers = Array.from({ length: Math.min(limit, items.length) }, () =>
+    worker()
+  )
+  await Promise.all(workers)
+  return results
+}
+
+function unixToIso(value) {
+  const seconds = Number(value)
+  if (!Number.isFinite(seconds) || seconds <= 0) return undefined
+  return new Date(seconds * 1000).toISOString()
+}
+
+function countChars(text) {
+  return Array.from(String(text).replace(/\s+/g, "")).length
+}
+
+function isRetryable(error) {
+  const message = error instanceof Error ? error.message : String(error)
+  return /rate_limit|99991400|429|ECONNRESET|ETIMEDOUT|503|502/i.test(message)
+}
+
+async function withRetry(fn, attempts = 3) {
+  let last
+  for (let i = 0; i < attempts; i += 1) {
+    try {
+      return await fn()
+    } catch (error) {
+      last = error
+      if (i === attempts - 1 || !isRetryable(error)) throw error
+      await sleep(700 * 2 ** i)
+    }
+  }
+  throw last
 }
 
 function larkReadyIdentity(bin) {
@@ -143,14 +220,19 @@ async function tenantAccessToken() {
   const appId = process.env.FEISHU_APP_ID
   const appSecret = process.env.FEISHU_APP_SECRET
   if (!appId || !appSecret) return null
-  const response = await fetch(`${OPEN_API}/auth/v3/tenant_access_token/internal`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ app_id: appId, app_secret: appSecret }),
-  })
+  const response = await fetch(
+    `${OPEN_API}/auth/v3/tenant_access_token/internal`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ app_id: appId, app_secret: appSecret }),
+    }
+  )
   const json = await response.json()
   if (!json.tenant_access_token) {
-    throw new Error(`tenant_access_token failed: ${json.msg || json.code || "unknown"}`)
+    throw new Error(
+      `tenant_access_token failed: ${json.msg || json.code || "unknown"}`
+    )
   }
   return json.tenant_access_token
 }
@@ -194,6 +276,19 @@ async function listNodesWithApi(token, parentNodeToken) {
   return items
 }
 
+async function cliApi(bin, identity, method, path, { query, body } = {}) {
+  const argv = ["api", method, path, "--as", identity, "--json"]
+  if (query) argv.push("--params", JSON.stringify(query))
+  if (body) argv.push("--data", JSON.stringify(body))
+  const payload = await runLarkAsync(bin, argv)
+  if (payload.ok === false) {
+    throw new Error(
+      payload.error?.message || `lark-cli api ${method} ${path} failed`
+    )
+  }
+  return payload.data
+}
+
 async function resolveSource() {
   const bin = resolveLarkBin()
   if (bin) {
@@ -203,6 +298,8 @@ async function resolveSource() {
       return {
         identity: `lark-cli:${identity}`,
         listNodes: (parent) => listNodesWithCli(bin, identity, parent),
+        api: (method, path, options) =>
+          cliApi(bin, identity, method, `/open-apis${path}`, options),
       }
     }
     log("sync-wiki: lark-cli found but identity is not ready")
@@ -214,6 +311,12 @@ async function resolveSource() {
     return {
       identity: "openapi:bot",
       listNodes: (parent) => listNodesWithApi(token, parent),
+      api: (method, path, options) =>
+        feishuFetch(path, token, {
+          method,
+          query: options?.query,
+          body: options?.body,
+        }),
     }
   }
 
@@ -295,6 +398,82 @@ function buildCatalog(roots, childrenByParent, identity) {
   }
 }
 
+async function enrichDocs(docs, api) {
+  log(`sync-wiki: enriching ${docs.length} docs (time / stats / char count)`)
+  const byNode = new Map(docs.map((doc) => [doc.nodeToken, doc]))
+
+  for (let offset = 0; offset < docs.length; offset += 200) {
+    const chunk = docs.slice(offset, offset + 200)
+    try {
+      const data = await withRetry(() =>
+        api("POST", "/drive/v1/metas/batch_query", {
+          body: {
+            request_docs: chunk.map((doc) => ({
+              doc_token: doc.nodeToken,
+              doc_type: "wiki",
+            })),
+          },
+        })
+      )
+      for (const meta of data.metas ?? []) {
+        const token = meta.request_doc_info?.doc_token
+        const doc =
+          (token && byNode.get(token)) ||
+          docs.find((item) => item.objToken === meta.doc_token)
+        if (!doc) continue
+        const createdAt = unixToIso(meta.create_time)
+        const updatedAt = unixToIso(meta.latest_modify_time)
+        if (createdAt) doc.createdAt = createdAt
+        if (updatedAt) doc.updatedAt = updatedAt
+      }
+    } catch (error) {
+      log(
+        `sync-wiki: metas batch failed: ${error instanceof Error ? error.message : error}`
+      )
+    }
+  }
+
+  await mapPool(docs, 6, async (doc) => {
+    try {
+      const data = await withRetry(() =>
+        api("GET", `/drive/v1/files/${doc.nodeToken}/statistics`, {
+          query: { file_type: "wiki" },
+        })
+      )
+      const stats = data.statistics ?? {}
+      if (typeof stats.pv === "number") doc.pv = stats.pv
+      if (typeof stats.uv === "number") doc.uv = stats.uv
+      if (typeof stats.like_count === "number" && stats.like_count >= 0) {
+        doc.likeCount = stats.like_count
+      }
+    } catch (error) {
+      log(
+        `sync-wiki: stats skipped for ${doc.title}: ${error instanceof Error ? error.message : error}`
+      )
+    }
+  })
+
+  const docx = docs.filter((doc) => doc.objType === "docx" && doc.objToken)
+  await mapPool(docx, 4, async (doc) => {
+    try {
+      const data = await withRetry(() =>
+        api("GET", `/docx/v1/documents/${doc.objToken}/raw_content`)
+      )
+      const charCount = countChars(data.content || "")
+      if (charCount > 0) doc.charCount = charCount
+    } catch (error) {
+      log(
+        `sync-wiki: char count skipped for ${doc.title}: ${error instanceof Error ? error.message : error}`
+      )
+    }
+  })
+
+  return {
+    withStats: docs.filter((doc) => doc.pv != null).length,
+    withCharCount: docs.filter((doc) => doc.charCount != null).length,
+  }
+}
+
 function writeCatalog(catalog) {
   writeFileSync(OUT_FILE, `${JSON.stringify(catalog, null, 2)}\n`, "utf8")
   log(
@@ -305,7 +484,9 @@ function writeCatalog(catalog) {
 async function main() {
   const source = await resolveSource()
   if (!source) {
-    keepExistingCatalog("没有可用的飞书凭证（lark-cli / FEISHU_APP_ID+FEISHU_APP_SECRET）")
+    keepExistingCatalog(
+      "没有可用的飞书凭证（lark-cli / FEISHU_APP_ID+FEISHU_APP_SECRET）"
+    )
     return
   }
 
@@ -313,12 +494,23 @@ async function main() {
   const childrenByParent = new Map()
   for (const root of roots) {
     if (!root.has_child) continue
-    childrenByParent.set(root.node_token, await source.listNodes(root.node_token))
+    childrenByParent.set(
+      root.node_token,
+      await source.listNodes(root.node_token)
+    )
   }
 
   const catalog = buildCatalog(roots, childrenByParent, source.identity)
   if (catalog.docs.length === 0) {
     fail("同步成功但没有可用的二级文档，请检查知识空间结构或权限")
+  }
+  if (!skipEnrich) {
+    const enriched = await enrichDocs(catalog.docs, source.api)
+    catalog.stats.withStats = enriched.withStats
+    catalog.stats.withCharCount = enriched.withCharCount
+    log(
+      `sync-wiki: enriched stats=${enriched.withStats}/${catalog.docs.length} chars=${enriched.withCharCount}/${catalog.docs.length}`
+    )
   }
   writeCatalog(catalog)
 }

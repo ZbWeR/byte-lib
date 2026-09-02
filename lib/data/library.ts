@@ -1,3 +1,4 @@
+import { formatCharCount, formatLikes, formatUv } from "@/lib/format"
 import { wikiColleges, wikiDocs, wikiDocsByCollege } from "./catalog"
 import { metaForCollege } from "./college-meta"
 import type { Category, LibraryLink } from "./types"
@@ -59,10 +60,24 @@ function extraKeywords(title: string) {
 export const links: LibraryLink[] = wikiDocs.map((doc) => ({
   id: doc.id,
   categorySlug: doc.collegeSlug,
+  collegeName: doc.collegeName,
   title: doc.title,
   url: doc.wikiUrl,
-  description: `UESTC Byte Lib · ${doc.collegeName}`,
+  description: [
+    doc.collegeName,
+    formatCharCount(doc.charCount),
+    formatUv(doc.uv),
+    formatLikes(doc.likeCount),
+  ]
+    .filter(Boolean)
+    .join(" · "),
   tags: deriveTags(doc.title),
+  createdAt: doc.createdAt,
+  updatedAt: doc.updatedAt,
+  charCount: doc.charCount,
+  pv: doc.pv,
+  uv: doc.uv,
+  likeCount: doc.likeCount,
   keywords: [
     doc.collegeName,
     doc.collegeSlug,
