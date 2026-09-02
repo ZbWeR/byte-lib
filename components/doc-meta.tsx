@@ -4,7 +4,7 @@ import {
   Clock01Icon,
   FavouriteIcon,
   Note01Icon,
-  TextFontIcon,
+  SquareChartGanttIcon,
   ViewIcon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
@@ -37,7 +37,7 @@ function itemsFor(link: LibraryLink): MetaItem[] {
   const volume = stub ? "占位" : formatCompactChars(link.charCount)
   if (volume) {
     items.push({
-      icon: stub ? Note01Icon : TextFontIcon,
+      icon: stub ? Note01Icon : SquareChartGanttIcon,
       value: volume,
       label: stub
         ? "占位页，几乎还没有正文"

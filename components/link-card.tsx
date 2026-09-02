@@ -4,7 +4,6 @@ import { Alert02Icon, ArrowUpRight01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
 import { DocMeta } from "@/components/doc-meta"
-import { Favicon } from "@/components/favicon"
 import { Badge } from "@/components/ui/badge"
 import {
   Tooltip,
@@ -39,20 +38,13 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
       )}
     >
       <div className="flex items-start justify-between gap-3">
-        <Favicon
-          url={link.url}
-          title={title}
-          accent={accent}
-          categorySlug={link.categorySlug}
-          className="size-10"
-        />
+        <h3 className="text-[15px] leading-snug font-medium">{title}</h3>
         <HugeiconsIcon
           icon={ArrowUpRight01Icon}
           strokeWidth={2}
-          className="size-4 text-muted-foreground/50 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+          className="mt-0.5 size-4 shrink-0 text-muted-foreground/50 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
         />
       </div>
-      <h3 className="text-[15px] leading-snug font-medium">{title}</h3>
       <DocMeta link={link} />
       {tags.length > 0 || link.campusOnly ? (
         <div className="mt-auto flex flex-wrap items-center gap-1.5">
