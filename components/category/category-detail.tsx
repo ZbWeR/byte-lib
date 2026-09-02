@@ -68,7 +68,9 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
           <span className="mx-2">·</span>
           {category.nameEn}
         </p>
-        <h1 className="text-3xl font-medium tracking-tight">{category.name}</h1>
+        <h1 className="font-heading text-3xl tracking-tight">
+          {category.name}
+        </h1>
         <p className="max-w-2xl text-[13px] leading-relaxed text-muted-foreground">
           {category.description}
         </p>

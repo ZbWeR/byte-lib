@@ -1,12 +1,9 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import type { CSSProperties, MouseEvent } from "react"
 
-import { Favicon } from "@/components/favicon"
-import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { accentClasses } from "@/lib/accents"
 import { categoryIcon } from "@/lib/category-icons"
@@ -23,6 +20,15 @@ type CategoryStageCardProps = {
   totalCount: number
   reducedMotion: boolean
 }
+
+const DOT_COLORS = [
+  "bg-cat-lime",
+  "bg-cat-teal",
+  "bg-cat-sky",
+  "bg-cat-violet",
+  "bg-cat-amber",
+  "bg-cat-rose",
+] as const
 
 function stageTransform(offset: number) {
   const abs = Math.abs(offset)
@@ -47,6 +53,14 @@ function stageTransform(offset: number) {
   }
 }
 
+function dotColor(id: string) {
+  let hash = 0
+  for (const char of id) {
+    hash = (hash * 31 + char.charCodeAt(0)) | 0
+  }
+  return DOT_COLORS[Math.abs(hash) % DOT_COLORS.length]
+}
+
 export function CategoryStageCard({
   category,
   offset,
@@ -58,7 +72,6 @@ export function CategoryStageCard({
 }: CategoryStageCardProps) {
   const t = stageTransform(offset)
   const classes = accentClasses[category.accent]
-  const extra = Math.max(0, totalCount - previewLinks.length)
   const enterDelay = Math.min(t.abs, 2) * 60
 
   const onCardClick = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -98,29 +111,13 @@ export function CategoryStageCard({
         aria-label={`进入 ${category.name} 分类`}
         onClick={onCardClick}
         style={{ animationDelay: `${enterDelay}ms` }}
-        className={cn(
-          "group relative flex h-full w-full animate-in flex-col gap-4 overflow-hidden rounded-4xl border border-border/70 bg-card p-6 text-left surface-shadow duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring",
-          classes.ring,
-          active && "hover:-translate-y-1 hover:shadow-lg"
-        )}
+        className="relative flex h-full w-full animate-in flex-col overflow-hidden rounded-2xl border border-border bg-white p-6 text-left duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring dark:bg-card"
       >
-        <div
-          className={cn(
-            "pointer-events-none absolute inset-0 bg-gradient-to-b to-transparent",
-            classes.wash
-          )}
-        />
-        <div className="relative flex flex-1 flex-col gap-4">
-          <div className="flex items-center justify-end">
-            <Badge variant="secondary">
-              <span className="font-mono tabular-nums">{totalCount}</span>
-              {" 篇文档"}
-            </Badge>
-          </div>
-
+        <div className="flex items-start justify-between gap-3">
           <div
             className={cn(
-              "grid size-9 place-items-center rounded-2xl bg-muted",
+              "grid size-9 place-items-center rounded-xl",
+              classes.mono,
               classes.text
             )}
           >
@@ -130,63 +127,42 @@ export function CategoryStageCard({
               className="size-4"
             />
           </div>
-
-          <p className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
-            {category.nameEn}
+          <p className="font-sans text-[12px] text-muted-foreground tabular-nums">
+            <span className="font-mono">{totalCount}</span>
+            {" 篇文档"}
           </p>
-          <h2 className="text-[2rem] leading-[1.1] font-medium tracking-tight">
-            {category.name}
-          </h2>
-          <p className="text-[13px] leading-relaxed text-muted-foreground">
-            {category.tagline}
-          </p>
-
-          <Separator className="opacity-60" />
-
-          <ul className="flex flex-col gap-2">
-            {previewLinks.map((link) => (
-              <li key={link.id} className="flex min-w-0 items-center gap-2">
-                <Favicon
-                  url={link.url}
-                  title={link.displayTitle ?? link.title}
-                  accent={category.accent}
-                  categorySlug={category.slug}
-                  className="size-6 shrink-0 rounded-lg"
-                />
-                <span className="truncate text-[13px] text-foreground/80">
-                  {link.displayTitle ?? link.title}
-                </span>
-              </li>
-            ))}
-            {extra > 0 ? (
-              <li className="pl-[32px] font-mono text-[11px] text-muted-foreground tabular-nums">
-                +{extra} 篇文档
-              </li>
-            ) : null}
-          </ul>
-
-          <div className="flex flex-wrap gap-1.5">
-            {category.tags.slice(0, 4).map((tag) => (
-              <Badge key={tag} variant="outline" className="text-[11px]">
-                {tag}
-              </Badge>
-            ))}
-          </div>
-
-          <div
-            className={cn(
-              "mt-auto flex items-center gap-1 text-[13px] font-medium transition-opacity duration-300",
-              active ? "opacity-100" : "opacity-0"
-            )}
-          >
-            进入学院
-            <HugeiconsIcon
-              icon={ArrowRight01Icon}
-              strokeWidth={2}
-              className="size-4 transition-transform duration-[var(--dur-micro)] group-hover:translate-x-1"
-            />
-          </div>
         </div>
+
+        <p className="mt-5 font-sans text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+          {category.nameEn}
+        </p>
+        <h2 className="mt-2 font-heading text-[2rem] leading-[1.15] tracking-tight">
+          {category.name}
+        </h2>
+        <p className="mt-3 text-[13px] leading-relaxed text-muted-foreground">
+          {category.tagline}
+        </p>
+
+        <Separator className="mt-5 opacity-60" />
+
+        <ul className="mt-4 flex flex-col gap-2.5">
+          {previewLinks.map((link) => (
+            <li key={link.id} className="flex min-w-0 items-center gap-2.5">
+              <span
+                className={cn(
+                  "size-1.5 shrink-0 rounded-full",
+                  dotColor(link.id)
+                )}
+              />
+              <span className="truncate text-[13px] text-foreground/80">
+                {link.displayTitle ?? link.title}
+              </span>
+            </li>
+          ))}
+          {previewLinks.length === 0 ? (
+            <li className="text-[13px] text-muted-foreground">暂无公开文档</li>
+          ) : null}
+        </ul>
       </Link>
     </div>
   )

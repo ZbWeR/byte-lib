@@ -5,6 +5,7 @@ import { useEffect, useState, type ReactNode } from "react"
 
 import { CommandPalette } from "@/components/command-palette"
 import { PaletteOpenContext } from "@/components/palette-open"
+import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { isTypingTarget } from "@/hooks/use-stage-nav"
@@ -13,10 +14,6 @@ import { categories, categoryBySlug } from "@/lib/data/library"
 import { HOME_PATH, pathFromLegacyHash } from "@/lib/paths"
 import type { AccentKey } from "@/lib/data/types"
 import { cn } from "@/lib/utils"
-
-const NOISE_BG = `url("data:image/svg+xml,${encodeURIComponent(
-  `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>`
-)}")`
 
 function accentFromPath(pathname: string): AccentKey {
   const match = pathname.match(/^\/c\/([^/]+)/)
@@ -105,25 +102,26 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <TooltipProvider>
       <HashRedirect />
-      <div className="relative min-h-svh">
+      <div className="relative flex min-h-svh flex-col">
         <div className="pointer-events-none fixed inset-0 -z-10">
-          <div
-            className={cn(
-              "absolute -top-40 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full opacity-50 blur-[120px] transition-colors duration-700",
-              accentClasses[accent].glow
-            )}
-          />
-          <div
-            className="absolute inset-0 opacity-[0.025] dark:opacity-[0.04]"
-            style={{ backgroundImage: NOISE_BG }}
-          />
+          {isHome ? null : (
+            <div
+              className={cn(
+                "absolute -top-40 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full opacity-50 blur-[120px] transition-colors duration-700",
+                accentClasses[accent].glow
+              )}
+            />
+          )}
+          <div className="absolute inset-0 dot-grid opacity-[0.07] dark:opacity-[0.1]" />
         </div>
 
         <SiteHeader pathname={pathname} onSearch={() => setPaletteOpen(true)} />
 
         <PaletteOpenContext.Provider value={paletteOpen}>
-          {children}
+          <div className="flex min-h-0 flex-1 flex-col">{children}</div>
         </PaletteOpenContext.Provider>
+
+        <SiteFooter overlay={isHome} />
 
         <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
       </div>

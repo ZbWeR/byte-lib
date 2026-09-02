@@ -5,7 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-heading: var(--font-sans);
+  --font-heading:
+    "Songti SC", "STSong", "SimSun", "Noto Serif CJK SC", "Noto Serif SC",
+    "Source Han Serif SC", Georgia, "Times New Roman", serif;
   --font-sans:
     var(--font-inter), "PingFang SC", "HarmonyOS Sans SC", "Hiragino Sans GB",
     "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
@@ -163,6 +165,15 @@
   box-shadow:
     0 1px 2px -1px color-mix(in oklab, var(--foreground) 10%, transparent),
     0 8px 24px -12px color-mix(in oklab, var(--foreground) 14%, transparent);
+}
+
+@utility dot-grid {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--foreground) 55%, transparent) 0.55px,
+    transparent 0.65px
+  );
+  background-size: 18px 18px;
 }
 
 @utility surface-shadow-lg {

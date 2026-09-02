@@ -8,6 +8,7 @@ type AccentClasses = {
   dot: string
   highlight: string
   mono: string
+  edge: string
 }
 
 export const accentClasses: Record<AccentKey, AccentClasses> = {
@@ -19,6 +20,7 @@ export const accentClasses: Record<AccentKey, AccentClasses> = {
     dot: "bg-cat-lime",
     highlight: "ring-cat-lime",
     mono: "bg-cat-lime/12",
+    edge: "border-cat-lime/25",
   },
   teal: {
     text: "text-cat-teal",
@@ -28,6 +30,7 @@ export const accentClasses: Record<AccentKey, AccentClasses> = {
     dot: "bg-cat-teal",
     highlight: "ring-cat-teal",
     mono: "bg-cat-teal/12",
+    edge: "border-cat-teal/25",
   },
   sky: {
     text: "text-cat-sky",
@@ -37,6 +40,7 @@ export const accentClasses: Record<AccentKey, AccentClasses> = {
     dot: "bg-cat-sky",
     highlight: "ring-cat-sky",
     mono: "bg-cat-sky/12",
+    edge: "border-cat-sky/25",
   },
   violet: {
     text: "text-cat-violet",
@@ -46,6 +50,7 @@ export const accentClasses: Record<AccentKey, AccentClasses> = {
     dot: "bg-cat-violet",
     highlight: "ring-cat-violet",
     mono: "bg-cat-violet/12",
+    edge: "border-cat-violet/25",
   },
   amber: {
     text: "text-cat-amber",
@@ -55,6 +60,7 @@ export const accentClasses: Record<AccentKey, AccentClasses> = {
     dot: "bg-cat-amber",
     highlight: "ring-cat-amber",
     mono: "bg-cat-amber/12",
+    edge: "border-cat-amber/25",
   },
   rose: {
     text: "text-cat-rose",
@@ -64,5 +70,6 @@ export const accentClasses: Record<AccentKey, AccentClasses> = {
     dot: "bg-cat-rose",
     highlight: "ring-cat-rose",
     mono: "bg-cat-rose/12",
+    edge: "border-cat-rose/25",
   },
 }
