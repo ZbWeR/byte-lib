@@ -47,3 +47,41 @@ export type GlossaryTerm = {
   relatedLinkIds?: string[]
   keywords?: string[]
 }
+
+/** 飞书知识空间一级节点（学院 / 分组封面），只作分类，不进前台条目 */
+export type WikiCollege = {
+  id: string
+  slug: string
+  name: string
+  nodeToken: string
+}
+
+/** 飞书知识空间二级节点（课程文档） */
+export type WikiDoc = {
+  id: string
+  title: string
+  collegeId: string
+  collegeSlug: string
+  collegeName: string
+  wikiUrl: string
+  nodeToken: string
+  objToken: string
+  objType: string
+}
+
+export type WikiCatalog = {
+  source: {
+    spaceId: string
+    spaceName: string
+    welcomeUrl: string
+    syncedAt: string
+    identity: string
+  }
+  colleges: WikiCollege[]
+  docs: WikiDoc[]
+  stats: {
+    collegeCount: number
+    docCount: number
+    skippedUntitled: number
+  }
+}

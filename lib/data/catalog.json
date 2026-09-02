@@ -1,0 +1,1091 @@
+{
+  "source": {
+    "spaceId": "7411795208001175556",
+    "spaceName": "UESTC Byte Lib",
+    "welcomeUrl": "https://my.feishu.cn/wiki/AatBwiDa7ig7RJkzdlocLm1cnTh",
+    "syncedAt": "2026-09-02T03:53:51.827Z",
+    "identity": "lark-cli:user"
+  },
+  "colleges": [
+    {
+      "id": "I77JwkQd2ix0p2km17Hc0LiQnYH",
+      "slug": "general",
+      "name": "公共必修课",
+      "nodeToken": "I77JwkQd2ix0p2km17Hc0LiQnYH"
+    },
+    {
+      "id": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "slug": "cs",
+      "name": "计算机学院",
+      "nodeToken": "UlbkwkdbXipzypkwqgtcxa3LnLh"
+    },
+    {
+      "id": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "slug": "medicine",
+      "name": "医学院",
+      "nodeToken": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd"
+    },
+    {
+      "id": "V68fwxSEsiwaiPkg5yWcSRZEnXe",
+      "slug": "software",
+      "name": "软件学院",
+      "nodeToken": "V68fwxSEsiwaiPkg5yWcSRZEnXe"
+    },
+    {
+      "id": "KUGJwR6ZBij5mBkgszEc0T1Zneg",
+      "slug": "glasgow",
+      "name": "格拉斯哥",
+      "nodeToken": "KUGJwR6ZBij5mBkgszEc0T1Zneg"
+    },
+    {
+      "id": "QMVDwk1fLiW6CQknplacJe7vncd",
+      "slug": "automation",
+      "name": "自动化学院",
+      "nodeToken": "QMVDwk1fLiW6CQknplacJe7vncd"
+    },
+    {
+      "id": "WfdmwgmLTiVHhtk1dC5cgdM9nUb",
+      "slug": "microelectronics",
+      "name": "电子&集电",
+      "nodeToken": "WfdmwgmLTiVHhtk1dC5cgdM9nUb"
+    },
+    {
+      "id": "JIP1w7EhyiORvdkKuXacBL5hn6c",
+      "slug": "infocomm",
+      "name": "信通学院",
+      "nodeToken": "JIP1w7EhyiORvdkKuXacBL5hn6c"
+    },
+    {
+      "id": "IgeowYryDi116kk5HX9c0iN9n3c",
+      "slug": "optoelectronics",
+      "name": "光电学院",
+      "nodeToken": "IgeowYryDi116kk5HX9c0iN9n3c"
+    },
+    {
+      "id": "X5afwKXmxi9fGKk6nHkc2T1mnCb",
+      "slug": "management",
+      "name": "经管学院",
+      "nodeToken": "X5afwKXmxi9fGKk6nHkc2T1mnCb"
+    },
+    {
+      "id": "GtTow9wcaikpVNkLNCRctcLjnjd",
+      "slug": "others",
+      "name": "Others",
+      "nodeToken": "GtTow9wcaikpVNkLNCRctcLjnjd"
+    },
+    {
+      "id": "JHHAwe1ULiCVVJkravBcdXs1n2g",
+      "slug": "life",
+      "name": "生命学院",
+      "nodeToken": "JHHAwe1ULiCVVJkravBcdXs1n2g"
+    }
+  ],
+  "docs": [
+    {
+      "id": "OfV2wp0O8iVCQDkPQ29c2ULin5l",
+      "title": "马克思主义基本原理丨2024",
+      "collegeId": "I77JwkQd2ix0p2km17Hc0LiQnYH",
+      "collegeSlug": "general",
+      "collegeName": "公共必修课",
+      "wikiUrl": "https://my.feishu.cn/wiki/OfV2wp0O8iVCQDkPQ29c2ULin5l",
+      "nodeToken": "OfV2wp0O8iVCQDkPQ29c2ULin5l",
+      "objToken": "He6RdK0RloP2GmxWfIhczqFqnVg",
+      "objType": "docx"
+    },
+    {
+      "id": "KnBRwTzS0iFFudkh2E3cktMNnQc",
+      "title": "毛概2026-26.1.6修订",
+      "collegeId": "I77JwkQd2ix0p2km17Hc0LiQnYH",
+      "collegeSlug": "general",
+      "collegeName": "公共必修课",
+      "wikiUrl": "https://my.feishu.cn/wiki/KnBRwTzS0iFFudkh2E3cktMNnQc",
+      "nodeToken": "KnBRwTzS0iFFudkh2E3cktMNnQc",
+      "objToken": "QGSBdqOBGo0Z6jxS0PCc2dzin2f",
+      "objType": "docx"
+    },
+    {
+      "id": "YbZpwj7GAiZmg2k8jfbczkrmnPg",
+      "title": "习思想2025-12修订",
+      "collegeId": "I77JwkQd2ix0p2km17Hc0LiQnYH",
+      "collegeSlug": "general",
+      "collegeName": "公共必修课",
+      "wikiUrl": "https://my.feishu.cn/wiki/YbZpwj7GAiZmg2k8jfbczkrmnPg",
+      "nodeToken": "YbZpwj7GAiZmg2k8jfbczkrmnPg",
+      "objToken": "KF0zd6cOtoy6x1xUjHmcopMvnxx",
+      "objType": "docx"
+    },
+    {
+      "id": "AvegwG453ik0AUkph1hcjz2Gnog",
+      "title": "毛概丨2024",
+      "collegeId": "I77JwkQd2ix0p2km17Hc0LiQnYH",
+      "collegeSlug": "general",
+      "collegeName": "公共必修课",
+      "wikiUrl": "https://my.feishu.cn/wiki/AvegwG453ik0AUkph1hcjz2Gnog",
+      "nodeToken": "AvegwG453ik0AUkph1hcjz2Gnog",
+      "objToken": "N3rddIxMUoEE4qx64Stc5izEnMg",
+      "objType": "docx"
+    },
+    {
+      "id": "NCZgweWZYiCvTdkkWQUcD5AEnGc",
+      "title": "思政丨2023",
+      "collegeId": "I77JwkQd2ix0p2km17Hc0LiQnYH",
+      "collegeSlug": "general",
+      "collegeName": "公共必修课",
+      "wikiUrl": "https://my.feishu.cn/wiki/NCZgweWZYiCvTdkkWQUcD5AEnGc",
+      "nodeToken": "NCZgweWZYiCvTdkkWQUcD5AEnGc",
+      "objToken": "F25Dd0relo6kYhxpzsbcoDsinng",
+      "objType": "docx"
+    },
+    {
+      "id": "AK35wHnLxiHAhukHAgGcQMsFnNg",
+      "title": "近代史丨2023",
+      "collegeId": "I77JwkQd2ix0p2km17Hc0LiQnYH",
+      "collegeSlug": "general",
+      "collegeName": "公共必修课",
+      "wikiUrl": "https://my.feishu.cn/wiki/AK35wHnLxiHAhukHAgGcQMsFnNg",
+      "nodeToken": "AK35wHnLxiHAhukHAgGcQMsFnNg",
+      "objToken": "DowPdg9Yio75t3xoIvVcJOk6nug",
+      "objType": "docx"
+    },
+    {
+      "id": "KjX8wMtQLimXX7kwVo9crZaWnUh",
+      "title": "军事理论挖空版2025-25.1.14修订",
+      "collegeId": "I77JwkQd2ix0p2km17Hc0LiQnYH",
+      "collegeSlug": "general",
+      "collegeName": "公共必修课",
+      "wikiUrl": "https://my.feishu.cn/wiki/KjX8wMtQLimXX7kwVo9crZaWnUh",
+      "nodeToken": "KjX8wMtQLimXX7kwVo9crZaWnUh",
+      "objToken": "MjyednbWNopjrkx89MicZd4inIe",
+      "objType": "docx"
+    },
+    {
+      "id": "Uu89wZG1iiwXYakcMG2ci7Lwnzf",
+      "title": "毛概丨2023",
+      "collegeId": "I77JwkQd2ix0p2km17Hc0LiQnYH",
+      "collegeSlug": "general",
+      "collegeName": "公共必修课",
+      "wikiUrl": "https://my.feishu.cn/wiki/Uu89wZG1iiwXYakcMG2ci7Lwnzf",
+      "nodeToken": "Uu89wZG1iiwXYakcMG2ci7Lwnzf",
+      "objToken": "ZkDdd1bl8olERhx4D8gcN26Snig",
+      "objType": "docx"
+    },
+    {
+      "id": "KZ3pwmhBZi0sl3krardcZ9hNnyg",
+      "title": "微积分",
+      "collegeId": "I77JwkQd2ix0p2km17Hc0LiQnYH",
+      "collegeSlug": "general",
+      "collegeName": "公共必修课",
+      "wikiUrl": "https://my.feishu.cn/wiki/KZ3pwmhBZi0sl3krardcZ9hNnyg",
+      "nodeToken": "KZ3pwmhBZi0sl3krardcZ9hNnyg",
+      "objToken": "HdOvdQtlboSw73x5a2BclwqonTf",
+      "objType": "docx"
+    },
+    {
+      "id": "C1DawG2VtiEP31kRLKTcaPdKnUd",
+      "title": "计算机网络编程",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/C1DawG2VtiEP31kRLKTcaPdKnUd",
+      "nodeToken": "C1DawG2VtiEP31kRLKTcaPdKnUd",
+      "objToken": "QBahd7danofZLHxNd3HcXEd6nte",
+      "objType": "docx"
+    },
+    {
+      "id": "KvmEwRuU8ixul0kNQgHcEYgsn96",
+      "title": "计算机网络（评论待补充）",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/KvmEwRuU8ixul0kNQgHcEYgsn96",
+      "nodeToken": "KvmEwRuU8ixul0kNQgHcEYgsn96",
+      "objToken": "I87jdumJIoRhXExofmScNh4vn7K",
+      "objType": "docx"
+    },
+    {
+      "id": "M3KAwBbPriIredkJnWNcFxutn9d",
+      "title": "人工智能",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/M3KAwBbPriIredkJnWNcFxutn9d",
+      "nodeToken": "M3KAwBbPriIredkJnWNcFxutn9d",
+      "objToken": "DVk5dACT6owe9LxjUnqc5F9CnPc",
+      "objType": "docx"
+    },
+    {
+      "id": "N9UtwP3y7iZba1kSOTuc5Jg8nQd",
+      "title": "信息论",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/N9UtwP3y7iZba1kSOTuc5Jg8nQd",
+      "nodeToken": "N9UtwP3y7iZba1kSOTuc5Jg8nQd",
+      "objToken": "B1HJdh1NIocTVXxtL4BcZizYnzg",
+      "objType": "docx"
+    },
+    {
+      "id": "PhaqwXq9Xih3J6kqyNucrvyXn7g",
+      "title": "编译原理",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/PhaqwXq9Xih3J6kqyNucrvyXn7g",
+      "nodeToken": "PhaqwXq9Xih3J6kqyNucrvyXn7g",
+      "objToken": "N7LrdCuvroD39XxpMA3c5RMtnzc",
+      "objType": "docx"
+    },
+    {
+      "id": "TWqqwIepXiOM55kBHkVc76CJn3b",
+      "title": "计算机图形学",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/TWqqwIepXiOM55kBHkVc76CJn3b",
+      "nodeToken": "TWqqwIepXiOM55kBHkVc76CJn3b",
+      "objToken": "JdJpdx2cSoIQ4yx6X8IcMjBSnad",
+      "objType": "docx"
+    },
+    {
+      "id": "NLh1wfdR9iWuOpkNe0fc88bonUg",
+      "title": "数据库原理及应用",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/NLh1wfdR9iWuOpkNe0fc88bonUg",
+      "nodeToken": "NLh1wfdR9iWuOpkNe0fc88bonUg",
+      "objToken": "KE37dAEU4o5zZIxK5MOc0YaenJc",
+      "objType": "docx"
+    },
+    {
+      "id": "AntrwPcXuiFYkekK9WUcjVV1nPd",
+      "title": "计算机病毒",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/AntrwPcXuiFYkekK9WUcjVV1nPd",
+      "nodeToken": "AntrwPcXuiFYkekK9WUcjVV1nPd",
+      "objToken": "FoUad1fdSoEzMpxYm3ocEdEpnac",
+      "objType": "docx"
+    },
+    {
+      "id": "XfPnwGFGxikcULkYWCbcVBrRn8g",
+      "title": "计算机系统结构",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/XfPnwGFGxikcULkYWCbcVBrRn8g",
+      "nodeToken": "XfPnwGFGxikcULkYWCbcVBrRn8g",
+      "objToken": "WEeDdDMmvoE9IGx2TAAcFzBinyd",
+      "objType": "docx"
+    },
+    {
+      "id": "X8Bgwmd4licePJkKQlPcV6B3nnf",
+      "title": "计算机组成原理（评论待补充）",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/X8Bgwmd4licePJkKQlPcV6B3nnf",
+      "nodeToken": "X8Bgwmd4licePJkKQlPcV6B3nnf",
+      "objToken": "M1T8dq8RVoamHfxiVmlcBnYsnIg",
+      "objType": "docx"
+    },
+    {
+      "id": "EiQ4wmY9fi3rrGks9Bbc9JNOnDe",
+      "title": "分布式并行计算",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/EiQ4wmY9fi3rrGks9Bbc9JNOnDe",
+      "nodeToken": "EiQ4wmY9fi3rrGks9Bbc9JNOnDe",
+      "objToken": "Gzo2dgnwFohTH8xeOSBcfvolnps",
+      "objType": "docx"
+    },
+    {
+      "id": "ARc8w5F5qiSmllk8NqFc2TEGn9d",
+      "title": "操作系统（评论待补充）",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/ARc8w5F5qiSmllk8NqFc2TEGn9d",
+      "nodeToken": "ARc8w5F5qiSmllk8NqFc2TEGn9d",
+      "objToken": "Qw8Cdn37ro5KeTxwO8EcxTFgnWd",
+      "objType": "docx"
+    },
+    {
+      "id": "M2dFwNNlTieIfvk3JC7cm4HtnDf",
+      "title": "计网安（评论待补充）",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/M2dFwNNlTieIfvk3JC7cm4HtnDf",
+      "nodeToken": "M2dFwNNlTieIfvk3JC7cm4HtnDf",
+      "objToken": "NGQnd2WiwoyLcRxrCUJcIkc7nec",
+      "objType": "docx"
+    },
+    {
+      "id": "IgSpwsg8giBPWIk20gzche56n4b",
+      "title": "软件工程（评论待补充）",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/IgSpwsg8giBPWIk20gzche56n4b",
+      "nodeToken": "IgSpwsg8giBPWIk20gzche56n4b",
+      "objToken": "MT9IdnD1SodHtnx4m58cfQfLnSd",
+      "objType": "docx"
+    },
+    {
+      "id": "LWcjw6GehiILJ5ki63GcOFbJnrg",
+      "title": "矩阵分析 | 计算数学基础（评论暂无）",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/LWcjw6GehiILJ5ki63GcOFbJnrg",
+      "nodeToken": "LWcjw6GehiILJ5ki63GcOFbJnrg",
+      "objToken": "PaE2dSYohoxVFFxeCZuc8F5Jnxf",
+      "objType": "docx"
+    },
+    {
+      "id": "G2hMwrYgqicWMQkA672cMG87nKf",
+      "title": "信息安全数学基础",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/G2hMwrYgqicWMQkA672cMG87nKf",
+      "nodeToken": "G2hMwrYgqicWMQkA672cMG87nKf",
+      "objToken": "QjCPd45rOofWykxxcr4cbBiSnxc",
+      "objType": "docx"
+    },
+    {
+      "id": "AuYLw6waBihWvLk0olMcvhbRn6q",
+      "title": "机器学习",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/AuYLw6waBihWvLk0olMcvhbRn6q",
+      "nodeToken": "AuYLw6waBihWvLk0olMcvhbRn6q",
+      "objToken": "F4q2dxMKmoiAfxxwWopcoozln0f",
+      "objType": "docx"
+    },
+    {
+      "id": "KaeqwWxcHi4Swek7A4kcpQSTn3d",
+      "title": "密码学（暂无评论）（引用文献）",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/KaeqwWxcHi4Swek7A4kcpQSTn3d",
+      "nodeToken": "KaeqwWxcHi4Swek7A4kcpQSTn3d",
+      "objToken": "OE1odAZCvoOwZQx7yRVc9jwFnoc",
+      "objType": "docx"
+    },
+    {
+      "id": "VrvXw1wNIiozsxk620Gck8pmnhg",
+      "title": "离散数学（无评论）",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/VrvXw1wNIiozsxk620Gck8pmnhg",
+      "nodeToken": "VrvXw1wNIiozsxk620Gck8pmnhg",
+      "objToken": "AymedKzyPorRa2xBZ9lc6SlLngc",
+      "objType": "docx"
+    },
+    {
+      "id": "XSXqwR324iLn38kWApicRYgonGb",
+      "title": "数据结构与算法",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/XSXqwR324iLn38kWApicRYgonGb",
+      "nodeToken": "XSXqwR324iLn38kWApicRYgonGb",
+      "objToken": "LfEsd7PWzoxkjJx3gUdcJyt2nQe",
+      "objType": "docx"
+    },
+    {
+      "id": "T0GswGSpLihaT1kv5tNc7KMpnKf",
+      "title": "汇编语言与微机接口",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/T0GswGSpLihaT1kv5tNc7KMpnKf",
+      "nodeToken": "T0GswGSpLihaT1kv5tNc7KMpnKf",
+      "objToken": "ZomKdGkWkoBq7ixTzW6cl7Lcnuc",
+      "objType": "docx"
+    },
+    {
+      "id": "Nlvgw3rvxiufGtktPwmcfckOn4f",
+      "title": "密码学（图灵计划）",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/Nlvgw3rvxiufGtktPwmcfckOn4f",
+      "nodeToken": "Nlvgw3rvxiufGtktPwmcfckOn4f",
+      "objToken": "RWekd2pTdoXnooxpKuQcMHB8n4h",
+      "objType": "docx"
+    },
+    {
+      "id": "ZxWgw3ZlzizWsRkc3n5cFrvrnxg",
+      "title": "网络与信息系统安全综合设计实验",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/ZxWgw3ZlzizWsRkc3n5cFrvrnxg",
+      "nodeToken": "ZxWgw3ZlzizWsRkc3n5cFrvrnxg",
+      "objToken": "D3tCdrwUvopsJaxDnWGc75MOnPO",
+      "objType": "docx"
+    },
+    {
+      "id": "OiDswMYDIiQaSBkQc4WcFs6lnnf",
+      "title": "系统与数据恢复",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/OiDswMYDIiQaSBkQc4WcFs6lnnf",
+      "nodeToken": "OiDswMYDIiQaSBkQc4WcFs6lnnf",
+      "objToken": "ApYedcBdVoQgVnxwKfAcDnVInQd",
+      "objType": "docx"
+    },
+    {
+      "id": "Oa5DwrS4QiLR8nko0iGcdhsNn6d",
+      "title": "医学免疫学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/Oa5DwrS4QiLR8nko0iGcdhsNn6d",
+      "nodeToken": "Oa5DwrS4QiLR8nko0iGcdhsNn6d",
+      "objToken": "WE5ldTX1uoi5NKxSq8NcLNz4nE8",
+      "objType": "docx"
+    },
+    {
+      "id": "DbiBwrs2BibzOMkwsGEcL4kOnfe",
+      "title": "病理生理学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/DbiBwrs2BibzOMkwsGEcL4kOnfe",
+      "nodeToken": "DbiBwrs2BibzOMkwsGEcL4kOnfe",
+      "objToken": "Uu29dbPhqovOPLxNZG0cwGZ7n5g",
+      "objType": "docx"
+    },
+    {
+      "id": "K37zwOtyMiX4KYkvwbfcCC1Mn3e",
+      "title": "病原生物学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/K37zwOtyMiX4KYkvwbfcCC1Mn3e",
+      "nodeToken": "K37zwOtyMiX4KYkvwbfcCC1Mn3e",
+      "objToken": "AY3RdfsRJo2iNFxDIaVcYdZXnzg",
+      "objType": "docx"
+    },
+    {
+      "id": "Tz7DwNCW4i6PhYki6ArcHiQQnNf",
+      "title": "组织学与胚胎学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/Tz7DwNCW4i6PhYki6ArcHiQQnNf",
+      "nodeToken": "Tz7DwNCW4i6PhYki6ArcHiQQnNf",
+      "objToken": "LuQhdPoluogGEXxNe6IcqPDhnOf",
+      "objType": "docx"
+    },
+    {
+      "id": "Q6CFw0R8iirqeUkwedScG1NmnOd",
+      "title": "药理学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/Q6CFw0R8iirqeUkwedScG1NmnOd",
+      "nodeToken": "Q6CFw0R8iirqeUkwedScG1NmnOd",
+      "objToken": "GSJcdWsTjoUa2bxcUv1cr6Qfnuc",
+      "objType": "docx"
+    },
+    {
+      "id": "SWl5wBVE9i920GkEaYJchblZnmd",
+      "title": "病理学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/SWl5wBVE9i920GkEaYJchblZnmd",
+      "nodeToken": "SWl5wBVE9i920GkEaYJchblZnmd",
+      "objToken": "YETid8zp5oCJ4ax4w35cYVlXnYb",
+      "objType": "docx"
+    },
+    {
+      "id": "LLpuwaNw6iFgOIkiYFFcb8LWn5e",
+      "title": "机能学实验",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/LLpuwaNw6iFgOIkiYFFcb8LWn5e",
+      "nodeToken": "LLpuwaNw6iFgOIkiYFFcb8LWn5e",
+      "objToken": "XbuGdIXmroP0H1x9rG8cHZbxn8v",
+      "objType": "docx"
+    },
+    {
+      "id": "GnKFwWFOFilWGKk60WpcklTEn4c",
+      "title": "预防医学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/GnKFwWFOFilWGKk60WpcklTEn4c",
+      "nodeToken": "GnKFwWFOFilWGKk60WpcklTEn4c",
+      "objToken": "GscVdRs24ol9vtx2UrGcuxV7nFd",
+      "objType": "docx"
+    },
+    {
+      "id": "VBGXwR1O1iP0eRkE2O4cI4upn1c",
+      "title": "生物化学与分子生物学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/VBGXwR1O1iP0eRkE2O4cI4upn1c",
+      "nodeToken": "VBGXwR1O1iP0eRkE2O4cI4upn1c",
+      "objToken": "XflOdkUQEoWYMTxaR6rcGMDZncc",
+      "objType": "docx"
+    },
+    {
+      "id": "IhW4wCqHaiA4GHkJV4ccfmQ7nkc",
+      "title": "口腔科学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/IhW4wCqHaiA4GHkJV4ccfmQ7nkc",
+      "nodeToken": "IhW4wCqHaiA4GHkJV4ccfmQ7nkc",
+      "objToken": "Fa91d6u0VoMUlMx6MlEcQGsynuc",
+      "objType": "docx"
+    },
+    {
+      "id": "XTJCwHM0si5jRzkaPnpc9PGJnqe",
+      "title": "医学英语",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/XTJCwHM0si5jRzkaPnpc9PGJnqe",
+      "nodeToken": "XTJCwHM0si5jRzkaPnpc9PGJnqe",
+      "objToken": "IxCbdlScWon4WqxHV8UcnqZHnpb",
+      "objType": "docx"
+    },
+    {
+      "id": "ThZVwSweUiXKkJksSAmcOV8Tnae",
+      "title": "流行病学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/ThZVwSweUiXKkJksSAmcOV8Tnae",
+      "nodeToken": "ThZVwSweUiXKkJksSAmcOV8Tnae",
+      "objToken": "OODTdKxpQoSFSYxk1ercuXKwnnh",
+      "objType": "docx"
+    },
+    {
+      "id": "M6PwwcvW1iVb44kxDIcc0KWnnfh",
+      "title": "医用高等数学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/M6PwwcvW1iVb44kxDIcc0KWnnfh",
+      "nodeToken": "M6PwwcvW1iVb44kxDIcc0KWnnfh",
+      "objToken": "WSXodMoNmoQvJux3YuhcAHuXnPd",
+      "objType": "docx"
+    },
+    {
+      "id": "LSB4wW066iFq2Lk2WM8cfmERn8b",
+      "title": "外科学总论",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/LSB4wW066iFq2Lk2WM8cfmERn8b",
+      "nodeToken": "LSB4wW066iFq2Lk2WM8cfmERn8b",
+      "objToken": "P4wjdrKHTo7aVQxOlzHcpFXZnkb",
+      "objType": "docx"
+    },
+    {
+      "id": "ZhETwAATNi90MMkE3KccQKRlnlc",
+      "title": "核医学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/ZhETwAATNi90MMkE3KccQKRlnlc",
+      "nodeToken": "ZhETwAATNi90MMkE3KccQKRlnlc",
+      "objToken": "H82TdGqibomGzHxTg35ciQM1n0e",
+      "objType": "docx"
+    },
+    {
+      "id": "QrMPwlW7fiKHTakjrRNcrNqKnWf",
+      "title": "医学影像学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/QrMPwlW7fiKHTakjrRNcrNqKnWf",
+      "nodeToken": "QrMPwlW7fiKHTakjrRNcrNqKnWf",
+      "objToken": "Hun2dKXYnoDLD0x5GBrc2rynnmL",
+      "objType": "docx"
+    },
+    {
+      "id": "MNmtwa2RRiJGtakl1MKcg1PbnK6",
+      "title": "诊断学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/MNmtwa2RRiJGtakl1MKcg1PbnK6",
+      "nodeToken": "MNmtwa2RRiJGtakl1MKcg1PbnK6",
+      "objToken": "MU5FdoQ44ogOkmxe9sOca4wqn9d",
+      "objType": "docx"
+    },
+    {
+      "id": "P1zBwSustitBX9k7SYscnKi9nx3",
+      "title": "舒缓医学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/P1zBwSustitBX9k7SYscnKi9nx3",
+      "nodeToken": "P1zBwSustitBX9k7SYscnKi9nx3",
+      "objToken": "JGotd7M70o35ItxkVU5cLF8Jnqg",
+      "objType": "docx"
+    },
+    {
+      "id": "TjqVw4deaiCeGCkfkFPcPskXnn5",
+      "title": "医学遗传学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/TjqVw4deaiCeGCkfkFPcPskXnn5",
+      "nodeToken": "TjqVw4deaiCeGCkfkFPcPskXnn5",
+      "objToken": "HcgqdxxIvoCYGdxoeDtcRW88nng",
+      "objType": "docx"
+    },
+    {
+      "id": "IdF9wlYmMi0j9UkZ74IcfVMMnrb",
+      "title": "内科学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/IdF9wlYmMi0j9UkZ74IcfVMMnrb",
+      "nodeToken": "IdF9wlYmMi0j9UkZ74IcfVMMnrb",
+      "objToken": "Z3dsdYVR4okUErxzPnGcvANTnAf",
+      "objType": "docx"
+    },
+    {
+      "id": "IyCqwmXqJiZQNekY3BlccBNvnRb",
+      "title": "外科学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/IyCqwmXqJiZQNekY3BlccBNvnRb",
+      "nodeToken": "IyCqwmXqJiZQNekY3BlccBNvnRb",
+      "objToken": "TkFUdZ6luoMozPx79mTcLSMYnJl",
+      "objType": "docx"
+    },
+    {
+      "id": "SsljwhvvMiSPq3kmg5jceRMgnid",
+      "title": "妇产科学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/SsljwhvvMiSPq3kmg5jceRMgnid",
+      "nodeToken": "SsljwhvvMiSPq3kmg5jceRMgnid",
+      "objToken": "Kwxtdjz8UonBBSxB4oCcz2qDnXb",
+      "objType": "docx"
+    },
+    {
+      "id": "Eqwtw5fHJiX1g6kUw52cOzEInwd",
+      "title": "皮肤性病学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/Eqwtw5fHJiX1g6kUw52cOzEInwd",
+      "nodeToken": "Eqwtw5fHJiX1g6kUw52cOzEInwd",
+      "objToken": "K1FxdXdxEoTiIrxXrE2cVZYtn6d",
+      "objType": "docx"
+    },
+    {
+      "id": "VM6Hw5Desi93tnkptSpcg54fn7e",
+      "title": "传染病学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/VM6Hw5Desi93tnkptSpcg54fn7e",
+      "nodeToken": "VM6Hw5Desi93tnkptSpcg54fn7e",
+      "objToken": "L6w3dzTpKomZZIx7AKhc4mRMnch",
+      "objType": "docx"
+    },
+    {
+      "id": "C3FIwNunIiN5hbklw1ncm9WVnRh",
+      "title": "神经病学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/C3FIwNunIiN5hbklw1ncm9WVnRh",
+      "nodeToken": "C3FIwNunIiN5hbklw1ncm9WVnRh",
+      "objToken": "LbASd6ZhboiZwAxUTsuc3JBjnlh",
+      "objType": "docx"
+    },
+    {
+      "id": "FOLowuZRKiwnmUkQxe1cCIYBn3e",
+      "title": "精神病学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/FOLowuZRKiwnmUkQxe1cCIYBn3e",
+      "nodeToken": "FOLowuZRKiwnmUkQxe1cCIYBn3e",
+      "objToken": "WYh1dZwWNoKeGwx4M4ccXanMn4d",
+      "objType": "docx"
+    },
+    {
+      "id": "CqV1wRXWkiQehikA30cc8EKXnHh",
+      "title": "有机化学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/CqV1wRXWkiQehikA30cc8EKXnHh",
+      "nodeToken": "CqV1wRXWkiQehikA30cc8EKXnHh",
+      "objToken": "RgfkdnRlhoCILZxiDFKcxICInbb",
+      "objType": "docx"
+    },
+    {
+      "id": "X7qqwiRUkiiHOHkWJSDcsz3nnab",
+      "title": "急诊与灾难医学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/X7qqwiRUkiiHOHkWJSDcsz3nnab",
+      "nodeToken": "X7qqwiRUkiiHOHkWJSDcsz3nnab",
+      "objToken": "O6rmdu30OoLMsKxCji4cA2bFnSe",
+      "objType": "docx"
+    },
+    {
+      "id": "IQCHwCzlUi2eiokqVNGcttHqnvb",
+      "title": "全科医学概论",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/IQCHwCzlUi2eiokqVNGcttHqnvb",
+      "nodeToken": "IQCHwCzlUi2eiokqVNGcttHqnvb",
+      "objToken": "R5gTdDkGrogsASxz5sbcQ4apnRe",
+      "objType": "docx"
+    },
+    {
+      "id": "FhpOwka1GiB8n5kpZ06cPRU2nUW",
+      "title": "人体解剖学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/FhpOwka1GiB8n5kpZ06cPRU2nUW",
+      "nodeToken": "FhpOwka1GiB8n5kpZ06cPRU2nUW",
+      "objToken": "W21edz6gGovGHwxITGYcvZLinvb",
+      "objType": "docx"
+    },
+    {
+      "id": "KvpewS82HitTaBkA2pBcdDoqngc",
+      "title": "儿科学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/KvpewS82HitTaBkA2pBcdDoqngc",
+      "nodeToken": "KvpewS82HitTaBkA2pBcdDoqngc",
+      "objToken": "PbIcdIYm5ozkbQxWAH9col2QnHd",
+      "objType": "docx"
+    },
+    {
+      "id": "SndhwRc19ixdU4kUCSIchYF7nYg",
+      "title": "眼科学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/SndhwRc19ixdU4kUCSIchYF7nYg",
+      "nodeToken": "SndhwRc19ixdU4kUCSIchYF7nYg",
+      "objToken": "PxQddtf1xoQ670xViCZcwbjpnnf",
+      "objType": "docx"
+    },
+    {
+      "id": "KdArwQn9BiYkpdk4B8ZcOYymn9F",
+      "title": "耳鼻咽喉头颈外科学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/KdArwQn9BiYkpdk4B8ZcOYymn9F",
+      "nodeToken": "KdArwQn9BiYkpdk4B8ZcOYymn9F",
+      "objToken": "XZo8d6Y59oASKExy2jNcUkF7n5f",
+      "objType": "docx"
+    },
+    {
+      "id": "QkaMwdyGwiVvdNkFIRPcAGF1nBb",
+      "title": "中医学",
+      "collegeId": "X0Ydw0iJSi3qMSkl8DTcZOcKnEd",
+      "collegeSlug": "medicine",
+      "collegeName": "医学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/QkaMwdyGwiVvdNkFIRPcAGF1nBb",
+      "nodeToken": "QkaMwdyGwiVvdNkFIRPcAGF1nBb",
+      "objToken": "Zr5KdkbZUoC5vRxgRjjcoDs3nRg",
+      "objType": "docx"
+    },
+    {
+      "id": "IMy2wTDv5iWyN0k3sDsc8jL2n3e",
+      "title": "数字图像处理丨2024&2025",
+      "collegeId": "V68fwxSEsiwaiPkg5yWcSRZEnXe",
+      "collegeSlug": "software",
+      "collegeName": "软件学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/IMy2wTDv5iWyN0k3sDsc8jL2n3e",
+      "nodeToken": "IMy2wTDv5iWyN0k3sDsc8jL2n3e",
+      "objToken": "PNsFdW3Kcox2HmxvSKec5HJhnmh",
+      "objType": "docx"
+    },
+    {
+      "id": "S6NOwb9I9iVf0jkr3yMcgGfMnlf",
+      "title": "操作系统丨2025",
+      "collegeId": "V68fwxSEsiwaiPkg5yWcSRZEnXe",
+      "collegeSlug": "software",
+      "collegeName": "软件学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/S6NOwb9I9iVf0jkr3yMcgGfMnlf",
+      "nodeToken": "S6NOwb9I9iVf0jkr3yMcgGfMnlf",
+      "objToken": "A57xdFWgYohhSvxcvG8cUXn2nPe",
+      "objType": "docx"
+    },
+    {
+      "id": "ORP1wIKn1iheWfkBHXscwdVunQd",
+      "title": "数据库丨2025",
+      "collegeId": "V68fwxSEsiwaiPkg5yWcSRZEnXe",
+      "collegeSlug": "software",
+      "collegeName": "软件学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/ORP1wIKn1iheWfkBHXscwdVunQd",
+      "nodeToken": "ORP1wIKn1iheWfkBHXscwdVunQd",
+      "objToken": "LqeZdLLO5oQFk2x0j7scn8BfnVM",
+      "objType": "docx"
+    },
+    {
+      "id": "KXE8wO3m0igJgqkRhPlcQagunoT",
+      "title": "现代密码学丨2024",
+      "collegeId": "V68fwxSEsiwaiPkg5yWcSRZEnXe",
+      "collegeSlug": "software",
+      "collegeName": "软件学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/KXE8wO3m0igJgqkRhPlcQagunoT",
+      "nodeToken": "KXE8wO3m0igJgqkRhPlcQagunoT",
+      "objToken": "MxF2dai81ozsIXx9kLFc7m5nnmS",
+      "objType": "docx"
+    },
+    {
+      "id": "FTGOw6j7yi1OY4kxHYncyU1hnhR",
+      "title": "图形与动画Ⅰ&Ⅱ| 2025",
+      "collegeId": "V68fwxSEsiwaiPkg5yWcSRZEnXe",
+      "collegeSlug": "software",
+      "collegeName": "软件学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/FTGOw6j7yi1OY4kxHYncyU1hnhR",
+      "nodeToken": "FTGOw6j7yi1OY4kxHYncyU1hnhR",
+      "objToken": "JqhZd5SDcoXMUdxaoEwcYHlDnHd",
+      "objType": "docx"
+    },
+    {
+      "id": "KZ4ZwMPLri37RmkAbT2cfHxcnhh",
+      "title": "计算机网络 | 2025",
+      "collegeId": "V68fwxSEsiwaiPkg5yWcSRZEnXe",
+      "collegeSlug": "software",
+      "collegeName": "软件学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/KZ4ZwMPLri37RmkAbT2cfHxcnhh",
+      "nodeToken": "KZ4ZwMPLri37RmkAbT2cfHxcnhh",
+      "objToken": "LXvNdQZYQofH3gxmjCDcxpcan0b",
+      "objType": "docx"
+    },
+    {
+      "id": "GQ15wREZ7i1xJ3kHVBncZ8JLnRe",
+      "title": "EPMF",
+      "collegeId": "KUGJwR6ZBij5mBkgszEc0T1Zneg",
+      "collegeSlug": "glasgow",
+      "collegeName": "格拉斯哥",
+      "wikiUrl": "https://my.feishu.cn/wiki/GQ15wREZ7i1xJ3kHVBncZ8JLnRe",
+      "nodeToken": "GQ15wREZ7i1xJ3kHVBncZ8JLnRe",
+      "objToken": "TK9ddBLBeooj09xEyoCcNSS5nQd",
+      "objType": "docx"
+    },
+    {
+      "id": "Kp8cwMQptimePukp6SkcWosQnnf",
+      "title": "Micro and Nano Tech",
+      "collegeId": "KUGJwR6ZBij5mBkgszEc0T1Zneg",
+      "collegeSlug": "glasgow",
+      "collegeName": "格拉斯哥",
+      "wikiUrl": "https://my.feishu.cn/wiki/Kp8cwMQptimePukp6SkcWosQnnf",
+      "nodeToken": "Kp8cwMQptimePukp6SkcWosQnnf",
+      "objToken": "KUh7dadm0oaD0px1v4WcZzRhnad",
+      "objType": "docx"
+    },
+    {
+      "id": "WUrew13NciLSwMkzsnWcMGdNnxh",
+      "title": "ME Packaging Technology",
+      "collegeId": "KUGJwR6ZBij5mBkgszEc0T1Zneg",
+      "collegeSlug": "glasgow",
+      "collegeName": "格拉斯哥",
+      "wikiUrl": "https://my.feishu.cn/wiki/WUrew13NciLSwMkzsnWcMGdNnxh",
+      "nodeToken": "WUrew13NciLSwMkzsnWcMGdNnxh",
+      "objToken": "Qbb4dfhrUocwi3x1EoYcmRd4nIc",
+      "objType": "docx"
+    },
+    {
+      "id": "MxNWwc2uYiXHYqkzaYqcgATbnAd",
+      "title": "tutorial_UESTC3036",
+      "collegeId": "KUGJwR6ZBij5mBkgszEc0T1Zneg",
+      "collegeSlug": "glasgow",
+      "collegeName": "格拉斯哥",
+      "wikiUrl": "https://my.feishu.cn/wiki/MxNWwc2uYiXHYqkzaYqcgATbnAd",
+      "nodeToken": "MxNWwc2uYiXHYqkzaYqcgATbnAd",
+      "objToken": "RYgjdZeetoCpAgxp2rCc91DWnYe",
+      "objType": "docx"
+    },
+    {
+      "id": "JFCzwAPUViWH6IkjCywc2VYVnVf",
+      "title": "系统工程导论（李云霞）",
+      "collegeId": "QMVDwk1fLiW6CQknplacJe7vncd",
+      "collegeSlug": "automation",
+      "collegeName": "自动化学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/JFCzwAPUViWH6IkjCywc2VYVnVf",
+      "nodeToken": "JFCzwAPUViWH6IkjCywc2VYVnVf",
+      "objToken": "FCpEd0EngoWzMZx6VTvcsBeNnqb",
+      "objType": "docx"
+    },
+    {
+      "id": "JZnowQAFSi8KrEkqzbccUxatnBc",
+      "title": "Matlab客户端急救",
+      "collegeId": "WfdmwgmLTiVHhtk1dC5cgdM9nUb",
+      "collegeSlug": "microelectronics",
+      "collegeName": "电子&集电",
+      "wikiUrl": "https://my.feishu.cn/wiki/JZnowQAFSi8KrEkqzbccUxatnBc",
+      "nodeToken": "JZnowQAFSi8KrEkqzbccUxatnBc",
+      "objToken": "FeiVdRcmkobVJzx91Fyc18fLnec",
+      "objType": "docx"
+    },
+    {
+      "id": "AbnFwEnnAioqRBk3sDSc1NCAnld",
+      "title": "集成电路工艺-24.11.13修订",
+      "collegeId": "WfdmwgmLTiVHhtk1dC5cgdM9nUb",
+      "collegeSlug": "microelectronics",
+      "collegeName": "电子&集电",
+      "wikiUrl": "https://my.feishu.cn/wiki/AbnFwEnnAioqRBk3sDSc1NCAnld",
+      "nodeToken": "AbnFwEnnAioqRBk3sDSc1NCAnld",
+      "objToken": "GqcodvaGQotWOExZpohcsvoynKd",
+      "objType": "docx"
+    },
+    {
+      "id": "FGqswibCNir55ZkLz6QcGxZIndg",
+      "title": "人工智能基础",
+      "collegeId": "JIP1w7EhyiORvdkKuXacBL5hn6c",
+      "collegeSlug": "infocomm",
+      "collegeName": "信通学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/FGqswibCNir55ZkLz6QcGxZIndg",
+      "nodeToken": "FGqswibCNir55ZkLz6QcGxZIndg",
+      "objToken": "LIO3dftPGoI1JDxLUrEcm2nDnue",
+      "objType": "docx"
+    },
+    {
+      "id": "JzcYwzbQcix9nKkH4HCcHOHKn7e",
+      "title": "量子力学生存指南",
+      "collegeId": "IgeowYryDi116kk5HX9c0iN9n3c",
+      "collegeSlug": "optoelectronics",
+      "collegeName": "光电学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/JzcYwzbQcix9nKkH4HCcHOHKn7e",
+      "nodeToken": "JzcYwzbQcix9nKkH4HCcHOHKn7e",
+      "objToken": "SnRudKTudovX8exDX6TcpjZVnmc",
+      "objType": "docx"
+    },
+    {
+      "id": "BGIewKI4vi5DERkDl47cxSX2nRd",
+      "title": "电磁场与波B",
+      "collegeId": "IgeowYryDi116kk5HX9c0iN9n3c",
+      "collegeSlug": "optoelectronics",
+      "collegeName": "光电学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/BGIewKI4vi5DERkDl47cxSX2nRd",
+      "nodeToken": "BGIewKI4vi5DERkDl47cxSX2nRd",
+      "objToken": "HSpOdPcEgo6jZjx5auqcsGNpnwc",
+      "objType": "docx"
+    },
+    {
+      "id": "ABxswVEYiiszn3keF1acy3ArnAe",
+      "title": "管理学纲要",
+      "collegeId": "X5afwKXmxi9fGKk6nHkc2T1mnCb",
+      "collegeSlug": "management",
+      "collegeName": "经管学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/ABxswVEYiiszn3keF1acy3ArnAe",
+      "nodeToken": "ABxswVEYiiszn3keF1acy3ArnAe",
+      "objToken": "MywWdOMF7osvQIxV5UZcBaDonG0",
+      "objType": "docx"
+    },
+    {
+      "id": "BDkHwxfzmisVlRkzk84chmxDnTf",
+      "title": "管理学原理|2024",
+      "collegeId": "X5afwKXmxi9fGKk6nHkc2T1mnCb",
+      "collegeSlug": "management",
+      "collegeName": "经管学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/BDkHwxfzmisVlRkzk84chmxDnTf",
+      "nodeToken": "BDkHwxfzmisVlRkzk84chmxDnTf",
+      "objToken": "FWzKd12qko7ua8xTgL7cM9hfnHe",
+      "objType": "docx"
+    },
+    {
+      "id": "OUyPwdslyi75Abk80kFcBJ6knFg",
+      "title": "关于大一转专业",
+      "collegeId": "GtTow9wcaikpVNkLNCRctcLjnjd",
+      "collegeSlug": "others",
+      "collegeName": "Others",
+      "wikiUrl": "https://my.feishu.cn/wiki/OUyPwdslyi75Abk80kFcBJ6knFg",
+      "nodeToken": "OUyPwdslyi75Abk80kFcBJ6knFg",
+      "objToken": "GpJEdT09xoloaLxcsT6csguFnmf",
+      "objType": "docx"
+    },
+    {
+      "id": "ErCUwNZ7OiAqT1kZHtJcXZmvnke",
+      "title": "关于大一转专业2024版本",
+      "collegeId": "GtTow9wcaikpVNkLNCRctcLjnjd",
+      "collegeSlug": "others",
+      "collegeName": "Others",
+      "wikiUrl": "https://my.feishu.cn/wiki/ErCUwNZ7OiAqT1kZHtJcXZmvnke",
+      "nodeToken": "ErCUwNZ7OiAqT1kZHtJcXZmvnke",
+      "objToken": "C6jxdivKZoAVQJx3TxFc5rTunUb",
+      "objType": "docx"
+    },
+    {
+      "id": "Da0YwFUOribPFzkmKo4cUJ86nYf",
+      "title": "大学生就业实战指南",
+      "collegeId": "GtTow9wcaikpVNkLNCRctcLjnjd",
+      "collegeSlug": "others",
+      "collegeName": "Others",
+      "wikiUrl": "https://my.feishu.cn/wiki/Da0YwFUOribPFzkmKo4cUJ86nYf",
+      "nodeToken": "Da0YwFUOribPFzkmKo4cUJ86nYf",
+      "objToken": "UvIlduW1Co8Z7nxEMcqclzANn4e",
+      "objType": "docx"
+    },
+    {
+      "id": "NVfUwJ0VgiBOmvkGWmnc8HDjn0f",
+      "title": "生物信息学",
+      "collegeId": "JHHAwe1ULiCVVJkravBcdXs1n2g",
+      "collegeSlug": "life",
+      "collegeName": "生命学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/NVfUwJ0VgiBOmvkGWmnc8HDjn0f",
+      "nodeToken": "NVfUwJ0VgiBOmvkGWmnc8HDjn0f",
+      "objToken": "XtGOdF6dzoeJoGxFEVZcbUeAnwe",
+      "objType": "docx"
+    },
+    {
+      "id": "TKmBw9OINiiRCDkZZOXcFVUAnad",
+      "title": "分子生物学",
+      "collegeId": "JHHAwe1ULiCVVJkravBcdXs1n2g",
+      "collegeSlug": "life",
+      "collegeName": "生命学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/TKmBw9OINiiRCDkZZOXcFVUAnad",
+      "nodeToken": "TKmBw9OINiiRCDkZZOXcFVUAnad",
+      "objToken": "Q9EIdXFNhoCYW9xGpbvczj0fnrh",
+      "objType": "docx"
+    },
+    {
+      "id": "AEWKwBw4EiN1QgkXd4AcCq1qneh",
+      "title": "细胞生物学",
+      "collegeId": "JHHAwe1ULiCVVJkravBcdXs1n2g",
+      "collegeSlug": "life",
+      "collegeName": "生命学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/AEWKwBw4EiN1QgkXd4AcCq1qneh",
+      "nodeToken": "AEWKwBw4EiN1QgkXd4AcCq1qneh",
+      "objToken": "PqrPd0ErOoqvkQxDDi3cMxbhnwc",
+      "objType": "docx"
+    }
+  ],
+  "stats": {
+    "collegeCount": 12,
+    "docCount": 91,
+    "skippedUntitled": 10
+  }
+}
