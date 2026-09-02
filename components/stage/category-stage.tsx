@@ -6,7 +6,6 @@ import {
   ArrowRight01Icon,
   SourceCodeIcon,
   SparklesIcon,
-  StarIcon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { useEffect, useState } from "react"
@@ -29,6 +28,17 @@ function popularLinks(links: LibraryLink[], limit: number) {
   return [...links]
     .sort((a, b) => popularity(b) - popularity(a))
     .slice(0, limit)
+}
+
+function CursorMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden>
+      <path
+        fill="#91C2FF"
+        d="M9.80282 4.62973L15.8364 6.99069C19.3164 8.35243 21.0564 9.03329 20.9987 10.1133C20.941 11.1934 19.1251 11.6886 15.4933 12.6791C14.412 12.974 13.8713 13.1215 13.4964 13.4963C13.1215 13.8712 12.9741 14.4119 12.6791 15.4933C11.6887 19.125 11.1934 20.9409 10.1134 20.9986C9.03335 21.0563 8.35249 19.3163 6.99075 15.8363L4.62979 9.80276C3.20411 6.15934 2.49127 4.33764 3.41448 3.41442C4.3377 2.49121 6.15941 3.20405 9.80282 4.62973Z"
+      />
+    </svg>
+  )
 }
 
 function SparkleMark({ className }: { className?: string }) {
@@ -72,10 +82,10 @@ function LogoOrnaments() {
         />
       </span>
       <span
-        className="logo-ornament absolute right-[18%] bottom-[16%] text-[#ff5aa5]"
+        className="logo-ornament absolute right-[18%] bottom-[16%]"
         style={{ animationDelay: "1.7s" }}
       >
-        <HugeiconsIcon icon={StarIcon} strokeWidth={2} className="size-3.5" />
+        <CursorMark className="size-4" />
       </span>
       <span
         className="logo-ornament absolute bottom-[20%] left-[10%] text-[#6ec8ff]"
@@ -126,12 +136,6 @@ export function CategoryStage() {
       <div className="relative z-10 mx-auto w-full shrink-0 px-6 pt-16 pb-0 text-center sm:pt-20">
         <h1 className="sr-only">从你的学院开始 · UESTC Byte Lib</h1>
         <div className="relative mx-auto w-[min(28rem,86vw)] sm:w-[min(32rem,68vw)]">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 -z-10"
-          >
-            <div className="absolute top-[18%] left-1/2 h-28 w-[70%] -translate-x-1/2 rounded-full bg-[#ff5aa5]/40 blur-[56px] dark:bg-[#ff5aa5]/30" />
-          </div>
           <Image
             src="/iuestc-byte-lib.png"
             alt="iUESTC Byte Lib"
