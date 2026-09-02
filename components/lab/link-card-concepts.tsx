@@ -3,7 +3,7 @@
 import type { CardSample, CardVariant } from "@/components/lab/card-shell"
 import { LinkCard } from "@/components/link-card"
 
-/** A · 分类页现在这张卡，没有头像。 */
+/** A · 分类页现在这张卡。 */
 export function ConceptCurrent({ sample }: { sample: CardSample }) {
   return <LinkCard link={sample.link} accent={sample.accent} />
 }
@@ -12,11 +12,11 @@ export const LINK_CARD_CONCEPTS: CardVariant[] = [
   {
     id: "current",
     letter: "A",
-    name: "现行",
+    name: "文档卡",
     layout: "grid",
     summary:
-      "已采用。没有学院名、没有头像，「评论待补充」从标题里拿掉；字数、阅读、赞、更新是图标。",
-    note: "首页预览和搜索结果里还有小图标，跟这张卡无关。",
+      "纯白底。最多两行标题，外链图标悬停才出现；左下是字数、阅读量和点赞，右下是相对更新时间。",
+    note: "不再展示标签或学院色。",
     Card: ConceptCurrent,
   },
 ]

@@ -2,12 +2,12 @@
 
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
-import { ArrowLeft01Icon, Idea01Icon } from "@hugeicons/core-free-icons"
+import { ArrowLeft01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { useEffect, useMemo, useState } from "react"
 
 import { LinkCard } from "@/components/link-card"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import { categoryIcon } from "@/lib/category-icons"
 import { categories, categoryBySlug, linksByCategory } from "@/lib/data/library"
 import { categoryPath, HOME_PATH } from "@/lib/paths"
@@ -21,7 +21,6 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
   const category = categoryBySlug.get(slug)
   const searchParams = useSearchParams()
   const focus = searchParams.get("focus")
-  const [tag, setTag] = useState<string | null>(null)
   const [expiredFocus, setExpiredFocus] = useState<string | null>(null)
   const highlighted = focus && expiredFocus !== focus ? focus : null
 
@@ -40,13 +39,6 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
       window.clearTimeout(timer)
     }
   }, [focus])
-
-  const filtered = useMemo(() => {
-    if (!tag) {
-      return allLinks
-    }
-    return allLinks.filter((link) => link.tags.includes(tag))
-  }, [allLinks, tag])
 
   if (!category) {
     return null
@@ -82,13 +74,6 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
         </p>
         <p className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
           <span className="tabular-nums">{allLinks.length}</span> 篇文档
-          {category.tags.length > 0 ? (
-            <>
-              <span className="mx-2">·</span>
-              <span className="tabular-nums">{category.tags.length}</span>{" "}
-              个标签
-            </>
-          ) : null}
         </p>
       </div>
 
@@ -117,76 +102,16 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
         })}
       </div>
 
-      {category.tags.length > 0 ? (
-        <div className="mt-6 flex flex-wrap gap-1.5">
-          <button
-            type="button"
-            onClick={() => setTag(null)}
-            className={cn(
-              "inline-flex h-7 items-center rounded-full border px-3 text-[12px] transition-colors",
-              tag === null
-                ? "border-foreground bg-foreground text-background"
-                : "border-border bg-transparent text-foreground hover:bg-muted"
-            )}
-          >
-            全部
-          </button>
-          {category.tags.map((item) => {
-            const selected = tag === item
-            return (
-              <button
-                key={item}
-                type="button"
-                onClick={() => setTag(item)}
-                className={cn(
-                  "inline-flex h-7 items-center rounded-full border px-3 text-[12px] transition-colors",
-                  selected
-                    ? "border-foreground bg-foreground text-background"
-                    : "border-border bg-transparent text-foreground hover:bg-muted"
-                )}
-              >
-                {item}
-              </button>
-            )
-          })}
-        </div>
-      ) : null}
-
-      {filtered.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-24 text-center">
-          <HugeiconsIcon
-            icon={Idea01Icon}
-            strokeWidth={1.5}
-            className="size-10 text-muted-foreground/50"
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {allLinks.map((link) => (
+          <LinkCard
+            key={link.id}
+            link={link}
+            accent={category.accent}
+            highlighted={highlighted === link.id}
           />
-          <p className="mt-4 text-[15px] font-medium">这个标签下暂时没有文档</p>
-          <p className="mt-1 text-[13px] text-muted-foreground">
-            「{tag}」还没有对应的复习文档，先看全部吧。
-          </p>
-          <Button
-            type="button"
-            variant="outline"
-            className="mt-5"
-            onClick={() => setTag(null)}
-          >
-            查看全部
-          </Button>
-        </div>
-      ) : (
-        <div
-          key={tag ?? "all"}
-          className="mt-8 grid animate-in gap-4 duration-200 fade-in-0 sm:grid-cols-2 xl:grid-cols-3"
-        >
-          {filtered.map((link) => (
-            <LinkCard
-              key={link.id}
-              link={link}
-              accent={category.accent}
-              highlighted={highlighted === link.id}
-            />
-          ))}
-        </div>
-      )}
+        ))}
+      </div>
     </section>
   )
 }

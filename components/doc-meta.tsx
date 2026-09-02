@@ -1,12 +1,6 @@
 "use client"
 
-import {
-  Clock01Icon,
-  FavouriteIcon,
-  Note01Icon,
-  SquareChartGanttIcon,
-  ViewIcon,
-} from "@hugeicons/core-free-icons"
+import { FavouriteIcon, ViewIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import type { IconSvgElement } from "@hugeicons/react"
 
@@ -16,37 +10,32 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import type { LibraryLink } from "@/lib/data/types"
-import {
-  formatAge,
-  formatCompactChars,
-  formatCompactUv,
-  formatVolume,
-  isStubDoc,
-} from "@/lib/format"
+import { formatCompactUv, formatVolume, isStubDoc } from "@/lib/format"
 import { cn } from "@/lib/utils"
 
 type MetaItem = {
-  icon: IconSvgElement
+  kind: "volume" | "readers" | "likes"
+  icon?: IconSvgElement
   value: string
   label: string
 }
 
 function itemsFor(link: LibraryLink): MetaItem[] {
   const items: MetaItem[] = []
-  const stub = isStubDoc(link.charCount)
-  const volume = stub ? "占位" : formatCompactChars(link.charCount)
+  const volume = formatVolume(link.charCount)
   if (volume) {
     items.push({
-      icon: stub ? Note01Icon : SquareChartGanttIcon,
+      kind: "volume",
       value: volume,
-      label: stub
+      label: isStubDoc(link.charCount)
         ? "占位页，几乎还没有正文"
-        : `约 ${formatVolume(link.charCount)}`,
+        : `约 ${volume}`,
     })
   }
   const readers = formatCompactUv(link.uv)
   if (readers) {
     items.push({
+      kind: "readers",
       icon: ViewIcon,
       value: readers,
       label: `${link.uv} 人读过`,
@@ -54,19 +43,10 @@ function itemsFor(link: LibraryLink): MetaItem[] {
   }
   if (link.likeCount && link.likeCount > 0) {
     items.push({
+      kind: "likes",
       icon: FavouriteIcon,
       value: String(link.likeCount),
       label: `${link.likeCount} 次点赞`,
-    })
-  }
-  const age = formatAge(link.updatedAt)
-  if (age) {
-    items.push({
-      icon: Clock01Icon,
-      value: age,
-      label: link.updatedAt
-        ? `最近更新于 ${new Date(link.updatedAt).toLocaleDateString("zh-CN")}`
-        : "最近更新",
     })
   }
   return items
@@ -86,20 +66,22 @@ export function DocMeta({ link, className }: DocMetaProps) {
       className={cn("flex flex-wrap items-center gap-x-3 gap-y-1", className)}
     >
       {items.map((item) => (
-        <li key={item.label}>
+        <li key={item.kind} className="flex h-4 items-center">
           <Tooltip>
             <TooltipTrigger
               delay={200}
               render={
-                <span className="inline-flex items-center gap-1 text-muted-foreground" />
+                <span className="inline-flex h-4 items-center gap-1 leading-none text-muted-foreground" />
               }
             >
-              <HugeiconsIcon
-                icon={item.icon}
-                strokeWidth={2}
-                className="size-3.5 shrink-0"
-              />
-              <span className="font-mono text-[11px] tabular-nums">
+              {item.icon ? (
+                <HugeiconsIcon
+                  icon={item.icon}
+                  strokeWidth={2}
+                  className="block size-3.5 shrink-0"
+                />
+              ) : null}
+              <span className="font-mono text-[11px] leading-none tabular-nums">
                 {item.value}
               </span>
             </TooltipTrigger>
