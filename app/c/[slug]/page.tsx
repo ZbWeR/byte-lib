@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
 import { CategoryDetail } from "@/components/category/category-detail"
-import { categories, categoryBySlug } from "@/lib/data/categories"
+import { categories, categoryBySlug } from "@/lib/data/library"
 
 export const dynamicParams = false
 

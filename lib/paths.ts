@@ -1,4 +1,4 @@
-import { categoryBySlug } from "@/lib/data/categories"
+import { categoryBySlug } from "@/lib/data/library"
 
 export const HOME_PATH = "/"
 

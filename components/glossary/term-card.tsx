@@ -6,7 +6,7 @@ import { categoryBySlug } from "@/lib/data/categories"
 import { Favicon } from "@/components/favicon"
 import { Badge } from "@/components/ui/badge"
 import { useNavigate } from "@/hooks/use-navigate"
-import { categoryPath, glossaryPath } from "@/lib/paths"
+import { glossaryPath } from "@/lib/paths"
 import { cn } from "@/lib/utils"
 
 type TermCardProps = {
@@ -85,7 +85,7 @@ export function TermCard({ term, expanded }: TermCardProps) {
                     key={link.id}
                     type="button"
                     onClick={() =>
-                      navigate(categoryPath(link.categorySlug, link.id))
+                      window.open(link.url, "_blank", "noopener,noreferrer")
                     }
                     className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-muted/40 py-1 pr-3 pl-1 text-[12px] transition-colors hover:bg-muted"
                   >

@@ -1,7 +1,7 @@
 # UESTC Byte Lib
 
-成电人的电子图书馆。一个纯前端的桌面端单页应用，把 **6 个分类、49 个站外链接、16 个概念名词**
-收进一个轻量、克制的「电子图书馆」里。
+成电人的电子图书馆。一个纯前端的桌面端单页应用，把飞书知识库里的
+**学院分类和期末复习文档**收进一个轻量、克制的「电子图书馆」里。
 
 核心体验是 Keynote 式的分类舞台横移切换：当前分类居中完整展开，左右相邻分类以缩小、低透明度、
 轻微模糊的姿态在两侧露出，暗示「还有更多」。支持鼠标滚轮、触控板、方向键、拖拽和指示器切换，
@@ -55,7 +55,7 @@ pnpm format      # prettier --write
 | --------------------- | ------------------- |
 | 滚轮 / 触控板 / 拖拽  | 在首页切换分类      |
 | `←` `→` `↑` `↓`       | 切换分类            |
-| `1`–`6`               | 直接跳到第 n 个分类 |
+| `1`–`9`               | 直接跳到第 n 个学院 |
 | `Enter` / `Space`     | 进入当前分类        |
 | `Esc`                 | 从分类详情返回首页  |
 | `⌘K` / `Ctrl+K` / `/` | 打开全局搜索        |
@@ -73,7 +73,7 @@ pnpm format      # prettier --write
 | `/glossary`                | 概念词典                 |
 | `/glossary?term=<termId>`  | 概念词典，并展开某个词条 |
 
-`<slug>` 取值：`campus` `learn` `research` `code` `tools` `future`。
+`<slug>` 取值来自飞书知识空间一级节点，例如 `cs` `medicine` `general` `software`。
 
 ## 技术栈
 
@@ -92,7 +92,7 @@ pnpm format      # prettier --write
 app/
   layout.tsx            字体、主题、AppShell 外壳
   page.tsx              首页分类舞台
-  c/[slug]/page.tsx     六个分类详情页
+  c/[slug]/page.tsx     学院分类详情页
   glossary/page.tsx     概念词典
   globals.css           设计令牌：分类强调色、glass / surface-shadow、动效、reduced-motion
 components/
@@ -122,10 +122,9 @@ docs/
 所有内容集中在 `lib/data/`，类型定义在 `lib/data/types.ts`：
 
 - `catalog.json` — 飞书知识空间同步结果：一级节点是学院，二级节点是课程文档
-- `catalog.ts` — 给站点用的目录导出
-- `categories.ts` — 6 个分类
-- `links.ts` — 49 个站外链接，每条含标题、描述、标签、搜索关键词，
-  需要校园网的站点标了 `campusOnly`
+- `catalog.ts` / `library.ts` — 给站点用的目录导出（舞台、分类页、搜索都读这里）
+- `college-meta.ts` — 学院英文名、tagline、强调色
+- `categories.ts` / `links.ts` — 概念词典仍在引用的旧站外链接
 - `glossary.ts` — 16 个概念词条，含别名、分组、详细释义，以及指向具体链接的 `relatedLinkIds`
 
 单独刷新课程目录：
@@ -134,7 +133,5 @@ docs/
 pnpm sync:wiki
 ```
 
-新增一个链接只需往 `links.ts` 里追加一条并填上已存在的 `categorySlug`，UI 会自动收录，
-计数、筛选和 `⌘K` 搜索都不用改。
-
-链接均为官方或社区公认的主入口，收录时逐条核对过可达性。发现失效链接欢迎直接改数据文件。
+课程文档在飞书知识空间里新增二级页面后，跑 `pnpm sync:wiki`（或直接 `pnpm build`）就会进站点。
+学院英文名和强调色写在 `college-meta.ts`。概念词典的相关链接仍指向 `links.ts` 里的官方入口。

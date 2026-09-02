@@ -1,6 +1,5 @@
-import { categories } from "@/lib/data/categories"
 import { glossary } from "@/lib/data/glossary"
-import { links } from "@/lib/data/links"
+import { categories, links } from "@/lib/data/library"
 import type { Category, GlossaryTerm, LibraryLink } from "@/lib/data/types"
 
 export function hostOf(url: string) {
@@ -9,6 +8,14 @@ export function hostOf(url: string) {
   } catch {
     return url
   }
+}
+
+export function displayHost(url: string) {
+  const host = hostOf(url)
+  if (host.includes("feishu.cn") || host.includes("larksuite.com")) {
+    return "飞书文档"
+  }
+  return host
 }
 
 export function matchesHaystack(haystack: string, query: string) {
@@ -77,7 +84,7 @@ export const searchCategories: SearchCategory[] = categories.map(
 )
 
 export const searchLinks: SearchLink[] = links.map((link) => {
-  const host = hostOf(link.url)
+  const host = displayHost(link.url)
   return {
     kind: "link",
     id: link.id,
@@ -88,6 +95,7 @@ export const searchLinks: SearchLink[] = links.map((link) => {
       link.description,
       link.tags.join(" "),
       host,
+      hostOf(link.url),
       link.keywords?.join(" ") ?? "",
       link.id,
     ]
@@ -133,12 +141,17 @@ export const searchNav: SearchNav[] = [
   },
 ]
 
-export const FEATURED_LINK_IDS = [
-  "uestc-eams",
-  "uestc-bbs",
-  "uestc-lib",
-  "overleaf",
+const FEATURED_TITLES = [
+  "毛概2026-26.1.6修订",
+  "计算机网络（评论待补充）",
+  "操作系统丨2025",
+  "数据结构与算法",
 ] as const
+
+export const FEATURED_LINK_IDS = FEATURED_TITLES.map((title) => {
+  const match = links.find((link) => link.title === title)
+  return match?.id
+}).filter((id): id is string => Boolean(id))
 
 export function filterSearch(query: string) {
   const q = query.trim()

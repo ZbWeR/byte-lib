@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/tooltip"
 import { accentClasses } from "@/lib/accents"
 import type { AccentKey, LibraryLink } from "@/lib/data/types"
-import { hostOf } from "@/lib/search"
+import { displayHost } from "@/lib/search"
 import { cn } from "@/lib/utils"
 
 type LinkCardProps = {
@@ -22,7 +22,7 @@ type LinkCardProps = {
 }
 
 export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
-  const host = hostOf(link.url)
+  const host = displayHost(link.url)
   const tags = link.tags.slice(0, 3)
   const classes = accentClasses[accent]
 
