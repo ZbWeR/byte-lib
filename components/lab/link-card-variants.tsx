@@ -2,51 +2,16 @@
 
 import { ArrowUpRight01Icon, File02Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import type { ReactNode } from "react"
 
+import { CardAnchor, type CardSample } from "@/components/lab/card-shell"
 import { Favicon } from "@/components/favicon"
 import { LinkCard } from "@/components/link-card"
 import { Badge } from "@/components/ui/badge"
 import { accentClasses } from "@/lib/accents"
 import { parseCourseTitle } from "@/lib/data/course-title"
-import { categoryBySlug } from "@/lib/data/library"
-import type { AccentKey, LibraryLink } from "@/lib/data/types"
+import type { LibraryLink } from "@/lib/data/types"
 import { formatDocStats } from "@/lib/format"
 import { cn } from "@/lib/utils"
-
-export type CardSample = {
-  link: LibraryLink
-  accent: AccentKey
-  collegeName: string
-}
-
-function CardAnchor({
-  link,
-  accent,
-  className,
-  children,
-}: {
-  link: LibraryLink
-  accent: AccentKey
-  className?: string
-  children: ReactNode
-}) {
-  const classes = accentClasses[accent]
-  return (
-    <a
-      href={link.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={cn(
-        "group relative flex transition-all duration-[var(--dur-micro)] focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
-        classes.ring,
-        className
-      )}
-    >
-      {children}
-    </a>
-  )
-}
 
 function StatsLine({ link }: { link: LibraryLink }) {
   const stats = formatDocStats(link)
@@ -343,14 +308,3 @@ export const LINK_CARD_VARIANTS = [
     Card: VariantSpine,
   },
 ] as const
-
-export function samplesFromLinks(links: LibraryLink[]): CardSample[] {
-  return links.map((link) => {
-    const category = categoryBySlug.get(link.categorySlug)
-    return {
-      link,
-      accent: category?.accent ?? "lime",
-      collegeName: category?.name ?? link.categorySlug,
-    }
-  })
-}
