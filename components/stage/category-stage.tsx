@@ -66,7 +66,7 @@ export function CategoryStage() {
       />
       <section
         ref={stageRef}
-        className="group relative flex h-svh touch-none flex-col overflow-hidden overscroll-none [--card-h:min(420px,calc(100svh-18rem))] [--card-w:380px] [perspective:1800px] max-[900px]:[--card-w:min(380px,82vw)]"
+        className="group relative flex min-h-0 flex-1 touch-none flex-col overflow-hidden overscroll-none [--card-h:min(420px,calc(100svh-20rem))] [--card-w:380px] [perspective:1800px] max-[900px]:[--card-w:min(380px,82vw)]"
       >
         <div className="relative z-10 mx-auto w-full max-w-2xl px-6 pt-20 pb-2 text-center">
           <p

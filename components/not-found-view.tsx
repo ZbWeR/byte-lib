@@ -13,7 +13,7 @@ export function NotFoundView() {
   const pathname = usePathname()
 
   return (
-    <section className="flex min-h-svh flex-col items-center justify-center px-6 pt-28 pb-24 text-center">
+    <section className="flex flex-1 flex-col items-center justify-center px-6 pt-28 pb-16 text-center">
       <HugeiconsIcon
         icon={FileNotFoundIcon}
         strokeWidth={1.5}

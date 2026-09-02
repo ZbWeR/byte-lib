@@ -11,7 +11,7 @@ type StageIndicatorProps = {
 
 export function StageIndicator({ activeIndex, onSelect }: StageIndicatorProps) {
   return (
-    <div data-stage-chrome className="relative z-50 flex justify-center pb-12">
+    <div data-stage-chrome className="relative z-50 flex justify-center py-4">
       <div className="flex max-w-[min(92vw,28rem)] flex-wrap items-center justify-center gap-1.5 px-3 py-2">
         {categories.map((category, index) => {
           const active = index === activeIndex

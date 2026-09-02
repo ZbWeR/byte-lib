@@ -102,7 +102,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <TooltipProvider>
       <HashRedirect />
-      <div className="relative min-h-svh">
+      <div className="relative flex min-h-svh flex-col">
         <div className="pointer-events-none fixed inset-0 -z-10">
           {isHome ? null : (
             <div
@@ -118,10 +118,10 @@ export function AppShell({ children }: { children: ReactNode }) {
         <SiteHeader pathname={pathname} onSearch={() => setPaletteOpen(true)} />
 
         <PaletteOpenContext.Provider value={paletteOpen}>
-          {children}
+          <div className="flex min-h-0 flex-1 flex-col">{children}</div>
         </PaletteOpenContext.Provider>
 
-        <SiteFooter overlay={isHome} />
+        <SiteFooter />
 
         <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
       </div>
