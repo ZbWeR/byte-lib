@@ -1,4 +1,5 @@
 import { categoryBySlug } from "@/lib/data/library"
+import { SHOW_GLOSSARY } from "@/lib/features"
 
 export const HOME_PATH = "/"
 
@@ -31,6 +32,9 @@ export function pathFromLegacyHash(hash: string): string | null {
   const params = new URLSearchParams(queryString)
 
   if (path === "glossary") {
+    if (!SHOW_GLOSSARY) {
+      return HOME_PATH
+    }
     return glossaryPath(params.get("term") ?? undefined)
   }
 

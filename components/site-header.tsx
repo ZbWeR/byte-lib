@@ -9,6 +9,7 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Kbd } from "@/components/ui/kbd"
 import { Separator } from "@/components/ui/separator"
+import { SHOW_GLOSSARY } from "@/lib/features"
 import { glossaryPath, HOME_PATH } from "@/lib/paths"
 import { cn } from "@/lib/utils"
 
@@ -56,39 +57,44 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
           </span>
         </Link>
 
-        <Separator orientation="vertical" className="mx-2 h-5" />
-
-        <div className="relative flex rounded-full bg-muted/60 p-1">
-          <span
-            className="absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-full bg-background surface-shadow transition-transform duration-300"
-            style={{
-              transform: isGlossary ? "translateX(100%)" : "translateX(0)",
-            }}
-            aria-hidden
-          />
-          <Link
-            href={HOME_PATH}
-            className={cn(
-              "relative z-10 rounded-full px-4 py-1 text-[13px] transition-colors",
-              !isGlossary
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            )}
-          >
-            图书馆
-          </Link>
-          <Link
-            href={glossaryPath()}
-            className={cn(
-              "relative z-10 rounded-full px-4 py-1 text-[13px] transition-colors",
-              isGlossary
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            )}
-          >
-            词典
-          </Link>
-        </div>
+        {SHOW_GLOSSARY ? (
+          <>
+            <Separator orientation="vertical" className="mx-2 h-5" />
+            <div className="relative flex rounded-full bg-muted/60 p-1">
+              <span
+                className="absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-full bg-background surface-shadow transition-transform duration-300"
+                style={{
+                  transform: isGlossary ? "translateX(100%)" : "translateX(0)",
+                }}
+                aria-hidden
+              />
+              <Link
+                href={HOME_PATH}
+                className={cn(
+                  "relative z-10 rounded-full px-4 py-1 text-[13px] transition-colors",
+                  !isGlossary
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                图书馆
+              </Link>
+              <Link
+                href={glossaryPath()}
+                className={cn(
+                  "relative z-10 rounded-full px-4 py-1 text-[13px] transition-colors",
+                  isGlossary
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                词典
+              </Link>
+            </div>
+          </>
+        ) : (
+          <Separator orientation="vertical" className="mx-2 h-5" />
+        )}
 
         <Button
           type="button"

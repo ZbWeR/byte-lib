@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: "UESTC Byte Lib · 成电人的电子图书馆",
     template: "%s · UESTC Byte Lib",
   },
-  description: `${catalog.stats.collegeCount} 个学院、${catalog.stats.docCount} 篇期末复习文档，加上成电人常挂在嘴边的概念词典。`,
+  description: `${catalog.stats.collegeCount} 个学院、${catalog.stats.docCount} 篇期末复习文档，按学院收录成电人自己整理的飞书笔记。`,
 }
 
 export default function RootLayout({

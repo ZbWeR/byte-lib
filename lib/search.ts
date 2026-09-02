@@ -1,6 +1,7 @@
 import { glossary } from "@/lib/data/glossary"
 import { categories, links } from "@/lib/data/library"
 import type { Category, GlossaryTerm, LibraryLink } from "@/lib/data/types"
+import { SHOW_GLOSSARY } from "@/lib/features"
 
 export function hostOf(url: string) {
   try {
@@ -127,12 +128,16 @@ export const searchNav: SearchNav[] = [
     label: "返回图书馆首页",
     haystack: "返回图书馆首页 图书馆 首页 home stage 舞台",
   },
-  {
-    kind: "nav",
-    id: "glossary",
-    label: "打开概念词典",
-    haystack: "打开概念词典 glossary 词典 黑话 名词 概念",
-  },
+  ...(SHOW_GLOSSARY
+    ? [
+        {
+          kind: "nav" as const,
+          id: "glossary" as const,
+          label: "打开概念词典",
+          haystack: "打开概念词典 glossary 词典 黑话 名词 概念",
+        },
+      ]
+    : []),
   {
     kind: "nav",
     id: "theme",
@@ -172,7 +177,9 @@ export function filterSearch(query: string) {
       matchesHaystack(item.haystack, q)
     ),
     links: searchLinks.filter((item) => matchesHaystack(item.haystack, q)),
-    terms: searchTerms.filter((item) => matchesHaystack(item.haystack, q)),
+    terms: SHOW_GLOSSARY
+      ? searchTerms.filter((item) => matchesHaystack(item.haystack, q))
+      : [],
     nav: searchNav.filter((item) => matchesHaystack(item.haystack, q)),
   }
 }

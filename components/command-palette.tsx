@@ -25,6 +25,7 @@ import { Kbd } from "@/components/ui/kbd"
 import { useNavigate } from "@/hooks/use-navigate"
 import { categoryBySlug } from "@/lib/data/library"
 import { categoryIcon } from "@/lib/category-icons"
+import { SHOW_GLOSSARY } from "@/lib/features"
 import { categoryPath, glossaryPath, HOME_PATH } from "@/lib/paths"
 import { filterSearch } from "@/lib/search"
 
@@ -62,12 +63,14 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         }
       }}
       title="搜索"
-      description="搜索课程、学院或概念"
+      description={SHOW_GLOSSARY ? "搜索课程、学院或概念" : "搜索课程或学院"}
       className="sm:max-w-xl"
     >
       <Command shouldFilter={false} className="rounded-3xl bg-transparent">
         <CommandInput
-          placeholder="搜索课程、学院或概念…"
+          placeholder={
+            SHOW_GLOSSARY ? "搜索课程、学院或概念…" : "搜索课程或学院…"
+          }
           value={query}
           onValueChange={setQuery}
         />
@@ -158,7 +161,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             </CommandGroup>
           ) : null}
 
-          {results.terms.length > 0 ? (
+          {SHOW_GLOSSARY && results.terms.length > 0 ? (
             <CommandGroup heading="概念">
               {results.terms.map((item) => (
                 <CommandItem
