@@ -21,10 +21,6 @@ export type CardVariant = {
 export type CardSample = {
   link: LibraryLink
   accent: AccentKey
-  collegeName: string
-  /** 同组里最高的阅读人数 / 字数，用来画相对长度的条。 */
-  peakUv: number
-  peakChars: number
   index: number
 }
 
@@ -57,16 +53,11 @@ export function CardAnchor({
 }
 
 export function samplesFromLinks(links: LibraryLink[]): CardSample[] {
-  const peakUv = Math.max(1, ...links.map((link) => link.uv ?? 0))
-  const peakChars = Math.max(1, ...links.map((link) => link.charCount ?? 0))
   return links.map((link, index) => {
     const category = categoryBySlug.get(link.categorySlug)
     return {
       link,
       accent: category?.accent ?? "lime",
-      collegeName: category?.name ?? link.categorySlug,
-      peakUv,
-      peakChars,
       index,
     }
   })

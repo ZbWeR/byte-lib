@@ -8,9 +8,6 @@ export type ParsedCourseTitle = {
 
 export function parseCourseTitle(title: string): ParsedCourseTitle {
   const flags: string[] = []
-  if (/评论待补充|暂无评论|无评论|评论暂无/.test(title)) {
-    flags.push("待补评论")
-  }
   if (/施工中/.test(title)) {
     flags.push("施工中")
   }
@@ -37,4 +34,15 @@ export function parseCourseTitle(title: string): ParsedCourseTitle {
     years,
     flags,
   }
+}
+
+/** 卡片上用的标题：去掉「评论待补充」这类噪音，年份和课名保留。 */
+export function displayTitle(title: string) {
+  return (
+    title
+      .replace(/[（(][^）)]*(评论|引用文献)[^）)]*[）)]/g, "")
+      .replace(/评论待补充|评论暂无|暂无评论|无评论/g, "")
+      .replace(/\s+/g, " ")
+      .trim() || title
+  )
 }

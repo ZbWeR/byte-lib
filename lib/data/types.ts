@@ -21,6 +21,8 @@ export type LibraryLink = {
   categorySlug: string
   collegeName?: string
   title: string
+  /** 去掉「评论待补充」等噪音后的标题，卡片上用这个 */
+  displayTitle?: string
   url: string
   description: string
   tags: string[]

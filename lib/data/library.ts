@@ -1,13 +1,12 @@
 import { formatCharCount, formatLikes, formatUv } from "@/lib/format"
+
 import { wikiColleges, wikiDocs, wikiDocsByCollege } from "./catalog"
 import { metaForCollege } from "./college-meta"
+import { displayTitle } from "./course-title"
 import type { Category, LibraryLink } from "./types"
 
 function deriveTags(title: string) {
   const tags: string[] = []
-  if (/评论待补充|暂无评论|无评论|评论暂无/.test(title)) {
-    tags.push("待补评论")
-  }
   if (/施工中/.test(title)) {
     tags.push("施工中")
   }
@@ -62,9 +61,9 @@ export const links: LibraryLink[] = wikiDocs.map((doc) => ({
   categorySlug: doc.collegeSlug,
   collegeName: doc.collegeName,
   title: doc.title,
+  displayTitle: displayTitle(doc.title),
   url: doc.wikiUrl,
   description: [
-    doc.collegeName,
     formatCharCount(doc.charCount),
     formatUv(doc.uv),
     formatLikes(doc.likeCount),

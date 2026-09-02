@@ -9,14 +9,14 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-/** 刻意覆盖极端情况：最热、带状态、脏标题、冷门、占位页、超长英文。 */
+/** 六个学院各一篇，顺带覆盖脏标题、占位页、英文课。 */
 const SAMPLE_TITLES = [
   "马克思主义基本原理丨2024",
   "计算机网络（评论待补充）",
-  "军事理论挖空版2025-25.1.14修订",
-  "密码学（图灵计划）",
   "儿科学",
+  "数字图像处理丨2024&2025",
   "ME Packaging Technology",
+  "集成电路工艺-24.11.13修订",
 ] as const
 
 export default function LinkCardLabPage() {

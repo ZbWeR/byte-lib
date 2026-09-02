@@ -5,12 +5,14 @@ import { useEffect, useRef, useState } from "react"
 
 import { accentClasses } from "@/lib/accents"
 import type { AccentKey } from "@/lib/data/types"
+import { dicebearStyleFor } from "@/lib/dicebear"
 import { cn } from "@/lib/utils"
 
 type FaviconProps = {
   url: string
   title: string
   accent: AccentKey
+  categorySlug?: string
   className?: string
 }
 
@@ -25,10 +27,17 @@ function avatarSeed(url: string, title: string) {
   }
 }
 
-export function Favicon({ url, title, accent, className }: FaviconProps) {
+export function Favicon({
+  url,
+  title,
+  accent,
+  categorySlug,
+  className,
+}: FaviconProps) {
   const [failed, setFailed] = useState(false)
   const imgRef = useRef<HTMLImageElement>(null)
   const seed = avatarSeed(url, title)
+  const style = dicebearStyleFor(categorySlug)
   const letter = Array.from(title)[0] ?? "?"
 
   useEffect(() => {
@@ -36,7 +45,7 @@ export function Favicon({ url, title, accent, className }: FaviconProps) {
     if (img && img.complete && img.naturalWidth === 0) {
       setFailed(true)
     }
-  }, [])
+  }, [seed, style])
 
   return (
     <div
@@ -58,7 +67,7 @@ export function Favicon({ url, title, accent, className }: FaviconProps) {
       ) : (
         <img
           ref={imgRef}
-          src={`/api/avatar?seed=${encodeURIComponent(seed)}`}
+          src={`/api/avatar?seed=${encodeURIComponent(seed)}&style=${encodeURIComponent(style)}`}
           alt=""
           loading="lazy"
           decoding="async"

@@ -93,6 +93,7 @@ export const searchLinks: SearchLink[] = links.map((link) => {
     host,
     haystack: [
       link.title,
+      link.displayTitle ?? "",
       link.description,
       link.tags.join(" "),
       host,

@@ -148,11 +148,14 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   >
                     <Favicon
                       url={item.link.url}
-                      title={item.link.title}
+                      title={item.link.displayTitle ?? item.link.title}
                       accent={category?.accent ?? "lime"}
+                      categorySlug={item.link.categorySlug}
                       className="size-6 rounded-lg p-0.5"
                     />
-                    <span className="truncate">{item.link.title}</span>
+                    <span className="truncate">
+                      {item.link.displayTitle ?? item.link.title}
+                    </span>
                     <span className="ml-auto font-mono text-[11px] text-muted-foreground tabular-nums">
                       {formatCompactUv(item.link.uv) ?? item.host}
                     </span>

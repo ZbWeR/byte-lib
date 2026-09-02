@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto"
 
-const STYLE = "shapes"
+import { DEFAULT_DICEBEAR_STYLE, isDicebearStyle } from "@/lib/dicebear"
+
 const SIZE = "64"
 
 function seedFrom(raw: string) {
@@ -11,9 +12,11 @@ function seedFrom(raw: string) {
 }
 
 export async function GET(request: Request) {
-  const raw = new URL(request.url).searchParams.get("seed") ?? ""
-  const seed = seedFrom(raw)
-  const upstream = `https://api.dicebear.com/9.x/${STYLE}/svg?seed=${encodeURIComponent(seed)}&size=${SIZE}`
+  const url = new URL(request.url)
+  const seed = seedFrom(url.searchParams.get("seed") ?? "")
+  const requested = url.searchParams.get("style") ?? ""
+  const style = isDicebearStyle(requested) ? requested : DEFAULT_DICEBEAR_STYLE
+  const upstream = `https://api.dicebear.com/9.x/${style}/svg?seed=${encodeURIComponent(seed)}&size=${SIZE}`
 
   try {
     const response = await fetch(upstream, {

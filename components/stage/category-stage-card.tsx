@@ -148,12 +148,13 @@ export function CategoryStageCard({
               <li key={link.id} className="flex min-w-0 items-center gap-2">
                 <Favicon
                   url={link.url}
-                  title={link.title}
+                  title={link.displayTitle ?? link.title}
                   accent={category.accent}
+                  categorySlug={category.slug}
                   className="size-6 shrink-0 rounded-lg"
                 />
                 <span className="truncate text-[13px] text-foreground/80">
-                  {link.title}
+                  {link.displayTitle ?? link.title}
                 </span>
               </li>
             ))}
