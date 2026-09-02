@@ -1,12 +1,6 @@
 "use client"
 
-import {
-  Clock01Icon,
-  FavouriteIcon,
-  Note01Icon,
-  SquareChartGanttIcon,
-  ViewIcon,
-} from "@hugeicons/core-free-icons"
+import { FavouriteIcon, Note01Icon, ViewIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import type { IconSvgElement } from "@hugeicons/react"
 
@@ -16,69 +10,67 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import type { LibraryLink } from "@/lib/data/types"
-import {
-  formatAge,
-  formatCompactChars,
-  formatCompactUv,
-  formatVolume,
-  isStubDoc,
-} from "@/lib/format"
+import { formatCompactUv, isStubDoc } from "@/lib/format"
 import { cn } from "@/lib/utils"
 
+export type DocMetaKind = "readers" | "likes" | "stub"
+
 type MetaItem = {
+  kind: DocMetaKind
   icon: IconSvgElement
   value: string
   label: string
 }
 
-function itemsFor(link: LibraryLink): MetaItem[] {
+function itemsFor(link: LibraryLink, kinds: DocMetaKind[]): MetaItem[] {
+  const want = new Set(kinds)
   const items: MetaItem[] = []
-  const stub = isStubDoc(link.charCount)
-  const volume = stub ? "占位" : formatCompactChars(link.charCount)
-  if (volume) {
-    items.push({
-      icon: stub ? Note01Icon : SquareChartGanttIcon,
-      value: volume,
-      label: stub
-        ? "占位页，几乎还没有正文"
-        : `约 ${formatVolume(link.charCount)}`,
-    })
+
+  if (want.has("readers")) {
+    const readers = formatCompactUv(link.uv)
+    if (readers) {
+      items.push({
+        kind: "readers",
+        icon: ViewIcon,
+        value: readers,
+        label: `${link.uv} 人读过`,
+      })
+    }
   }
-  const readers = formatCompactUv(link.uv)
-  if (readers) {
+
+  if (want.has("likes") && link.likeCount && link.likeCount > 0) {
     items.push({
-      icon: ViewIcon,
-      value: readers,
-      label: `${link.uv} 人读过`,
-    })
-  }
-  if (link.likeCount && link.likeCount > 0) {
-    items.push({
+      kind: "likes",
       icon: FavouriteIcon,
       value: String(link.likeCount),
       label: `${link.likeCount} 次点赞`,
     })
   }
-  const age = formatAge(link.updatedAt)
-  if (age) {
+
+  if (want.has("stub") && isStubDoc(link.charCount)) {
     items.push({
-      icon: Clock01Icon,
-      value: age,
-      label: link.updatedAt
-        ? `最近更新于 ${new Date(link.updatedAt).toLocaleDateString("zh-CN")}`
-        : "最近更新",
+      kind: "stub",
+      icon: Note01Icon,
+      value: "占位",
+      label: "占位页，几乎还没有正文",
     })
   }
+
   return items
 }
 
 type DocMetaProps = {
   link: LibraryLink
+  kinds?: DocMetaKind[]
   className?: string
 }
 
-export function DocMeta({ link, className }: DocMetaProps) {
-  const items = itemsFor(link)
+export function DocMeta({
+  link,
+  kinds = ["readers", "likes", "stub"],
+  className,
+}: DocMetaProps) {
+  const items = itemsFor(link, kinds)
   if (items.length === 0) return null
 
   return (
@@ -86,7 +78,7 @@ export function DocMeta({ link, className }: DocMetaProps) {
       className={cn("flex flex-wrap items-center gap-x-3 gap-y-1", className)}
     >
       {items.map((item) => (
-        <li key={item.label}>
+        <li key={item.kind}>
           <Tooltip>
             <TooltipTrigger
               delay={200}
