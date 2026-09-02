@@ -8,9 +8,7 @@ import { useEffect, useState } from "react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Kbd } from "@/components/ui/kbd"
-import { Separator } from "@/components/ui/separator"
-import { SHOW_GLOSSARY } from "@/lib/features"
-import { glossaryPath, HOME_PATH } from "@/lib/paths"
+import { HOME_PATH } from "@/lib/paths"
 import { cn } from "@/lib/utils"
 
 type SiteHeaderProps = {
@@ -20,7 +18,7 @@ type SiteHeaderProps = {
 
 export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
   const [scrolled, setScrolled] = useState(false)
-  const isGlossary = pathname.startsWith("/glossary")
+  const isHome = pathname === HOME_PATH
 
   useEffect(() => {
     const onScroll = () => {
@@ -32,83 +30,34 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
   }, [])
 
   return (
-    <header
-      className={cn(
-        "fixed top-5 left-1/2 z-50 w-max max-w-[calc(100vw-1.5rem)] -translate-x-1/2"
-      )}
-    >
+    <header className="fixed inset-x-0 top-0 z-50">
       <div
         className={cn(
-          "flex h-13 items-center gap-1 rounded-full border border-border/60 pr-2 pl-4 surface-shadow glass transition-all duration-300",
-          scrolled && "h-12 shadow-lg"
+          "flex h-16 items-center justify-between px-6 transition-colors duration-300 md:px-10",
+          !isHome && scrolled && "border-b border-border/70 bg-background"
         )}
       >
         <Link
           href={HOME_PATH}
-          className="flex items-center gap-0 rounded-full pr-1 outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="font-heading text-[15px] tracking-[0.04em] text-foreground transition-opacity duration-[var(--dur-micro)] outline-none hover:opacity-70 focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="回到图书馆首页"
         >
-          <span className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground">
-            UESTC
-          </span>
-          <span className="mx-2 inline-block size-1 rounded-full bg-cat-lime" />
-          <span className="text-[15px] font-medium tracking-tight">
-            Byte Lib
-          </span>
+          UESTC · Byte Lib
         </Link>
 
-        {SHOW_GLOSSARY ? (
-          <>
-            <Separator orientation="vertical" className="mx-2 h-5" />
-            <div className="relative flex rounded-full bg-muted/60 p-1">
-              <span
-                className="absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-full bg-background surface-shadow transition-transform duration-300"
-                style={{
-                  transform: isGlossary ? "translateX(100%)" : "translateX(0)",
-                }}
-                aria-hidden
-              />
-              <Link
-                href={HOME_PATH}
-                className={cn(
-                  "relative z-10 rounded-full px-4 py-1 text-[13px] transition-colors",
-                  !isGlossary
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                图书馆
-              </Link>
-              <Link
-                href={glossaryPath()}
-                className={cn(
-                  "relative z-10 rounded-full px-4 py-1 text-[13px] transition-colors",
-                  isGlossary
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                词典
-              </Link>
-            </div>
-          </>
-        ) : (
-          <Separator orientation="vertical" className="mx-2 h-5" />
-        )}
-
-        <Button
-          type="button"
-          variant="ghost"
-          className="ml-1 rounded-full"
-          onClick={onSearch}
-          aria-label="搜索"
-        >
-          <HugeiconsIcon icon={Search01Icon} strokeWidth={2} />
-          <span className="hidden sm:inline">搜索</span>
-          <Kbd className="hidden sm:inline">⌘K</Kbd>
-        </Button>
-
-        <ThemeToggle />
+        <div className="flex items-center gap-0.5">
+          <Button
+            type="button"
+            variant="ghost"
+            className="rounded-md"
+            onClick={onSearch}
+            aria-label="搜索"
+          >
+            <HugeiconsIcon icon={Search01Icon} strokeWidth={2} />
+            <Kbd className="hidden sm:inline">⌘K</Kbd>
+          </Button>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   )

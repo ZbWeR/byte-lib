@@ -23,7 +23,7 @@ export function ThemeToggle() {
       type="button"
       variant="ghost"
       size="icon-lg"
-      className="rounded-full"
+      className="rounded-md"
       aria-label={isDark ? "切换到浅色外观" : "切换到深色外观"}
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >

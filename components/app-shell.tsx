@@ -5,26 +5,11 @@ import { useEffect, useState, type ReactNode } from "react"
 
 import { CommandPalette } from "@/components/command-palette"
 import { PaletteOpenContext } from "@/components/palette-open"
+import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { isTypingTarget } from "@/hooks/use-stage-nav"
-import { accentClasses } from "@/lib/accents"
-import { categories, categoryBySlug } from "@/lib/data/library"
 import { HOME_PATH, pathFromLegacyHash } from "@/lib/paths"
-import type { AccentKey } from "@/lib/data/types"
-import { cn } from "@/lib/utils"
-
-const NOISE_BG = `url("data:image/svg+xml,${encodeURIComponent(
-  `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>`
-)}")`
-
-function accentFromPath(pathname: string): AccentKey {
-  const match = pathname.match(/^\/c\/([^/]+)/)
-  if (match?.[1]) {
-    return categoryBySlug.get(match[1])?.accent ?? "lime"
-  }
-  return categories[0]?.accent ?? "lime"
-}
 
 function HashRedirect() {
   const router = useRouter()
@@ -53,7 +38,6 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [paletteOpen, setPaletteOpen] = useState(false)
   const isHome = pathname === HOME_PATH
   const isCategory = pathname.startsWith("/c/")
-  const accent = accentFromPath(pathname)
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -107,16 +91,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <HashRedirect />
       <div className="relative min-h-svh">
         <div className="pointer-events-none fixed inset-0 -z-10">
-          <div
-            className={cn(
-              "absolute -top-40 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full opacity-50 blur-[120px] transition-colors duration-700",
-              accentClasses[accent].glow
-            )}
-          />
-          <div
-            className="absolute inset-0 opacity-[0.025] dark:opacity-[0.04]"
-            style={{ backgroundImage: NOISE_BG }}
-          />
+          <div className="absolute inset-0 dot-grid opacity-[0.07] dark:opacity-[0.1]" />
         </div>
 
         <SiteHeader pathname={pathname} onSearch={() => setPaletteOpen(true)} />
@@ -124,6 +99,8 @@ export function AppShell({ children }: { children: ReactNode }) {
         <PaletteOpenContext.Provider value={paletteOpen}>
           {children}
         </PaletteOpenContext.Provider>
+
+        <SiteFooter overlay={isHome} />
 
         <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
       </div>
