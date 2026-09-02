@@ -12,11 +12,11 @@ export const LINK_CARD_CONCEPTS: CardVariant[] = [
   {
     id: "current",
     letter: "A",
-    name: "学院信息卡",
+    name: "文档卡",
     layout: "grid",
     summary:
-      "大圆角、细描边、柔和阴影。顶部学院图标与名称，中部两行标题，辅以阅读量、点赞和占位状态；底部最多三个标签和相对更新时间。",
-    note: "不同学院用低饱和主题色区分。悬停时卡片轻微上浮、阴影加深，右上外链按钮高亮。",
+      "纯白底。最多两行标题，外链图标悬停才出现；左下是字数、阅读量和点赞，右下是相对更新时间。",
+    note: "不再展示标签或学院色。",
     Card: ConceptCurrent,
   },
 ]
