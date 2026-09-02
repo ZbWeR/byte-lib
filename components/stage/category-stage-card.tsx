@@ -4,7 +4,6 @@ import Link from "next/link"
 import { HugeiconsIcon } from "@hugeicons/react"
 import type { CSSProperties, MouseEvent } from "react"
 
-import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { accentClasses } from "@/lib/accents"
 import { categoryIcon } from "@/lib/category-icons"
@@ -21,6 +20,15 @@ type CategoryStageCardProps = {
   totalCount: number
   reducedMotion: boolean
 }
+
+const DOT_COLORS = [
+  "bg-cat-lime",
+  "bg-cat-teal",
+  "bg-cat-sky",
+  "bg-cat-violet",
+  "bg-cat-amber",
+  "bg-cat-rose",
+] as const
 
 function stageTransform(offset: number) {
   const abs = Math.abs(offset)
@@ -43,6 +51,14 @@ function stageTransform(offset: number) {
     pointerEvents: pointerEvents as "auto" | "none",
     abs,
   }
+}
+
+function dotColor(id: string) {
+  let hash = 0
+  for (const char of id) {
+    hash = (hash * 31 + char.charCodeAt(0)) | 0
+  }
+  return DOT_COLORS[Math.abs(hash) % DOT_COLORS.length]
 }
 
 export function CategoryStageCard({
@@ -95,70 +111,58 @@ export function CategoryStageCard({
         aria-label={`进入 ${category.name} 分类`}
         onClick={onCardClick}
         style={{ animationDelay: `${enterDelay}ms` }}
-        className={cn(
-          "group relative flex h-full w-full animate-in flex-col overflow-hidden rounded-2xl border bg-card p-7 text-left transition-[border-color,transform] duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring",
-          classes.edge,
-          classes.ring,
-          active && "hover:-translate-y-0.5"
-        )}
+        className="relative flex h-full w-full animate-in flex-col p-6 text-left duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring"
       >
-        <div
-          className={cn(
-            "pointer-events-none absolute inset-0 bg-gradient-to-b to-transparent",
-            classes.wash
-          )}
-        />
-
-        <div className="relative flex flex-1 flex-col">
-          <div className="flex items-start justify-between gap-3">
-            <div
-              className={cn(
-                "grid size-9 place-items-center rounded-2xl bg-muted",
-                classes.text
-              )}
-            >
-              <HugeiconsIcon
-                icon={categoryIcon(category.slug)}
-                strokeWidth={2}
-                className="size-4"
-              />
-            </div>
-            <Badge variant="secondary">
-              <span className="font-mono tabular-nums">{totalCount}</span>
-              {" 篇文档"}
-            </Badge>
+        <div className="flex items-start justify-between gap-3">
+          <div
+            className={cn(
+              "grid size-9 place-items-center rounded-xl",
+              classes.mono,
+              classes.text
+            )}
+          >
+            <HugeiconsIcon
+              icon={categoryIcon(category.slug)}
+              strokeWidth={2}
+              className="size-4"
+            />
           </div>
-
-          <p className="mt-5 font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
-            {category.nameEn}
+          <p className="font-sans text-[12px] text-muted-foreground tabular-nums">
+            <span className="font-mono">{totalCount}</span>
+            {" 篇文档"}
           </p>
-          <h2 className="mt-2 font-heading text-[2rem] leading-[1.15] tracking-tight">
-            {category.name}
-          </h2>
-          <p className="mt-3 text-[13px] leading-relaxed text-muted-foreground">
-            {category.tagline}
-          </p>
-
-          <Separator className="mt-6 opacity-60" />
-
-          <ul className="mt-5 flex flex-col gap-2.5">
-            {previewLinks.map((link) => (
-              <li key={link.id} className="flex min-w-0 items-center gap-2.5">
-                <span
-                  className={cn("size-1.5 shrink-0 rounded-full", classes.dot)}
-                />
-                <span className="truncate text-[13px] text-foreground/80">
-                  {link.displayTitle ?? link.title}
-                </span>
-              </li>
-            ))}
-            {previewLinks.length === 0 ? (
-              <li className="text-[13px] text-muted-foreground">
-                暂无公开文档
-              </li>
-            ) : null}
-          </ul>
         </div>
+
+        <p className="mt-5 font-sans text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+          {category.nameEn}
+        </p>
+        <h2 className="mt-2 font-heading text-[2rem] leading-[1.15] tracking-tight">
+          {category.name}
+        </h2>
+        <p className="mt-3 text-[13px] leading-relaxed text-muted-foreground">
+          {category.tagline}
+        </p>
+
+        <Separator className="mt-5 opacity-60" />
+
+        <ul className="mt-4 flex flex-col gap-2.5">
+          {previewLinks.map((link) => (
+            <li key={link.id} className="flex min-w-0 items-center gap-2.5">
+              <span
+                className={cn(
+                  "size-1.5 shrink-0 rounded-full",
+                  dotColor(link.id)
+                )}
+              />
+              <span className="truncate text-[13px] text-foreground/80">
+                {link.displayTitle ?? link.title}
+              </span>
+            </li>
+          ))}
+          {previewLinks.length === 0 ? (
+            <li className="text-[13px] text-muted-foreground">暂无公开文档</li>
+          ) : null}
+        </ul>
       </Link>
     </div>
   )
