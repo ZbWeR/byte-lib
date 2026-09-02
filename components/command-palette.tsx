@@ -26,6 +26,7 @@ import { useNavigate } from "@/hooks/use-navigate"
 import { categoryBySlug } from "@/lib/data/library"
 import { categoryIcon } from "@/lib/category-icons"
 import { SHOW_GLOSSARY } from "@/lib/features"
+import { formatCompactUv } from "@/lib/format"
 import { categoryPath, glossaryPath, HOME_PATH } from "@/lib/paths"
 import { filterSearch } from "@/lib/search"
 
@@ -152,8 +153,8 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                       className="size-6 rounded-lg p-0.5"
                     />
                     <span className="truncate">{item.link.title}</span>
-                    <span className="ml-auto font-mono text-[11px] text-muted-foreground">
-                      {item.host}
+                    <span className="ml-auto font-mono text-[11px] text-muted-foreground tabular-nums">
+                      {formatCompactUv(item.link.uv) ?? item.host}
                     </span>
                   </CommandItem>
                 )

@@ -25,7 +25,7 @@ export function LinkCardLab({ links }: LinkCardLabProps) {
       </p>
       <h1 className="mt-3 text-3xl font-medium tracking-tight">链接卡片候选</h1>
       <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-muted-foreground">
-        飞书目录目前只有标题、学院、链接，没有每篇文档的摘要。下面六个版本用同一组真实课程，方便对照。点卡片会打开飞书；选定后把字母（A–F）发我就行。
+        卡片现在能显示字数、最近更新、阅读人数和点赞。下面六个版本用同一组真实课程对照布局。点卡片会打开飞书；选定后把字母（A–F）发我就行。
       </p>
 
       <nav className="mt-8 flex flex-wrap gap-2">

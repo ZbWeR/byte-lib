@@ -11,7 +11,7 @@ import { accentClasses } from "@/lib/accents"
 import { parseCourseTitle } from "@/lib/data/course-title"
 import { categoryBySlug } from "@/lib/data/library"
 import type { AccentKey, LibraryLink } from "@/lib/data/types"
-import { displayHost } from "@/lib/search"
+import { formatDocStats } from "@/lib/format"
 import { cn } from "@/lib/utils"
 
 export type CardSample = {
@@ -48,6 +48,14 @@ function CardAnchor({
   )
 }
 
+function StatsLine({ link }: { link: LibraryLink }) {
+  const stats = formatDocStats(link)
+  if (!stats) return null
+  return (
+    <p className="text-[12px] leading-relaxed text-muted-foreground">{stats}</p>
+  )
+}
+
 function StatusBadges({ tags }: { tags: string[] }) {
   if (tags.length === 0) {
     return null
@@ -68,10 +76,9 @@ export function VariantCurrent({ sample }: { sample: CardSample }) {
   return <LinkCard link={sample.link} accent={sample.accent} />
 }
 
-/** B · 去描述：飞书没有摘要，干脆不画那一行。 */
+/** B · 去描述：结构与现行相同，底部换成真实统计。 */
 export function VariantTight({ sample }: { sample: CardSample }) {
-  const { link, accent } = sample
-  const host = displayHost(link.url)
+  const { link, accent, collegeName } = sample
   return (
     <CardAnchor
       link={link}
@@ -93,8 +100,11 @@ export function VariantTight({ sample }: { sample: CardSample }) {
       </div>
       <div className="space-y-1">
         <h3 className="text-[15px] leading-snug font-medium">{link.title}</h3>
-        <p className="font-mono text-[11px] text-muted-foreground/70">{host}</p>
+        <p className="font-mono text-[11px] text-muted-foreground/70">
+          {collegeName}
+        </p>
       </div>
+      <StatsLine link={link} />
       <div className="mt-auto">
         <StatusBadges tags={link.tags} />
       </div>
@@ -147,6 +157,7 @@ export function VariantSheet({ sample }: { sample: CardSample }) {
         <h3 className="text-[15px] leading-snug font-medium">
           {parsed.displayName}
         </h3>
+        <StatsLine link={link} />
       </div>
       <div className="relative mt-auto">
         <StatusBadges tags={parsed.flags.length ? parsed.flags : link.tags} />
@@ -170,8 +181,9 @@ export function VariantRow({ sample }: { sample: CardSample }) {
       <div className="min-w-0 flex-1">
         <p className="truncate text-[14px] font-medium">{parsed.displayName}</p>
         <p className="truncate font-mono text-[11px] text-muted-foreground">
-          {collegeName}
-          {parsed.years[0] ? ` · ${parsed.years[0]}` : ""}
+          {[collegeName, parsed.years[0], formatDocStats(link)]
+            .filter(Boolean)
+            .join(" · ")}
         </p>
       </div>
       <div className="hidden shrink-0 sm:block">
@@ -215,6 +227,9 @@ export function VariantParsed({ sample }: { sample: CardSample }) {
       <h3 className="mt-6 text-[1.35rem] leading-[1.15] font-medium tracking-tight">
         {parsed.displayName}
       </h3>
+      <div className="mt-3">
+        <StatsLine link={link} />
+      </div>
       <div className="mt-auto flex items-center justify-between gap-3 pt-6">
         <StatusBadges tags={parsed.flags} />
         <HugeiconsIcon
@@ -253,6 +268,7 @@ export function VariantSpine({ sample }: { sample: CardSample }) {
         <h3 className="text-[15px] leading-snug font-medium">
           {parsed.displayName}
         </h3>
+        <StatsLine link={link} />
         <div className="mt-auto flex flex-wrap items-center gap-1.5">
           {parsed.years.map((year) => (
             <Badge
@@ -277,17 +293,17 @@ export const LINK_CARD_VARIANTS = [
     name: "现行卡片",
     layout: "grid" as const,
     summary:
-      "学院详情页正在用的版本。图标走飞书站点 favicon，描述是「UESTC Byte Lib · 学院名」模板句。",
-    note: "问题：91 篇文档的描述几乎长一样，飞书图标也几乎长一样。",
+      "学院详情页正在用的版本。DiceBear 图标 + 字数 / 更新时间 / 阅读 / 点赞。",
+    note: "这是线上默认。其他方案只换布局，数据相同。",
     Card: VariantCurrent,
   },
   {
     id: "tight",
     letter: "B",
-    name: "去描述",
+    name: "去标签强调",
     layout: "grid" as const,
-    summary: "结构与现行相同，只删掉那两行假描述。标题和标签自己说话。",
-    note: "改动最小，适合先止血、以后再换更激进的方案。",
+    summary: "和现行接近，统计行稍小，适合信息已经够用、不想再挤标签的情况。",
+    note: "标签仍保留，只是沉底。",
     Card: VariantTight,
   },
   {
@@ -295,9 +311,8 @@ export const LINK_CARD_VARIANTS = [
     letter: "C",
     name: "文档纸片",
     layout: "grid" as const,
-    summary:
-      "用文件图标代替 favicon，学院名当副标，年份提到右上角。看起来更像知识库条目而不是外链。",
-    note: "卡片仍是三列网格，扫描效率中等。",
+    summary: "课名拆干净，年份放右上角，统计放在标题下面。",
+    note: "图标仍用 DiceBear；文件图标那版先不用了。",
     Card: VariantSheet,
   },
   {
@@ -305,9 +320,8 @@ export const LINK_CARD_VARIANTS = [
     letter: "D",
     name: "扫描列表",
     layout: "list" as const,
-    summary:
-      "一行一条。课名、学院、年份、状态摊开，适合计算机学院这种二十多篇的目录。",
-    note: "牺牲了「一张卡一个主角」的舞台感，换来密度。",
+    summary: "一行一条，统计跟在学院名后面。适合一篇学院几十份。",
+    note: "密度最高，卡片感最弱。",
     Card: VariantRow,
   },
   {
@@ -315,9 +329,8 @@ export const LINK_CARD_VARIANTS = [
     letter: "E",
     name: "拆题放大",
     layout: "grid" as const,
-    summary:
-      "从标题里拆出课名和年份。课名做主标题，年份做成强调色数字。没有年份的课就只留课名。",
-    note: "长标题（军事理论挖空版…）会干净很多；拆题规则以后可以再调。",
+    summary: "课名放大，年份做成强调色数字，统计垫在课名下面。",
+    note: "长标题会干净很多。",
     Card: VariantParsed,
   },
   {
@@ -325,8 +338,8 @@ export const LINK_CARD_VARIANTS = [
     letter: "F",
     name: "书脊",
     layout: "grid" as const,
-    summary: "左侧一条学院强调色，不放图标。年份和状态沉到底部 chips。",
-    note: "信息层级清楚，也避开了「飞书 favicon 重复」的问题。",
+    summary: "左侧一条学院强调色，不放图标，统计和标签沉底。",
+    note: "信息层级清楚，图标完全让给排版。",
     Card: VariantSpine,
   },
 ] as const

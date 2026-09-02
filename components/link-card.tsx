@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/tooltip"
 import { accentClasses } from "@/lib/accents"
 import type { AccentKey, LibraryLink } from "@/lib/data/types"
-import { displayHost } from "@/lib/search"
+import { formatDocStats } from "@/lib/format"
 import { cn } from "@/lib/utils"
 
 type LinkCardProps = {
@@ -22,9 +22,10 @@ type LinkCardProps = {
 }
 
 export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
-  const host = displayHost(link.url)
   const tags = link.tags.slice(0, 3)
   const classes = accentClasses[accent]
+  const stats = formatDocStats(link)
+  const subtitle = link.collegeName ?? "飞书文档"
 
   return (
     <a
@@ -53,14 +54,15 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
       </div>
       <div className="space-y-1">
         <h3 className="text-[15px] leading-snug font-medium">{link.title}</h3>
-        <p className="font-mono text-[11px] text-muted-foreground/70">{host}</p>
+        <p className="font-mono text-[11px] text-muted-foreground/70">
+          {subtitle}
+        </p>
       </div>
-      <p
-        className="line-clamp-2 text-[13px] leading-relaxed text-muted-foreground"
-        title={link.description}
-      >
-        {link.description}
-      </p>
+      {stats ? (
+        <p className="line-clamp-2 text-[13px] leading-relaxed text-muted-foreground">
+          {stats}
+        </p>
+      ) : null}
       <div className="mt-auto flex flex-wrap items-center gap-1.5">
         {tags.map((tag) => (
           <Badge key={tag} variant="outline" className="text-[11px]">
