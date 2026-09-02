@@ -66,9 +66,9 @@ export function CategoryStage() {
       />
       <section
         ref={stageRef}
-        className="group relative flex min-h-0 flex-1 touch-none flex-col overflow-hidden overscroll-none [--card-h:min(420px,calc(100svh-20rem))] [--card-w:380px] [perspective:1800px] max-[900px]:[--card-w:min(380px,82vw)]"
+        className="group relative flex h-svh touch-none flex-col overflow-hidden overscroll-none [--card-h:min(420px,calc(100svh-18rem))] [--card-w:380px] [perspective:1800px] max-[900px]:[--card-w:min(380px,82vw)]"
       >
-        <div className="relative z-10 mx-auto w-full max-w-2xl px-6 pt-20 pb-2 text-center">
+        <div className="relative z-10 mx-auto w-full max-w-2xl shrink-0 px-6 pt-20 pb-2 text-center">
           <p
             className={cn(
               "inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase transition-colors duration-700",
@@ -92,7 +92,7 @@ export function CategoryStage() {
           </p>
         </div>
 
-        <div className="relative min-h-0 flex-1 [transform-style:preserve-3d]">
+        <div className="relative min-h-0 flex-1 overflow-hidden [transform-style:preserve-3d]">
           <div className="absolute inset-0 flex items-center justify-center [transform-style:preserve-3d]">
             {categories.map((category, i) => {
               const all = linksByCategory[category.slug] ?? []

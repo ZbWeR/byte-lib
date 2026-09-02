@@ -121,7 +121,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="flex min-h-0 flex-1 flex-col">{children}</div>
         </PaletteOpenContext.Provider>
 
-        <SiteFooter />
+        <SiteFooter overlay={isHome} />
 
         <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
       </div>
