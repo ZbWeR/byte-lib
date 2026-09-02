@@ -25,6 +25,12 @@ function popularity(link: LibraryLink) {
   return (link.likeCount ?? 0) * 1000 + (link.uv ?? 0) * 10 + (link.pv ?? 0)
 }
 
+function popularLinks(links: LibraryLink[], limit: number) {
+  return [...links]
+    .sort((a, b) => popularity(b) - popularity(a))
+    .slice(0, limit)
+}
+
 function SparkleMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 16 16" className={className} aria-hidden>
