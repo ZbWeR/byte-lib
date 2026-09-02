@@ -5,7 +5,7 @@ import { Search01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { useEffect, useState } from "react"
 
-import { AboutDialog } from "@/components/about-dialog"
+import { AboutTrigger } from "@/components/about-dialog"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Kbd } from "@/components/ui/kbd"
@@ -73,7 +73,7 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
             </TooltipContent>
           </Tooltip>
           <ThemeToggle />
-          <AboutDialog />
+          <AboutTrigger />
         </div>
       </div>
     </header>

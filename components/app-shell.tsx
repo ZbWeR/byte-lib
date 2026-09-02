@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState, type ReactNode } from "react"
 
+import { AboutDialogProvider } from "@/components/about-dialog"
 import { CommandPalette } from "@/components/command-palette"
 import { DotField } from "@/components/dot-field"
 import { PaletteOpenContext } from "@/components/palette-open"
@@ -102,34 +103,39 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <TooltipProvider>
-      <HashRedirect />
-      <div className="relative flex min-h-svh flex-col">
-        <div className="pointer-events-none fixed inset-0 -z-10">
-          {isHome ? (
-            <DotField />
-          ) : (
-            <>
-              <div
-                className={cn(
-                  "absolute -top-40 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full opacity-50 blur-[120px] transition-colors duration-700",
-                  accentClasses[accent].glow
-                )}
-              />
-              <div className="absolute inset-0 dot-grid opacity-[0.07] dark:opacity-[0.1]" />
-            </>
-          )}
+      <AboutDialogProvider>
+        <HashRedirect />
+        <div className="relative flex min-h-svh flex-col">
+          <div className="pointer-events-none fixed inset-0 -z-10">
+            {isHome ? (
+              <DotField />
+            ) : (
+              <>
+                <div
+                  className={cn(
+                    "absolute -top-40 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full opacity-50 blur-[120px] transition-colors duration-700",
+                    accentClasses[accent].glow
+                  )}
+                />
+                <div className="absolute inset-0 dot-grid opacity-[0.07] dark:opacity-[0.1]" />
+              </>
+            )}
+          </div>
+
+          <SiteHeader
+            pathname={pathname}
+            onSearch={() => setPaletteOpen(true)}
+          />
+
+          <PaletteOpenContext.Provider value={paletteOpen}>
+            <div className="flex min-h-0 flex-1 flex-col">{children}</div>
+          </PaletteOpenContext.Provider>
+
+          <SiteFooter overlay={isHome} />
+
+          <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
         </div>
-
-        <SiteHeader pathname={pathname} onSearch={() => setPaletteOpen(true)} />
-
-        <PaletteOpenContext.Provider value={paletteOpen}>
-          <div className="flex min-h-0 flex-1 flex-col">{children}</div>
-        </PaletteOpenContext.Provider>
-
-        <SiteFooter overlay={isHome} />
-
-        <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
-      </div>
+      </AboutDialogProvider>
     </TooltipProvider>
   )
 }
