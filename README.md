@@ -16,15 +16,21 @@ pnpm install
 pnpm dev --port 43917
 ```
 
-打开 http://localhost:43917 。没有任何环境变量、数据库或第三方服务需要配置 —— 所有内容都是
-`lib/data/` 下的静态 TypeScript 数据。唯一的服务端代码是一个取站点图标的代理
+打开 http://localhost:43917 。唯一的服务端代码是一个取站点图标的代理
 （`app/api/icon`），它只是转发请求并读取上游状态码，没有它页面也能正常渲染，
 只是所有图标都会退化成字母图章。
+
+课程目录来自飞书知识空间 [UESTC Byte Lib](https://my.feishu.cn/wiki/AatBwiDa7ig7RJkzdlocLm1cnTh)
+的二级页面，由 `pnpm sync:wiki` 在每次 `pnpm build` 时刷新到 `lib/data/catalog.json`。
+本机已登录 `lark-cli` 时会直接拉取；CI / Vercel 可配置 `FEISHU_APP_ID` + `FEISHU_APP_SECRET`
+（或 `FEISHU_TENANT_ACCESS_TOKEN`）。没有凭证时沿用仓库里已提交的目录，避免把构建卡死。
 
 ## 部署到 Vercel
 
 这是标准的 Next.js App Router 项目，Vercel 会按 `vercel.json` 识别框架并用 pnpm 安装依赖。
-仓库没有需要配置的环境变量。
+若要在构建时刷新飞书课程目录，在项目环境变量里配置
+`FEISHU_APP_ID` 与 `FEISHU_APP_SECRET`（应用需能读取该知识空间），
+或直接提供 `FEISHU_TENANT_ACCESS_TOKEN`。不配则使用仓库里已提交的 `lib/data/catalog.json`。
 
 在 [Vercel](https://vercel.com/new) 导入本仓库即可；或在已登录 CLI 的情况下：
 
@@ -35,7 +41,8 @@ pnpm dlx vercel --prod --yes
 其它命令：
 
 ```bash
-pnpm build       # 生产构建（Turbopack）
+pnpm sync:wiki   # 从飞书知识空间刷新课程目录
+pnpm build       # 先 sync:wiki，再生产构建（Turbopack）
 pnpm start       # 运行生产构建
 pnpm typecheck   # tsc --noEmit
 pnpm lint        # eslint
@@ -114,10 +121,18 @@ docs/
 
 所有内容集中在 `lib/data/`，类型定义在 `lib/data/types.ts`：
 
+- `catalog.json` — 飞书知识空间同步结果：一级节点是学院，二级节点是课程文档
+- `catalog.ts` — 给站点用的目录导出
 - `categories.ts` — 6 个分类
 - `links.ts` — 49 个站外链接，每条含标题、描述、标签、搜索关键词，
   需要校园网的站点标了 `campusOnly`
 - `glossary.ts` — 16 个概念词条，含别名、分组、详细释义，以及指向具体链接的 `relatedLinkIds`
+
+单独刷新课程目录：
+
+```bash
+pnpm sync:wiki
+```
 
 新增一个链接只需往 `links.ts` 里追加一条并填上已存在的 `categorySlug`，UI 会自动收录，
 计数、筛选和 `⌘K` 搜索都不用改。
