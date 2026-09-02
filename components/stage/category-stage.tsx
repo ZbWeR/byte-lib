@@ -1,7 +1,13 @@
 "use client"
 
 import Image from "next/image"
-import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
+import {
+  ArrowLeft01Icon,
+  ArrowRight01Icon,
+  SourceCodeIcon,
+  SparklesIcon,
+  StarIcon,
+} from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { useEffect, useState } from "react"
 
@@ -19,10 +25,64 @@ function popularity(link: LibraryLink) {
   return (link.likeCount ?? 0) * 1000 + (link.uv ?? 0) * 10 + (link.pv ?? 0)
 }
 
-function popularLinks(links: LibraryLink[], limit: number) {
-  return [...links]
-    .sort((a, b) => popularity(b) - popularity(a))
-    .slice(0, limit)
+function SparkleMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 16 16" className={className} aria-hidden>
+      <path
+        fill="currentColor"
+        d="M8 0c.35 3.4 1.4 5.25 4.2 6C9.4 7.15 8.35 9 8 12.4 7.65 9 6.6 7.15 3.8 6 6.6 5.25 7.65 3.4 8 0Z"
+      />
+    </svg>
+  )
+}
+
+function LogoOrnaments() {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 z-10">
+      <span
+        className="logo-ornament absolute top-[6%] left-[4%] text-[#ff5aa5]"
+        style={{ animationDelay: "0s" }}
+      >
+        <SparkleMark className="size-3.5" />
+      </span>
+      <span
+        className="logo-ornament absolute -top-1 right-[10%] text-[#6ec8ff]"
+        style={{ animationDelay: "0.45s" }}
+      >
+        <HugeiconsIcon icon={SparklesIcon} strokeWidth={2} className="size-4" />
+      </span>
+      <span
+        className="logo-ornament absolute top-[38%] -left-1 size-1.5 rounded-full bg-[#ffd54a]"
+        style={{ animationDelay: "0.9s" }}
+      />
+      <span
+        className="logo-ornament absolute top-[36%] -right-2 text-[#6ec8ff]"
+        style={{ animationDelay: "1.2s" }}
+      >
+        <HugeiconsIcon
+          icon={SourceCodeIcon}
+          strokeWidth={2}
+          className="size-4"
+        />
+      </span>
+      <span
+        className="logo-ornament absolute right-[18%] bottom-[16%] text-[#ff5aa5]"
+        style={{ animationDelay: "1.7s" }}
+      >
+        <HugeiconsIcon icon={StarIcon} strokeWidth={2} className="size-3.5" />
+      </span>
+      <span
+        className="logo-ornament absolute bottom-[20%] left-[10%] text-[#6ec8ff]"
+        style={{ animationDelay: "2.1s" }}
+      >
+        <SparkleMark className="size-2.5" />
+      </span>
+      <span
+        className="logo-ornament absolute top-[14%] right-[28%] size-1 rounded-full bg-[#ff5aa5]"
+        style={{ animationDelay: "0.25s" }}
+      />
+    </div>
+  )
 }
 
 export function CategoryStage() {
@@ -65,7 +125,6 @@ export function CategoryStage() {
             className="pointer-events-none absolute inset-0 -z-10"
           >
             <div className="absolute top-[18%] left-1/2 h-28 w-[70%] -translate-x-1/2 rounded-full bg-[#ff5aa5]/40 blur-[56px] dark:bg-[#ff5aa5]/30" />
-            <div className="absolute bottom-[22%] left-[32%] h-24 w-[42%] -translate-x-1/2 rounded-full bg-[#6ec8ff]/45 blur-[48px] dark:bg-[#6ec8ff]/32" />
           </div>
           <Image
             src="/iuestc-byte-lib.png"
@@ -76,6 +135,7 @@ export function CategoryStage() {
             unoptimized
             className="relative h-auto w-full select-none"
           />
+          <LogoOrnaments />
         </div>
       </div>
 
