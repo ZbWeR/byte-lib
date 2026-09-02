@@ -6,15 +6,14 @@ import { cn } from "@/lib/utils"
 
 /** Same hover-falloff lattice as React Bits DotGrid, without paid GSAP plugins. */
 
-const GAP = 24
-const DOT_RADIUS = 0.95
+const GAP = 22
+const DOT_RADIUS = 1
 const FIELD_RADIUS = 140
 const REPEL = 2400
 const SPRING = 42
 const DAMPING = 6.4
 const MAX_SPEED = 420
 const SETTLE = 0.018
-const RING_BAND = GAP * 2.6
 
 type DotFieldProps = {
   className?: string
@@ -30,6 +29,10 @@ function parseRgb(color: string) {
     g: Number(match[2]),
     b: Number(match[3]),
   }
+}
+
+function sideBand(width: number) {
+  return Math.min(Math.max(width * 0.18, 88), 260)
 }
 
 export function DotField({ className }: DotFieldProps) {
@@ -58,7 +61,7 @@ export function DotField({ className }: DotFieldProps) {
     let y = new Float32Array(0)
     let vx = new Float32Array(0)
     let vy = new Float32Array(0)
-    let ringT = new Float32Array(0)
+    let sideT = new Float32Array(0)
     let count = 0
     let cssWidth = 0
     let cssHeight = 0
@@ -70,7 +73,7 @@ export function DotField({ className }: DotFieldProps) {
     const drawStatic = () => {
       ctx.clearRect(0, 0, cssWidth, cssHeight)
       for (let i = 0; i < count; i++) {
-        const alpha = 0.08 + ringT[i] * 0.14
+        const alpha = 0.06 + sideT[i] * 0.16
         ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`
         ctx.beginPath()
         ctx.arc(restX[i], restY[i], DOT_RADIUS, 0, Math.PI * 2)
@@ -103,10 +106,7 @@ export function DotField({ className }: DotFieldProps) {
       const gridH = (rows - 1) * GAP
       const startX = (cssWidth - gridW) / 2
       const startY = (cssHeight - gridH) / 2
-      const originX = cssWidth / 2
-      const originY = cssHeight / 2
-      const outerR = Math.min(cssWidth, cssHeight) * 0.4
-      const innerR = Math.max(0, outerR - RING_BAND)
+      const band = sideBand(cssWidth)
 
       const xs: number[] = []
       const ys: number[] = []
@@ -115,20 +115,20 @@ export function DotField({ className }: DotFieldProps) {
         for (let col = 0; col < cols; col++) {
           const cx = startX + col * GAP
           const cy = startY + row * GAP
-          const dist = Math.hypot(cx - originX, cy - originY)
-          if (dist < innerR || dist > outerR) {
+          const edge = Math.min(cx, cssWidth - cx)
+          if (edge > band) {
             continue
           }
           xs.push(cx)
           ys.push(cy)
-          ts.push(outerR === innerR ? 1 : (dist - innerR) / (outerR - innerR))
+          ts.push(1 - edge / band)
         }
       }
 
       count = xs.length
       restX = Float32Array.from(xs)
       restY = Float32Array.from(ys)
-      ringT = Float32Array.from(ts)
+      sideT = Float32Array.from(ts)
       x = Float32Array.from(xs)
       y = Float32Array.from(ys)
       vx = new Float32Array(count)
@@ -190,14 +190,14 @@ export function DotField({ className }: DotFieldProps) {
         const dy = restY[i] - pointer.y
         const dist = Math.sqrt(dx * dx + dy * dy)
         const near = pointer.inside ? Math.max(0, 1 - dist / FIELD_RADIUS) : 0
-        const alpha = 0.08 + ringT[i] * 0.14 + near * 0.2
+        const alpha = 0.06 + sideT[i] * 0.16 + near * 0.2
         ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`
         ctx.beginPath()
         ctx.arc(x[i], y[i], DOT_RADIUS + near * 0.35, 0, Math.PI * 2)
         ctx.fill()
       }
 
-      settled = energy < count * SETTLE && !pointer.inside
+      settled = energy < Math.max(count, 1) * SETTLE && !pointer.inside
     }
 
     const loop = (now: number) => {
