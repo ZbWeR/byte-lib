@@ -72,7 +72,7 @@ export function CategoryStageCard({
       data-offset={offset}
       aria-current={active ? "true" : undefined}
       className={cn(
-        "stage-card-face absolute top-[calc(2rem+var(--card-h)/2)] left-1/2 h-[var(--card-h)] w-[var(--card-w)]",
+        "stage-card-face absolute top-[calc(var(--card-top)+var(--card-h)/2)] left-1/2 h-[var(--card-h)] w-[var(--card-w)]",
         t.abs >= 2 && "max-[900px]:hidden"
       )}
       style={

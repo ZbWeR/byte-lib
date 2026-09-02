@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { useEffect, useState } from "react"
@@ -66,30 +67,19 @@ export function CategoryStage() {
       />
       <section
         ref={stageRef}
-        className="group relative flex h-svh touch-none flex-col overflow-hidden overscroll-none [--card-h:min(360px,calc(100svh-22rem))] [--card-w:380px] [perspective:1800px] max-[900px]:[--card-w:min(380px,82vw)]"
+        className="group relative flex h-svh touch-none flex-col overflow-hidden overscroll-none [--card-h:min(360px,calc(100svh-24rem))] [--card-top:4.5rem] [--card-w:380px] [perspective:1800px] max-[900px]:[--card-w:min(380px,82vw)]"
       >
-        <div className="relative z-10 mx-auto w-full max-w-2xl shrink-0 px-6 pt-28 pb-1 text-center sm:pt-32">
-          <p
-            className={cn(
-              "inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase transition-colors duration-700",
-              classes.text
-            )}
-          >
-            <span
-              className={cn(
-                "size-1.5 rounded-full transition-colors duration-700",
-                classes.dot
-              )}
-              aria-hidden
-            />
-            UESTC COMMUNITY LIBRARY
-          </p>
-          <h1 className="mt-3 font-heading text-[2.15rem] leading-[1.2] tracking-tight sm:text-[2.5rem]">
-            从你的学院开始
-          </h1>
-          <p className="mt-3 text-[13px] leading-relaxed text-muted-foreground">
-            由电子科大学生共同维护的课程资料库
-          </p>
+        <div className="relative z-10 mx-auto w-full max-w-2xl shrink-0 px-6 pt-20 pb-0 text-center sm:pt-24">
+          <h1 className="sr-only">从你的学院开始 · UESTC Byte Lib</h1>
+          <Image
+            src="/iuestc-byte-lib.png"
+            alt="iUESTC Byte Lib"
+            width={1280}
+            height={720}
+            priority
+            quality={95}
+            className="mx-auto h-auto w-[min(22rem,82vw)] select-none sm:w-[min(26rem,70vw)]"
+          />
         </div>
 
         <div className="relative min-h-0 flex-1 overflow-hidden [transform-style:preserve-3d]">
@@ -120,7 +110,7 @@ export function CategoryStage() {
             data-stage-chrome
             aria-label="上一个分类"
             onClick={() => step(-1)}
-            className="absolute top-[calc(2rem+var(--card-h)/2)] left-6 z-50 -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            className="absolute top-[calc(var(--card-top)+var(--card-h)/2)] left-6 z-50 -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           >
             <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={2} />
           </Button>
@@ -131,7 +121,7 @@ export function CategoryStage() {
             data-stage-chrome
             aria-label="下一个分类"
             onClick={() => step(1)}
-            className="absolute top-[calc(2rem+var(--card-h)/2)] right-6 z-50 -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            className="absolute top-[calc(var(--card-top)+var(--card-h)/2)] right-6 z-50 -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           >
             <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
           </Button>
