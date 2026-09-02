@@ -4,6 +4,7 @@ import { Geist_Mono, Inter } from "next/font/google"
 import "./globals.css"
 import { AppShell } from "@/components/app-shell"
 import { ThemeProvider } from "@/components/theme-provider"
+import { catalog } from "@/lib/data/catalog"
 import { cn } from "@/lib/utils"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
@@ -18,8 +19,7 @@ export const metadata: Metadata = {
     default: "UESTC Byte Lib · 成电人的电子图书馆",
     template: "%s · UESTC Byte Lib",
   },
-  description:
-    "6 个分类、49 个站外链接、16 个概念名词。把成电人真正用得上的网站和黑话收进一个轻量的电子图书馆。",
+  description: `${catalog.stats.collegeCount} 个学院、${catalog.stats.docCount} 篇期末复习文档，按学院收录成电人自己整理的飞书笔记。`,
 }
 
 export default function RootLayout({

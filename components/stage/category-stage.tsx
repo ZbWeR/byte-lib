@@ -10,8 +10,7 @@ import { StageIndicator } from "@/components/stage/stage-indicator"
 import { Button } from "@/components/ui/button"
 import { useNavigate } from "@/hooks/use-navigate"
 import { useStageNav, wrapOffset } from "@/hooks/use-stage-nav"
-import { categories } from "@/lib/data/categories"
-import { linksByCategory } from "@/lib/data/links"
+import { categories, linksByCategory } from "@/lib/data/library"
 import { categoryPath } from "@/lib/paths"
 
 export function CategoryStage() {

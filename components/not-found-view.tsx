@@ -6,6 +6,7 @@ import { FileNotFoundIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
 import { buttonVariants } from "@/components/ui/button"
+import { SHOW_GLOSSARY } from "@/lib/features"
 import { glossaryPath, HOME_PATH } from "@/lib/paths"
 
 export function NotFoundView() {
@@ -32,12 +33,14 @@ export function NotFoundView() {
         <Link href={HOME_PATH} className={buttonVariants()}>
           回到图书馆
         </Link>
-        <Link
-          href={glossaryPath()}
-          className={buttonVariants({ variant: "ghost" })}
-        >
-          打开概念词典
-        </Link>
+        {SHOW_GLOSSARY ? (
+          <Link
+            href={glossaryPath()}
+            className={buttonVariants({ variant: "ghost" })}
+          >
+            打开概念词典
+          </Link>
+        ) : null}
       </div>
     </section>
   )

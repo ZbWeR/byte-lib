@@ -19,10 +19,19 @@ export type Category = {
 export type LibraryLink = {
   id: string
   categorySlug: string
+  collegeName?: string
   title: string
+  /** 去掉「评论待补充」等噪音后的标题，卡片上用这个 */
+  displayTitle?: string
   url: string
   description: string
   tags: string[]
+  createdAt?: string
+  updatedAt?: string
+  charCount?: number
+  pv?: number
+  uv?: number
+  likeCount?: number
   /** 需要校园网 / 图书馆代理才能完整访问 */
   campusOnly?: boolean
   /** 搜索用的额外关键词：拼音首字母、英文别名、俗称 */
@@ -46,4 +55,50 @@ export type GlossaryTerm = {
   /** 关联的 LibraryLink id，渲染成可跳转的 chips */
   relatedLinkIds?: string[]
   keywords?: string[]
+}
+
+/** 飞书知识空间一级节点（学院 / 分组封面），只作分类，不进前台条目 */
+export type WikiCollege = {
+  id: string
+  slug: string
+  name: string
+  nodeToken: string
+}
+
+/** 飞书知识空间二级节点（课程文档） */
+export type WikiDoc = {
+  id: string
+  title: string
+  collegeId: string
+  collegeSlug: string
+  collegeName: string
+  wikiUrl: string
+  nodeToken: string
+  objToken: string
+  objType: string
+  createdAt?: string
+  updatedAt?: string
+  charCount?: number
+  pv?: number
+  uv?: number
+  likeCount?: number
+}
+
+export type WikiCatalog = {
+  source: {
+    spaceId: string
+    spaceName: string
+    welcomeUrl: string
+    syncedAt: string
+    identity: string
+  }
+  colleges: WikiCollege[]
+  docs: WikiDoc[]
+  stats: {
+    collegeCount: number
+    docCount: number
+    skippedUntitled: number
+    withStats?: number
+    withCharCount?: number
+  }
 }

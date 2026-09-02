@@ -4,7 +4,7 @@ import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
 import { accentClasses } from "@/lib/accents"
-import { categories } from "@/lib/data/categories"
+import { categories } from "@/lib/data/library"
 import { cn } from "@/lib/utils"
 
 type StageIndicatorProps = {
@@ -23,7 +23,7 @@ export function StageIndicator({
       data-stage-chrome
       className="absolute bottom-10 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3"
     >
-      <div className="flex items-center gap-1.5 rounded-full border border-border/60 px-3 py-2 glass">
+      <div className="flex max-w-[min(92vw,28rem)] flex-wrap items-center justify-center gap-1.5 rounded-full border border-border/60 px-3 py-2 glass">
         {categories.map((category, index) => {
           const active = index === activeIndex
           return (

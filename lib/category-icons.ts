@@ -1,20 +1,32 @@
 import {
-  Book02Icon,
-  Building06Icon,
-  GraduationScrollIcon,
+  Atom01Icon,
+  BookOpen02Icon,
+  Briefcase01Icon,
+  CpuIcon,
+  Dna01Icon,
+  Globe02Icon,
+  Grid02Icon,
   LibraryIcon,
-  SearchVisualIcon,
+  MicrochipIcon,
+  Robot01Icon,
+  SignalIcon,
   SourceCodeIcon,
-  Wrench01Icon,
+  StethoscopeIcon,
 } from "@hugeicons/core-free-icons"
 
 const categoryIcons = {
-  campus: Building06Icon,
-  learn: Book02Icon,
-  research: SearchVisualIcon,
-  code: SourceCodeIcon,
-  tools: Wrench01Icon,
-  future: GraduationScrollIcon,
+  general: BookOpen02Icon,
+  cs: CpuIcon,
+  medicine: StethoscopeIcon,
+  software: SourceCodeIcon,
+  glasgow: Globe02Icon,
+  automation: Robot01Icon,
+  microelectronics: MicrochipIcon,
+  infocomm: SignalIcon,
+  optoelectronics: Atom01Icon,
+  management: Briefcase01Icon,
+  others: Grid02Icon,
+  life: Dna01Icon,
 } as const
 
 export function categoryIcon(slug: string) {

@@ -1,4 +1,5 @@
-import { links } from "@/lib/data/links"
+import { links as wikiLinks } from "@/lib/data/library"
+import { links as portalLinks } from "@/lib/data/links"
 
 /**
  * favicon 代理。
@@ -16,12 +17,15 @@ import { links } from "@/lib/data/links"
  * 而图标服务认的是完整域名，所以这里存一张「去 www 的 host -> 原始 hostname」映射，
  * 既做白名单校验，也用来还原真正要请求的上游域名。
  */
-const ALLOWED_HOSTS = new Map(
-  links.map((link) => {
+const ALLOWED_HOSTS = new Map<string, string>()
+for (const link of [...wikiLinks, ...portalLinks]) {
+  try {
     const hostname = new URL(link.url).hostname.toLowerCase()
-    return [hostname.replace(/^www\./, ""), hostname]
-  })
-)
+    ALLOWED_HOSTS.set(hostname.replace(/^www\./, ""), hostname)
+  } catch {
+    // skip invalid URLs
+  }
+}
 
 const UPSTREAM = (host: string) =>
   `https://icons.duckduckgo.com/ip3/${host}.ico`

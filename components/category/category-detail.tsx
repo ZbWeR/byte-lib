@@ -8,9 +8,8 @@ import { useEffect, useMemo, useState } from "react"
 
 import { LinkCard } from "@/components/link-card"
 import { Button, buttonVariants } from "@/components/ui/button"
-import { categories, categoryBySlug } from "@/lib/data/categories"
 import { categoryIcon } from "@/lib/category-icons"
-import { linksByCategory } from "@/lib/data/links"
+import { categories, categoryBySlug, linksByCategory } from "@/lib/data/library"
 import { categoryPath, HOME_PATH } from "@/lib/paths"
 import { cn } from "@/lib/utils"
 
@@ -82,9 +81,14 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
           {category.description}
         </p>
         <p className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
-          <span className="tabular-nums">{allLinks.length}</span> 个站点
-          <span className="mx-2">·</span>
-          <span className="tabular-nums">{category.tags.length}</span> 个标签
+          <span className="tabular-nums">{allLinks.length}</span> 篇文档
+          {category.tags.length > 0 ? (
+            <>
+              <span className="mx-2">·</span>
+              <span className="tabular-nums">{category.tags.length}</span>{" "}
+              个标签
+            </>
+          ) : null}
         </p>
       </div>
 
@@ -113,38 +117,40 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
         })}
       </div>
 
-      <div className="mt-6 flex flex-wrap gap-1.5">
-        <button
-          type="button"
-          onClick={() => setTag(null)}
-          className={cn(
-            "inline-flex h-7 items-center rounded-full border px-3 text-[12px] transition-colors",
-            tag === null
-              ? "border-foreground bg-foreground text-background"
-              : "border-border bg-transparent text-foreground hover:bg-muted"
-          )}
-        >
-          全部
-        </button>
-        {category.tags.map((item) => {
-          const selected = tag === item
-          return (
-            <button
-              key={item}
-              type="button"
-              onClick={() => setTag(item)}
-              className={cn(
-                "inline-flex h-7 items-center rounded-full border px-3 text-[12px] transition-colors",
-                selected
-                  ? "border-foreground bg-foreground text-background"
-                  : "border-border bg-transparent text-foreground hover:bg-muted"
-              )}
-            >
-              {item}
-            </button>
-          )
-        })}
-      </div>
+      {category.tags.length > 0 ? (
+        <div className="mt-6 flex flex-wrap gap-1.5">
+          <button
+            type="button"
+            onClick={() => setTag(null)}
+            className={cn(
+              "inline-flex h-7 items-center rounded-full border px-3 text-[12px] transition-colors",
+              tag === null
+                ? "border-foreground bg-foreground text-background"
+                : "border-border bg-transparent text-foreground hover:bg-muted"
+            )}
+          >
+            全部
+          </button>
+          {category.tags.map((item) => {
+            const selected = tag === item
+            return (
+              <button
+                key={item}
+                type="button"
+                onClick={() => setTag(item)}
+                className={cn(
+                  "inline-flex h-7 items-center rounded-full border px-3 text-[12px] transition-colors",
+                  selected
+                    ? "border-foreground bg-foreground text-background"
+                    : "border-border bg-transparent text-foreground hover:bg-muted"
+                )}
+              >
+                {item}
+              </button>
+            )
+          })}
+        </div>
+      ) : null}
 
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-24 text-center">
@@ -153,9 +159,9 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
             strokeWidth={1.5}
             className="size-10 text-muted-foreground/50"
           />
-          <p className="mt-4 text-[15px] font-medium">这个标签下暂时没有站点</p>
+          <p className="mt-4 text-[15px] font-medium">这个标签下暂时没有文档</p>
           <p className="mt-1 text-[13px] text-muted-foreground">
-            「{tag}」还没收录独立入口，先看全部站点吧。
+            「{tag}」还没有对应的复习文档，先看全部吧。
           </p>
           <Button
             type="button"

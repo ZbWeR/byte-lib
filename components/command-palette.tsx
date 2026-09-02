@@ -23,12 +23,14 @@ import {
 } from "@/components/ui/command"
 import { Kbd } from "@/components/ui/kbd"
 import { useNavigate } from "@/hooks/use-navigate"
-import { categoryBySlug } from "@/lib/data/categories"
+import { categoryBySlug } from "@/lib/data/library"
 import { categoryIcon } from "@/lib/category-icons"
+import { SHOW_GLOSSARY } from "@/lib/features"
+import { formatCompactUv } from "@/lib/format"
 import { categoryPath, glossaryPath, HOME_PATH } from "@/lib/paths"
 import { filterSearch } from "@/lib/search"
 
-const SUGGESTIONS = ["教务", "LaTeX", "保研"] as const
+const SUGGESTIONS = ["计网", "毛概", "操作系统"] as const
 
 type CommandPaletteProps = {
   open: boolean
@@ -62,12 +64,14 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         }
       }}
       title="搜索"
-      description="搜索站点、分类或概念"
+      description={SHOW_GLOSSARY ? "搜索课程、学院或概念" : "搜索课程或学院"}
       className="sm:max-w-xl"
     >
       <Command shouldFilter={false} className="rounded-3xl bg-transparent">
         <CommandInput
-          placeholder="搜索站点、分类或概念…"
+          placeholder={
+            SHOW_GLOSSARY ? "搜索课程、学院或概念…" : "搜索课程或学院…"
+          }
           value={query}
           onValueChange={setQuery}
         />
@@ -118,7 +122,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   />
                   <span>{item.category.name}</span>
                   <span className="ml-auto font-mono text-[11px] text-muted-foreground tabular-nums">
-                    {item.count} 个站点
+                    {item.count} 篇文档
                   </span>
                 </CommandItem>
               ))}
@@ -126,7 +130,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
           ) : null}
 
           {results.links.length > 0 ? (
-            <CommandGroup heading="站点">
+            <CommandGroup heading="课程">
               {results.links.map((item) => {
                 const category = categoryBySlug.get(item.link.categorySlug)
                 return (
@@ -144,13 +148,16 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   >
                     <Favicon
                       url={item.link.url}
-                      title={item.link.title}
+                      title={item.link.displayTitle ?? item.link.title}
                       accent={category?.accent ?? "lime"}
+                      categorySlug={item.link.categorySlug}
                       className="size-6 rounded-lg p-0.5"
                     />
-                    <span className="truncate">{item.link.title}</span>
-                    <span className="ml-auto font-mono text-[11px] text-muted-foreground">
-                      {item.host}
+                    <span className="truncate">
+                      {item.link.displayTitle ?? item.link.title}
+                    </span>
+                    <span className="ml-auto font-mono text-[11px] text-muted-foreground tabular-nums">
+                      {formatCompactUv(item.link.uv) ?? item.host}
                     </span>
                   </CommandItem>
                 )
@@ -158,7 +165,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             </CommandGroup>
           ) : null}
 
-          {results.terms.length > 0 ? (
+          {SHOW_GLOSSARY && results.terms.length > 0 ? (
             <CommandGroup heading="概念">
               {results.terms.map((item) => (
                 <CommandItem

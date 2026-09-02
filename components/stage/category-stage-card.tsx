@@ -114,7 +114,7 @@ export function CategoryStageCard({
           <div className="flex items-center justify-end">
             <Badge variant="secondary">
               <span className="font-mono tabular-nums">{totalCount}</span>
-              {" 个站点"}
+              {" 篇文档"}
             </Badge>
           </div>
 
@@ -148,18 +148,19 @@ export function CategoryStageCard({
               <li key={link.id} className="flex min-w-0 items-center gap-2">
                 <Favicon
                   url={link.url}
-                  title={link.title}
+                  title={link.displayTitle ?? link.title}
                   accent={category.accent}
+                  categorySlug={category.slug}
                   className="size-6 shrink-0 rounded-lg"
                 />
                 <span className="truncate text-[13px] text-foreground/80">
-                  {link.title}
+                  {link.displayTitle ?? link.title}
                 </span>
               </li>
             ))}
             {extra > 0 ? (
               <li className="pl-[32px] font-mono text-[11px] text-muted-foreground tabular-nums">
-                +{extra} 个站点
+                +{extra} 篇文档
               </li>
             ) : null}
           </ul>
@@ -178,7 +179,7 @@ export function CategoryStageCard({
               active ? "opacity-100" : "opacity-0"
             )}
           >
-            进入分类
+            进入学院
             <HugeiconsIcon
               icon={ArrowRight01Icon}
               strokeWidth={2}

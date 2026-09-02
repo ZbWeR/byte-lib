@@ -3,7 +3,7 @@
 import { Alert02Icon, ArrowUpRight01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
-import { Favicon } from "@/components/favicon"
+import { DocMeta } from "@/components/doc-meta"
 import { Badge } from "@/components/ui/badge"
 import {
   Tooltip,
@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/tooltip"
 import { accentClasses } from "@/lib/accents"
 import type { AccentKey, LibraryLink } from "@/lib/data/types"
-import { hostOf } from "@/lib/search"
 import { cn } from "@/lib/utils"
 
 type LinkCardProps = {
@@ -22,9 +21,9 @@ type LinkCardProps = {
 }
 
 export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
-  const host = hostOf(link.url)
   const tags = link.tags.slice(0, 3)
   const classes = accentClasses[accent]
+  const title = link.displayTitle ?? link.title
 
   return (
     <a
@@ -39,49 +38,37 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
       )}
     >
       <div className="flex items-start justify-between gap-3">
-        <Favicon
-          url={link.url}
-          title={link.title}
-          accent={accent}
-          className="size-10"
-        />
+        <h3 className="text-[15px] leading-snug font-medium">{title}</h3>
         <HugeiconsIcon
           icon={ArrowUpRight01Icon}
           strokeWidth={2}
-          className="size-4 text-muted-foreground/50 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+          className="mt-0.5 size-4 shrink-0 text-muted-foreground/50 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
         />
       </div>
-      <div className="space-y-1">
-        <h3 className="text-[15px] leading-snug font-medium">{link.title}</h3>
-        <p className="font-mono text-[11px] text-muted-foreground/70">{host}</p>
-      </div>
-      <p
-        className="line-clamp-2 text-[13px] leading-relaxed text-muted-foreground"
-        title={link.description}
-      >
-        {link.description}
-      </p>
-      <div className="mt-auto flex flex-wrap items-center gap-1.5">
-        {tags.map((tag) => (
-          <Badge key={tag} variant="outline" className="text-[11px]">
-            {tag}
-          </Badge>
-        ))}
-        {link.campusOnly ? (
-          <Tooltip>
-            <TooltipTrigger
-              delay={200}
-              render={<span className="inline-flex" />}
-            >
-              <Badge variant="outline" className="text-[11px]">
-                <HugeiconsIcon icon={Alert02Icon} strokeWidth={2} />
-                校园网
-              </Badge>
-            </TooltipTrigger>
-            <TooltipContent>需校园网或图书馆远程访问</TooltipContent>
-          </Tooltip>
-        ) : null}
-      </div>
+      <DocMeta link={link} />
+      {tags.length > 0 || link.campusOnly ? (
+        <div className="mt-auto flex flex-wrap items-center gap-1.5">
+          {tags.map((tag) => (
+            <Badge key={tag} variant="outline" className="text-[11px]">
+              {tag}
+            </Badge>
+          ))}
+          {link.campusOnly ? (
+            <Tooltip>
+              <TooltipTrigger
+                delay={200}
+                render={<span className="inline-flex" />}
+              >
+                <Badge variant="outline" className="text-[11px]">
+                  <HugeiconsIcon icon={Alert02Icon} strokeWidth={2} />
+                  校园网
+                </Badge>
+              </TooltipTrigger>
+              <TooltipContent>需校园网或图书馆远程访问</TooltipContent>
+            </Tooltip>
+          ) : null}
+        </div>
+      ) : null}
     </a>
   )
 }

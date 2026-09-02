@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+      FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+      FEISHU_TENANT_ACCESS_TOKEN: ${{ secrets.FEISHU_TENANT_ACCESS_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Sync wiki catalog
+        env:
+          CATALOG_SYNC_REQUIRED: ${{ secrets.FEISHU_APP_ID != '' && '1' || '0' }}
+        run: pnpm sync:wiki
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Build
+        env:
+          CATALOG_ALLOW_STALE: "1"
+        run: pnpm build

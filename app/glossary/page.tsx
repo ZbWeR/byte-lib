@@ -1,7 +1,10 @@
 import type { Metadata } from "next"
+import { redirect } from "next/navigation"
 import { Suspense } from "react"
 
 import { GlossaryView } from "@/components/glossary/glossary-view"
+import { SHOW_GLOSSARY } from "@/lib/features"
+import { HOME_PATH } from "@/lib/paths"
 
 export const metadata: Metadata = {
   title: "概念词典",
@@ -10,6 +13,10 @@ export const metadata: Metadata = {
 }
 
 export default function GlossaryPage() {
+  if (!SHOW_GLOSSARY) {
+    redirect(HOME_PATH)
+  }
+
   return (
     <Suspense>
       <GlossaryView />
