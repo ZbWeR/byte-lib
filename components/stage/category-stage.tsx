@@ -66,9 +66,9 @@ export function CategoryStage() {
       />
       <section
         ref={stageRef}
-        className="group relative flex h-svh touch-none flex-col overflow-hidden overscroll-none [--card-h:min(420px,calc(100svh-18rem))] [--card-w:380px] [perspective:1800px] max-[900px]:[--card-w:min(380px,82vw)]"
+        className="group relative flex h-svh touch-none flex-col overflow-hidden overscroll-none [--card-h:min(350px,calc(100svh-22rem))] [--card-w:380px] [perspective:1800px] max-[900px]:[--card-w:min(380px,82vw)]"
       >
-        <div className="relative z-10 mx-auto w-full max-w-2xl shrink-0 px-6 pt-20 pb-2 text-center">
+        <div className="relative z-10 mx-auto w-full max-w-2xl shrink-0 px-6 pt-28 pb-1 text-center sm:pt-32">
           <p
             className={cn(
               "inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase transition-colors duration-700",
@@ -93,7 +93,7 @@ export function CategoryStage() {
         </div>
 
         <div className="relative min-h-0 flex-1 overflow-hidden [transform-style:preserve-3d]">
-          <div className="absolute inset-0 flex items-center justify-center [transform-style:preserve-3d]">
+          <div className="absolute inset-0 [transform-style:preserve-3d]">
             {categories.map((category, i) => {
               const all = linksByCategory[category.slug] ?? []
               const preview = popularLinks(all, 4)
@@ -120,7 +120,7 @@ export function CategoryStage() {
             data-stage-chrome
             aria-label="上一个分类"
             onClick={() => step(-1)}
-            className="absolute top-1/2 left-6 z-50 -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            className="absolute top-[calc(2rem+var(--card-h)/2)] left-6 z-50 -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           >
             <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={2} />
           </Button>
@@ -131,7 +131,7 @@ export function CategoryStage() {
             data-stage-chrome
             aria-label="下一个分类"
             onClick={() => step(1)}
-            className="absolute top-1/2 right-6 z-50 -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            className="absolute top-[calc(2rem+var(--card-h)/2)] right-6 z-50 -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           >
             <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
           </Button>
