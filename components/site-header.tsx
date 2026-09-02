@@ -8,6 +8,11 @@ import { useEffect, useState } from "react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Kbd } from "@/components/ui/kbd"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { HOME_PATH } from "@/lib/paths"
 import { cn } from "@/lib/utils"
 
@@ -45,17 +50,27 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
           UESTC · Byte Lib
         </Link>
 
-        <div className="flex items-center gap-0.5">
-          <Button
-            type="button"
-            variant="ghost"
-            className="rounded-md"
-            onClick={onSearch}
-            aria-label="搜索"
-          >
-            <HugeiconsIcon icon={Search01Icon} strokeWidth={2} />
-            <Kbd className="hidden sm:inline">⌘K</Kbd>
-          </Button>
+        <div className="flex items-center gap-1">
+          <Tooltip>
+            <TooltipTrigger
+              delay={200}
+              render={
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-lg"
+                  aria-label="搜索"
+                  onClick={onSearch}
+                />
+              }
+            >
+              <HugeiconsIcon icon={Search01Icon} strokeWidth={2} />
+            </TooltipTrigger>
+            <TooltipContent>
+              搜索
+              <Kbd>⌘K</Kbd>
+            </TooltipContent>
+          </Tooltip>
           <ThemeToggle />
         </div>
       </div>
