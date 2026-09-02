@@ -66,22 +66,22 @@ export function DocMeta({ link, className }: DocMetaProps) {
       className={cn("flex flex-wrap items-center gap-x-3 gap-y-1", className)}
     >
       {items.map((item) => (
-        <li key={item.kind}>
+        <li key={item.kind} className="flex h-4 items-center">
           <Tooltip>
             <TooltipTrigger
               delay={200}
               render={
-                <span className="inline-flex items-center gap-1 text-muted-foreground" />
+                <span className="inline-flex h-4 items-center gap-1 leading-none text-muted-foreground" />
               }
             >
               {item.icon ? (
                 <HugeiconsIcon
                   icon={item.icon}
                   strokeWidth={2}
-                  className="size-3.5 shrink-0"
+                  className="block size-3.5 shrink-0"
                 />
               ) : null}
-              <span className="font-mono text-[11px] tabular-nums">
+              <span className="font-mono text-[11px] leading-none tabular-nums">
                 {item.value}
               </span>
             </TooltipTrigger>

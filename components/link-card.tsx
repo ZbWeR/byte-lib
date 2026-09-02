@@ -50,14 +50,14 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
         />
       </div>
 
-      <div className="mt-auto flex items-end gap-3 pt-6">
+      <div className="mt-auto flex items-center gap-3 pt-6">
         <DocMeta link={link} />
         {age ? (
           <Tooltip>
             <TooltipTrigger
               delay={200}
               render={
-                <span className="ml-auto shrink-0 font-mono text-[11px] text-muted-foreground tabular-nums" />
+                <span className="ml-auto shrink-0 font-mono text-[11px] leading-none text-muted-foreground tabular-nums" />
               }
             >
               {age}
