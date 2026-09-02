@@ -1,3 +1,11 @@
+"use client"
+
+import { useAboutDialog } from "@/components/about-dialog"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 
 type SiteFooterProps = {
@@ -5,6 +13,8 @@ type SiteFooterProps = {
 }
 
 export function SiteFooter({ overlay = false }: SiteFooterProps) {
+  const { setOpen } = useAboutDialog()
+
   return (
     <footer
       className={cn(
@@ -14,7 +24,21 @@ export function SiteFooter({ overlay = false }: SiteFooterProps) {
           : "mt-auto"
       )}
     >
-      © 2023 UESTC Byte Lib.
+      <Tooltip>
+        <TooltipTrigger
+          delay={200}
+          render={
+            <button
+              type="button"
+              className="pointer-events-auto rounded-md tracking-[0.08em] transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
+              onClick={() => setOpen(true)}
+            />
+          }
+        >
+          © 2023 UESTC Byte Lib.
+        </TooltipTrigger>
+        <TooltipContent side="top">关于我们</TooltipContent>
+      </Tooltip>
     </footer>
   )
 }
