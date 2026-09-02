@@ -58,7 +58,7 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
+  --background: #f1f3f3;
   --foreground: oklch(0.153 0.006 107.1);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.153 0.006 107.1);
@@ -182,8 +182,18 @@
     0 18px 36px -16px color-mix(in oklab, var(--foreground) 20%, transparent);
 }
 
-.stage-card-face {
-  filter: blur(var(--stage-blur, 0px));
+@keyframes logo-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.logo-ornament {
+  animation: logo-float 3.8s var(--ease-soft) infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
