@@ -31,9 +31,7 @@ function parseRgb(color: string) {
   }
 }
 
-function sideBand(width: number) {
-  return width * 0.15
-}
+const BASE_ALPHA = 0.1
 
 export function DotField({ className }: DotFieldProps) {
   const wrapRef = useRef<HTMLDivElement>(null)
@@ -61,7 +59,6 @@ export function DotField({ className }: DotFieldProps) {
     let y = new Float32Array(0)
     let vx = new Float32Array(0)
     let vy = new Float32Array(0)
-    let sideT = new Float32Array(0)
     let count = 0
     let cssWidth = 0
     let cssHeight = 0
@@ -73,8 +70,7 @@ export function DotField({ className }: DotFieldProps) {
     const drawStatic = () => {
       ctx.clearRect(0, 0, cssWidth, cssHeight)
       for (let i = 0; i < count; i++) {
-        const alpha = 0.06 + sideT[i] * 0.16
-        ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`
+        ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${BASE_ALPHA})`
         ctx.beginPath()
         ctx.arc(restX[i], restY[i], DOT_RADIUS, 0, Math.PI * 2)
         ctx.fill()
@@ -106,29 +102,19 @@ export function DotField({ className }: DotFieldProps) {
       const gridH = (rows - 1) * GAP
       const startX = (cssWidth - gridW) / 2
       const startY = (cssHeight - gridH) / 2
-      const band = sideBand(cssWidth)
 
       const xs: number[] = []
       const ys: number[] = []
-      const ts: number[] = []
       for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
-          const cx = startX + col * GAP
-          const cy = startY + row * GAP
-          const edge = Math.min(cx, cssWidth - cx)
-          if (edge > band) {
-            continue
-          }
-          xs.push(cx)
-          ys.push(cy)
-          ts.push(1 - edge / band)
+          xs.push(startX + col * GAP)
+          ys.push(startY + row * GAP)
         }
       }
 
       count = xs.length
       restX = Float32Array.from(xs)
       restY = Float32Array.from(ys)
-      sideT = Float32Array.from(ts)
       x = Float32Array.from(xs)
       y = Float32Array.from(ys)
       vx = new Float32Array(count)
@@ -190,7 +176,7 @@ export function DotField({ className }: DotFieldProps) {
         const dy = restY[i] - pointer.y
         const dist = Math.sqrt(dx * dx + dy * dy)
         const near = pointer.inside ? Math.max(0, 1 - dist / FIELD_RADIUS) : 0
-        const alpha = 0.06 + sideT[i] * 0.16 + near * 0.2
+        const alpha = BASE_ALPHA + near * 0.22
         ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`
         ctx.beginPath()
         ctx.arc(x[i], y[i], DOT_RADIUS + near * 0.35, 0, Math.PI * 2)
