@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Geist_Mono, Inter } from "next/font/google"
+import { Geist_Mono, Inter, Space_Grotesk } from "next/font/google"
 
 import "./globals.css"
 import { AppShell } from "@/components/app-shell"
@@ -8,6 +8,11 @@ import { catalog } from "@/lib/data/catalog"
 import { cn } from "@/lib/utils"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+})
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -34,7 +39,8 @@ export default function RootLayout({
       className={cn(
         "overflow-x-hidden font-sans antialiased",
         fontMono.variable,
-        inter.variable
+        inter.variable,
+        spaceGrotesk.variable
       )}
     >
       <body className="overflow-x-hidden">

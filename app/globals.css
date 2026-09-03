@@ -11,6 +11,8 @@
   --font-sans:
     var(--font-inter), "PingFang SC", "HarmonyOS Sans SC", "Hiragino Sans GB",
     "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  --font-brand:
+    var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --color-cat-lime: var(--accent-lime);
   --color-cat-teal: var(--accent-teal);
   --color-cat-sky: var(--accent-sky);
@@ -174,6 +176,21 @@
     transparent 0.65px
   );
   background-size: 18px 18px;
+}
+
+@utility line-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--foreground) 8%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--foreground) 8%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 32px 32px;
 }
 
 @utility surface-shadow-lg {

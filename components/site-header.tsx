@@ -45,7 +45,7 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
       >
         <Link
           href={HOME_PATH}
-          className="font-sans text-[15px] font-medium tracking-tight text-foreground transition-opacity duration-[var(--dur-micro)] outline-none hover:opacity-70 focus-visible:ring-2 focus-visible:ring-ring"
+          className="font-brand text-[16px] font-medium tracking-tight text-foreground transition-opacity duration-[var(--dur-micro)] outline-none hover:opacity-70 focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="回到图书馆首页"
         >
           iUESTC
