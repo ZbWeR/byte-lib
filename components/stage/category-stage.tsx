@@ -180,7 +180,7 @@ export function CategoryStage() {
         </div>
       </div>
 
-      <div className="relative z-50 flex shrink-0 flex-col items-center gap-1.5 pb-14 pt-1">
+      <div className="relative z-50 flex shrink-0 flex-col items-center gap-1.5 pt-1 pb-14">
         <p className="font-heading text-[15px] tracking-[0.04em] text-foreground/75">
           从你的学院开始
         </p>

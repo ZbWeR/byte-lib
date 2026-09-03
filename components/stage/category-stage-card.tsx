@@ -94,7 +94,7 @@ export function CategoryStageCard({
         aria-label={`进入 ${category.name} 分类`}
         onClick={onCardClick}
         style={{ animationDelay: `${enterDelay}ms` }}
-        className="relative flex min-h-full w-full animate-in flex-col rounded-2xl bg-white px-6 py-6 text-left duration-500 fade-in-0 outline-none surface-shadow-stage [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring dark:bg-card"
+        className="relative flex min-h-full w-full animate-in flex-col rounded-2xl bg-white px-6 py-6 text-left surface-shadow-stage duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring dark:bg-card"
       >
         <div className="flex items-start justify-between gap-3">
           <div
