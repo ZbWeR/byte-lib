@@ -58,23 +58,23 @@
 }
 
 :root {
-  --background: #f1f3f3;
-  --foreground: oklch(0.153 0.006 107.1);
+  --background: #dfe4e4;
+  --foreground: oklch(0.145 0.008 107.1);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.153 0.006 107.1);
+  --card-foreground: oklch(0.145 0.008 107.1);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.153 0.006 107.1);
+  --popover-foreground: oklch(0.145 0.008 107.1);
   --primary: oklch(0.841 0.238 128.85);
   --primary-foreground: oklch(0.405 0.101 131.063);
   --secondary: oklch(0.967 0.001 286.375);
   --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.966 0.005 106.5);
-  --muted-foreground: oklch(0.58 0.031 107.3);
-  --accent: oklch(0.966 0.005 106.5);
-  --accent-foreground: oklch(0.228 0.013 107.4);
+  --muted: oklch(0.94 0.006 106.5);
+  --muted-foreground: oklch(0.42 0.028 107.3);
+  --accent: oklch(0.94 0.006 106.5);
+  --accent-foreground: oklch(0.2 0.014 107.4);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.93 0.007 106.5);
-  --input: oklch(0.93 0.007 106.5);
+  --border: oklch(0.84 0.01 106.5);
+  --input: oklch(0.84 0.01 106.5);
   --ring: oklch(0.737 0.021 106.9);
   --chart-1: oklch(0.855 0.138 181.071);
   --chart-2: oklch(0.704 0.14 182.503);
@@ -163,8 +163,8 @@
 
 @utility surface-shadow {
   box-shadow:
-    0 1px 2px -1px color-mix(in oklab, var(--foreground) 10%, transparent),
-    0 8px 24px -12px color-mix(in oklab, var(--foreground) 14%, transparent);
+    0 1px 2px rgb(15 18 16 / 0.08),
+    0 10px 24px -10px rgb(15 18 16 / 0.18);
 }
 
 @utility dot-grid {
@@ -178,8 +178,16 @@
 
 @utility surface-shadow-lg {
   box-shadow:
-    0 4px 8px -2px color-mix(in oklab, var(--foreground) 12%, transparent),
-    0 18px 36px -16px color-mix(in oklab, var(--foreground) 20%, transparent);
+    0 2px 6px rgb(15 18 16 / 0.1),
+    0 16px 36px -12px rgb(15 18 16 / 0.22);
+}
+
+@utility surface-shadow-stage {
+  box-shadow:
+    0 0 0 1px rgb(15 18 16 / 0.08),
+    0 2px 4px rgb(15 18 16 / 0.06),
+    0 12px 28px -8px rgb(15 18 16 / 0.16),
+    0 32px 64px -20px rgb(15 18 16 / 0.22);
 }
 
 @keyframes logo-float {
@@ -194,6 +202,28 @@
 
 .logo-ornament {
   animation: logo-float 3.8s var(--ease-soft) infinite;
+}
+
+@keyframes hint-nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.hint-nudge {
+  animation: hint-nudge 1.7s var(--ease-soft) infinite;
+}
+
+.dark .surface-shadow-stage {
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.1),
+    0 2px 6px rgb(0 0 0 / 0.35),
+    0 16px 32px -10px rgb(0 0 0 / 0.5),
+    0 36px 72px -24px rgb(0 0 0 / 0.55);
 }
 
 @media (prefers-reduced-motion: reduce) {

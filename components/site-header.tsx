@@ -45,10 +45,10 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
       >
         <Link
           href={HOME_PATH}
-          className="font-heading text-[15px] tracking-[0.04em] text-foreground transition-opacity duration-[var(--dur-micro)] outline-none hover:opacity-70 focus-visible:ring-2 focus-visible:ring-ring"
-          aria-label="回到图书馆首页"
+          className="font-heading text-[16px] tracking-[0.06em] text-foreground transition-opacity duration-[var(--dur-micro)] outline-none hover:opacity-70 focus-visible:ring-2 focus-visible:ring-ring"
+          aria-label="回到 iUESTC 首页"
         >
-          UESTC · Byte Lib
+          iUESTC
         </Link>
 
         <div className="flex items-center gap-1">

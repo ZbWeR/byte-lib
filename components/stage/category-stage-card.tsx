@@ -25,9 +25,9 @@ function stageTransform(offset: number) {
   const abs = Math.abs(offset)
   const sign = offset === 0 ? 0 : offset > 0 ? 1 : -1
   const x = abs === 0 ? 0 : abs === 1 ? 0.86 : abs === 2 ? 1.52 : 2
-  const scale = abs === 0 ? 1 : abs === 1 ? 0.84 : abs === 2 ? 0.7 : 0.62
-  const opacity = abs === 0 ? 1 : abs === 1 ? 0.4 : abs === 2 ? 0.14 : 0
-  const blur = abs === 0 ? 0 : abs === 1 ? 3 : abs === 2 ? 6 : 8
+  const scale = abs === 0 ? 1 : abs === 1 ? 0.86 : abs === 2 ? 0.72 : 0.64
+  const opacity = abs === 0 ? 1 : abs === 1 ? 0.78 : abs === 2 ? 0.32 : 0
+  const blur = 0
   const rotateY = abs === 0 ? 0 : abs === 1 ? -sign * 7 : -sign * 10
   const zIndex = abs === 0 ? 40 : abs === 1 ? 30 : abs === 2 ? 20 : 10
   const pointerEvents = abs <= 1 ? "auto" : "none"
@@ -94,7 +94,7 @@ export function CategoryStageCard({
         aria-label={`进入 ${category.name} 分类`}
         onClick={onCardClick}
         style={{ animationDelay: `${enterDelay}ms` }}
-        className="relative flex min-h-full w-full animate-in flex-col rounded-2xl bg-white px-5 py-5 text-left duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring dark:bg-card"
+        className="relative flex min-h-full w-full animate-in flex-col rounded-2xl bg-white px-6 py-6 text-left duration-500 fade-in-0 outline-none surface-shadow-stage [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring dark:bg-card"
       >
         <div className="flex items-start justify-between gap-3">
           <div
@@ -116,28 +116,33 @@ export function CategoryStageCard({
           </p>
         </div>
 
-        <p className="mt-4 font-sans text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+        <p className="mt-5 font-sans text-[11px] tracking-[0.2em] text-muted-foreground/80 uppercase">
           {category.nameEn}
         </p>
-        <h2 className="mt-1.5 font-heading text-[1.85rem] leading-[1.15] tracking-tight">
+        <h2 className="mt-2 font-heading text-[2rem] leading-[1.12] tracking-tight text-foreground">
           {category.name}
         </h2>
-        <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
+        <p className="mt-3.5 text-[14px] leading-relaxed text-foreground/62">
           {category.tagline}
         </p>
 
-        <Separator className="mt-4 opacity-60" />
+        <Separator className="mt-6 bg-border" />
 
-        <p className="mt-3 font-mono text-[11px] tracking-[0.16em] text-muted-foreground">
+        <p
+          className={cn(
+            "mt-5 font-mono text-[11px] tracking-[0.22em] uppercase",
+            classes.text
+          )}
+        >
           热门资料
         </p>
-        <ul className="mt-2 flex flex-col gap-2">
+        <ul className="mt-3 flex flex-col gap-2.5">
           {previewLinks.map((link) => (
             <li key={link.id} className="flex min-w-0 items-center gap-2.5">
               <span
                 className={cn("size-1.5 shrink-0 rounded-full", classes.dot)}
               />
-              <span className="truncate text-[13px] text-foreground/80">
+              <span className="truncate text-[13.5px] text-foreground/90">
                 {link.displayTitle ?? link.title}
               </span>
             </li>
