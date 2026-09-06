@@ -113,8 +113,6 @@ lib/
   accents.ts            AccentKey → 静态 Tailwind 类名查表
   search.ts             命令面板检索
   data/                 全部内容数据（分类 / 链接 / 词条）
-docs/
-  DESIGN.md             完整实施规范
 ```
 
 ## 内容数据
