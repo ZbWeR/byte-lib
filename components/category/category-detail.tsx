@@ -4,7 +4,7 @@ import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { ArrowLeft01Icon, LibraryIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { useEffect, useMemo, useState } from "react"
+import { Suspense, useEffect, useMemo, useState } from "react"
 
 import { LinkCard } from "@/components/link-card"
 import { buttonVariants } from "@/components/ui/button"
@@ -16,6 +16,7 @@ import {
   linksByCategory,
   sortLinksByUpdatedAt,
 } from "@/lib/data/library"
+import type { LibraryLink } from "@/lib/data/types"
 import { categoryPath, HOME_PATH } from "@/lib/paths"
 import { cn } from "@/lib/utils"
 
@@ -63,20 +64,11 @@ function CategoryChips({ activeSlug }: { activeSlug?: string }) {
   )
 }
 
-export function CategoryDetail({ slug }: CategoryDetailProps) {
-  const isAll = !slug
-  const category = slug ? categoryBySlug.get(slug) : undefined
+function LinkGrid({ links: items }: { links: LibraryLink[] }) {
   const searchParams = useSearchParams()
   const focus = searchParams.get("focus")
   const [expiredFocus, setExpiredFocus] = useState<string | null>(null)
   const highlighted = focus && expiredFocus !== focus ? focus : null
-
-  const allLinks = useMemo(() => {
-    if (isAll) {
-      return sortLinksByUpdatedAt(links)
-    }
-    return linksByCategory[slug!] ?? []
-  }, [isAll, slug])
 
   useEffect(() => {
     if (!focus) {
@@ -91,6 +83,30 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
       window.clearTimeout(timer)
     }
   }, [focus])
+
+  return (
+    <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      {items.map((link) => (
+        <LinkCard
+          key={link.id}
+          link={link}
+          highlighted={highlighted === link.id}
+        />
+      ))}
+    </div>
+  )
+}
+
+export function CategoryDetail({ slug }: CategoryDetailProps) {
+  const isAll = !slug
+  const category = slug ? categoryBySlug.get(slug) : undefined
+
+  const allLinks = useMemo(() => {
+    if (isAll) {
+      return sortLinksByUpdatedAt(links)
+    }
+    return linksByCategory[slug!] ?? []
+  }, [isAll, slug])
 
   if (!isAll && !category) {
     return null
@@ -152,15 +168,17 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
         <CategoryChips activeSlug={slug} />
       </div>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {allLinks.map((link) => (
-          <LinkCard
-            key={link.id}
-            link={link}
-            highlighted={highlighted === link.id}
-          />
-        ))}
-      </div>
+      <Suspense
+        fallback={
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {allLinks.map((link) => (
+              <LinkCard key={link.id} link={link} />
+            ))}
+          </div>
+        }
+      >
+        <LinkGrid links={allLinks} />
+      </Suspense>
     </section>
   )
 }
