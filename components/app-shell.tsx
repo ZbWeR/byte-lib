@@ -5,7 +5,7 @@ import { useEffect, useState, type ReactNode } from "react"
 
 import { AboutDialogProvider } from "@/components/about-dialog"
 import { CommandPalette } from "@/components/command-palette"
-import { DotField } from "@/components/dot-field"
+import { FluidCursor } from "@/components/fluid-cursor"
 import { PaletteOpenContext } from "@/components/palette-open"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
@@ -108,7 +108,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="relative flex min-h-svh flex-col">
           <div className="pointer-events-none fixed inset-0 -z-10">
             {isHome ? (
-              <DotField />
+              <FluidCursor />
             ) : (
               <>
                 <div
