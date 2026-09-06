@@ -18,13 +18,11 @@ import { HOME_PATH } from "@/lib/paths"
 import { cn } from "@/lib/utils"
 
 type SiteHeaderProps = {
-  pathname: string
   onSearch: () => void
 }
 
-export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
+export function SiteHeader({ onSearch }: SiteHeaderProps) {
   const [scrolled, setScrolled] = useState(false)
-  const isHome = pathname === HOME_PATH
 
   useEffect(() => {
     const onScroll = () => {
@@ -40,7 +38,7 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
       <div
         className={cn(
           "flex h-16 items-center justify-between px-6 transition-colors duration-300 md:px-10",
-          !isHome && scrolled && "border-b border-border/70 bg-background"
+          scrolled && "border-b border-border/70 bg-background"
         )}
       >
         <Link

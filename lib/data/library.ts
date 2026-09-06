@@ -96,3 +96,16 @@ export const linksByCategory = links.reduce<Record<string, LibraryLink[]>>(
 )
 
 export const linkById = new Map(links.map((link) => [link.id, link]))
+
+export function sortLinksByUpdatedAt(list: LibraryLink[]) {
+  return [...list].sort((a, b) => {
+    const ta = a.updatedAt ? Date.parse(a.updatedAt) : Number.NEGATIVE_INFINITY
+    const tb = b.updatedAt ? Date.parse(b.updatedAt) : Number.NEGATIVE_INFINITY
+    if (tb !== ta) {
+      return tb - ta
+    }
+    const titleA = a.displayTitle ?? a.title
+    const titleB = b.displayTitle ?? b.title
+    return titleA.localeCompare(titleB, "zh")
+  })
+}

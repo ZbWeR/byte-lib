@@ -89,18 +89,6 @@ export function AppShell({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("keydown", onKeyDown)
   }, [isCategory, paletteOpen, router])
 
-  useEffect(() => {
-    if (!isHome) {
-      return
-    }
-    const html = document.documentElement
-    const prev = html.style.overflow
-    html.style.overflow = "hidden"
-    return () => {
-      html.style.overflow = prev
-    }
-  }, [isHome])
-
   return (
     <TooltipProvider>
       <AboutDialogProvider>
@@ -122,16 +110,13 @@ export function AppShell({ children }: { children: ReactNode }) {
             )}
           </div>
 
-          <SiteHeader
-            pathname={pathname}
-            onSearch={() => setPaletteOpen(true)}
-          />
+          <SiteHeader onSearch={() => setPaletteOpen(true)} />
 
           <PaletteOpenContext.Provider value={paletteOpen}>
             <div className="flex min-h-0 flex-1 flex-col">{children}</div>
           </PaletteOpenContext.Provider>
 
-          <SiteFooter overlay={isHome} />
+          <SiteFooter />
 
           <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
         </div>

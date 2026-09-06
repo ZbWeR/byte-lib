@@ -10,18 +10,22 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { accentClasses } from "@/lib/accents"
+import { categoryBySlug } from "@/lib/data/library"
 import type { AccentKey, LibraryLink } from "@/lib/data/types"
 import { formatAge } from "@/lib/format"
 import { cn } from "@/lib/utils"
 
 type LinkCardProps = {
   link: LibraryLink
-  accent: AccentKey
+  accent?: AccentKey
   highlighted?: boolean
 }
 
 export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
-  const classes = accentClasses[accent]
+  const category = categoryBySlug.get(link.categorySlug)
+  const resolvedAccent = accent ?? category?.accent ?? "lime"
+  const classes = accentClasses[resolvedAccent]
+  const categoryName = category?.name ?? link.collegeName
   const title = link.displayTitle ?? link.title
   const age = formatAge(link.updatedAt)
 
@@ -36,7 +40,13 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
         highlighted && ["ring-2", classes.highlight]
       )}
     >
-      <div className="flex items-start justify-between gap-3">
+      {categoryName ? (
+        <p className={cn("text-[12px] leading-none font-medium", classes.text)}>
+          {categoryName}
+        </p>
+      ) : null}
+
+      <div className="mt-2 flex items-start justify-between gap-3">
         <h3
           title={title}
           className="line-clamp-2 text-[15px] leading-snug font-medium"

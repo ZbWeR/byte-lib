@@ -1,5 +1,5 @@
-import { CategoryStage } from "@/components/stage/category-stage"
+import { HomeLibrary } from "@/components/home-library"
 
 export default function Page() {
-  return <CategoryStage />
+  return <HomeLibrary />
 }
