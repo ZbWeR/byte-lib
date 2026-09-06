@@ -62,7 +62,8 @@ export function LinkCardLab({ links }: LinkCardLabProps) {
       </p>
       <h1 className="mt-3 text-3xl font-medium tracking-tight">链接卡片</h1>
       <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-muted-foreground">
-        分类页用的就是这张：主题色分类名、标题、左下字数 / 阅读 / 点赞。
+        分类页用的就是这张：玻璃底、主题色分类名、中文标题，元信息是看过 / 赞 /
+        字数。
       </p>
 
       <nav className="mt-8 flex flex-wrap gap-2">

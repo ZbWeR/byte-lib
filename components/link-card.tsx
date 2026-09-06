@@ -4,15 +4,9 @@ import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
 import { DocMeta } from "@/components/doc-meta"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
 import { accentClasses } from "@/lib/accents"
 import { categoryBySlug } from "@/lib/data/library"
 import type { AccentKey, LibraryLink } from "@/lib/data/types"
-import { formatAge } from "@/lib/format"
 import { cn } from "@/lib/utils"
 
 type LinkCardProps = {
@@ -27,7 +21,6 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
   const classes = accentClasses[resolvedAccent]
   const categoryName = category?.name ?? link.collegeName
   const title = link.displayTitle ?? link.title
-  const age = formatAge(link.updatedAt)
 
   return (
     <a
@@ -36,7 +29,7 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "group relative flex flex-col rounded-3xl border border-border/70 bg-card p-6 surface-shadow transition-all duration-[var(--dur-micro)] hover:-translate-y-1 hover:surface-shadow-lg focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+        "group relative flex flex-col rounded-3xl border border-white/55 p-6 glass-card transition-all duration-[var(--dur-micro)] hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none dark:border-white/10",
         highlighted && ["ring-2", classes.highlight]
       )}
     >
@@ -49,7 +42,7 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
       <div className="mt-2 flex items-start justify-between gap-3">
         <h3
           title={title}
-          className="line-clamp-2 text-[15px] leading-snug font-medium"
+          className="line-clamp-2 font-heading text-[18px] leading-snug"
         >
           {title}
         </h3>
@@ -60,25 +53,8 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
         />
       </div>
 
-      <div className="mt-auto flex items-center gap-3 pt-6">
+      <div className="mt-auto pt-6">
         <DocMeta link={link} />
-        {age ? (
-          <Tooltip>
-            <TooltipTrigger
-              delay={200}
-              render={
-                <span className="ml-auto shrink-0 font-mono text-[11px] leading-none text-muted-foreground tabular-nums" />
-              }
-            >
-              {age}
-            </TooltipTrigger>
-            <TooltipContent>
-              {link.updatedAt
-                ? `最近更新于 ${new Date(link.updatedAt).toLocaleDateString("zh-CN")}`
-                : "最近更新"}
-            </TooltipContent>
-          </Tooltip>
-        ) : null}
       </div>
     </a>
   )

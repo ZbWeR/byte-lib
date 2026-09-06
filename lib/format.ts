@@ -50,6 +50,27 @@ export function formatLikes(count?: number | null) {
   return `${count} 赞`
 }
 
+export function formatGroupedCount(count: number) {
+  return count.toLocaleString("en-US")
+}
+
+export function formatCardViews(count?: number | null) {
+  if (!count || count <= 0) return null
+  return `${formatGroupedCount(count)}看过`
+}
+
+export function formatCardLikes(count?: number | null) {
+  if (!count || count <= 0) return null
+  return `${formatGroupedCount(count)} 赞`
+}
+
+export function formatCardChars(count?: number | null) {
+  if (count == null || count <= 0) return null
+  if (isStubDoc(count)) return "占位页"
+  if (count >= 10000) return `${wan(count)}万字`
+  return `${formatGroupedCount(count)}字`
+}
+
 export function formatAge(iso?: string | null) {
   if (!iso) return null
   const then = new Date(iso).getTime()

@@ -10,11 +10,16 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import type { LibraryLink } from "@/lib/data/types"
-import { formatCompactUv, formatVolume, isStubDoc } from "@/lib/format"
+import {
+  formatCardChars,
+  formatCardLikes,
+  formatCardViews,
+  isStubDoc,
+} from "@/lib/format"
 import { cn } from "@/lib/utils"
 
 type MetaItem = {
-  kind: "volume" | "readers" | "likes"
+  kind: "readers" | "likes" | "volume"
   icon?: IconSvgElement
   value: string
   label: string
@@ -22,31 +27,32 @@ type MetaItem = {
 
 function itemsFor(link: LibraryLink): MetaItem[] {
   const items: MetaItem[] = []
-  const volume = formatVolume(link.charCount)
-  if (volume) {
-    items.push({
-      kind: "volume",
-      value: volume,
-      label: isStubDoc(link.charCount)
-        ? "占位页，几乎还没有正文"
-        : `约 ${volume}`,
-    })
-  }
-  const readers = formatCompactUv(link.uv)
-  if (readers) {
+  const views = formatCardViews(link.uv)
+  if (views) {
     items.push({
       kind: "readers",
       icon: ViewIcon,
-      value: readers,
-      label: `${link.uv} 人读过`,
+      value: views,
+      label: `${link.uv} 人看过`,
     })
   }
-  if (link.likeCount && link.likeCount > 0) {
+  const likes = formatCardLikes(link.likeCount)
+  if (likes) {
     items.push({
       kind: "likes",
       icon: FavouriteIcon,
-      value: String(link.likeCount),
+      value: likes,
       label: `${link.likeCount} 次点赞`,
+    })
+  }
+  const chars = formatCardChars(link.charCount)
+  if (chars) {
+    items.push({
+      kind: "volume",
+      value: chars,
+      label: isStubDoc(link.charCount)
+        ? "占位页，几乎还没有正文"
+        : `约 ${chars}`,
     })
   }
   return items
@@ -63,7 +69,7 @@ export function DocMeta({ link, className }: DocMetaProps) {
 
   return (
     <ul
-      className={cn("flex flex-wrap items-center gap-x-3 gap-y-1", className)}
+      className={cn("flex flex-wrap items-center gap-x-2.5 gap-y-1", className)}
     >
       {items.map((item) => (
         <li key={item.kind} className="flex h-4 items-center">
@@ -81,7 +87,7 @@ export function DocMeta({ link, className }: DocMetaProps) {
                   className="block size-3.5 shrink-0"
                 />
               ) : null}
-              <span className="font-mono text-[11px] leading-none tabular-nums">
+              <span className="text-[11px] leading-none tabular-nums">
                 {item.value}
               </span>
             </TooltipTrigger>
