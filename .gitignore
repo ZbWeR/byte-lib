@@ -38,3 +38,6 @@ pnpm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local agent scratch (doc desc batches)
+/tmp/

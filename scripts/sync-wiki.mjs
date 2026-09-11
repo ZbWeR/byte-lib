@@ -14,6 +14,9 @@
  * 3. FEISHU_APP_ID + FEISHU_APP_SECRET（换 tenant_access_token）
  *
  * 没有可用凭证时：若已有 catalog.json 且未设 CATALOG_SYNC_REQUIRED=1，则沿用旧文件并警告。
+ *
+ * 卡片简介不在本脚本里生成：正文 desc 写在 lib/data/doc-desc.json，
+ * 由 catalog.ts 按文档 id 合并，避免刷新目录时冲掉人工/代理写的简介。
  */
 
 import { execFile, spawnSync } from "node:child_process"

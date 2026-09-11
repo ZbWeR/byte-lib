@@ -82,6 +82,8 @@ export type WikiDoc = {
   pv?: number
   uv?: number
   likeCount?: number
+  /** 卡片简介：一眼看出文档主题、试卷结构与附件 */
+  desc?: string
 }
 
 export type WikiCatalog = {

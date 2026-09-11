@@ -50,6 +50,12 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
         />
       </div>
 
+      {link.description ? (
+        <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-muted-foreground">
+          {link.description}
+        </p>
+      ) : null}
+
       <div className="mt-auto flex items-center gap-3 pt-6">
         <DocMeta link={link} />
         {age ? (
