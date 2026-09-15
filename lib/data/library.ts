@@ -1,5 +1,3 @@
-import { formatCharCount, formatLikes, formatUv } from "@/lib/format"
-
 import { wikiColleges, wikiDocs, wikiDocsByCollege } from "./catalog"
 import { metaForCollege } from "./college-meta"
 import { displayTitle } from "./course-title"
@@ -63,13 +61,7 @@ export const links: LibraryLink[] = wikiDocs.map((doc) => ({
   title: doc.title,
   displayTitle: displayTitle(doc.title),
   url: doc.wikiUrl,
-  description: [
-    formatCharCount(doc.charCount),
-    formatUv(doc.uv),
-    formatLikes(doc.likeCount),
-  ]
-    .filter(Boolean)
-    .join(" · "),
+  description: doc.desc ?? "",
   tags: deriveTags(doc.title),
   createdAt: doc.createdAt,
   updatedAt: doc.updatedAt,
