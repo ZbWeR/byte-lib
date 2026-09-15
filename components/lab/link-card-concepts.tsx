@@ -15,7 +15,7 @@ export const LINK_CARD_CONCEPTS: CardVariant[] = [
     name: "文档卡",
     layout: "grid",
     summary:
-      "纯白底。最多两行标题，外链图标悬停才出现；左下是字数、阅读量和点赞，右下是相对更新时间。",
+      "纯白底。最多两行标题，下面三行文档简介；外链图标悬停才出现；左下是字数、阅读量和点赞，右下是相对更新时间。",
     note: "不再展示标签或学院色。",
     Card: ConceptCurrent,
   },
