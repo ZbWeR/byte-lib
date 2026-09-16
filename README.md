@@ -97,6 +97,7 @@ app/
   globals.css           设计令牌：分类强调色、glass / surface-shadow、动效、reduced-motion
 components/
   app-shell.tsx         header + 氛围层 + 命令面板
+  fluid-cursor.tsx      首页液体指针背景（从 FluidCursor.vue 移植）
   site-header.tsx       固定居中的玻璃胶囊顶栏
   command-palette.tsx   ⌘K 全局搜索
   link-card.tsx         链接卡片（新标签页打开）
