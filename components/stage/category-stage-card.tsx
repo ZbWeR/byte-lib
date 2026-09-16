@@ -95,7 +95,8 @@ export function CategoryStageCard({
         style={
           {
             animationDelay: `${enterDelay}ms`,
-            "--sticker-fade": 1 - t.wash,
+            // React treats unitless numbers as px; color-mix needs a raw number.
+            "--sticker-fade": `${1 - t.wash}`,
           } as CSSProperties
         }
         className={cn(
@@ -158,17 +159,17 @@ export function CategoryStageCard({
             <li className="text-[13px] text-muted-foreground">暂无公开文档</li>
           ) : null}
         </ul>
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -inset-[3px] z-20 rounded-[28px] bg-background"
-          style={{
-            opacity: t.wash,
-            transition: reducedMotion
-              ? "none"
-              : "opacity 480ms var(--ease-soft)",
-          }}
-        />
       </Link>
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -inset-3 z-20 rounded-[40px] bg-background"
+        style={{
+          opacity: t.wash,
+          transition: reducedMotion
+            ? "none"
+            : "opacity 480ms var(--ease-soft)",
+        }}
+      />
     </div>
   )
 }
