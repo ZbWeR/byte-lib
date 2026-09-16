@@ -57,15 +57,15 @@ export function GlossaryView() {
 
   return (
     <section className="mx-auto max-w-5xl px-6 pt-28 pb-24">
-      <p className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+      <p className="font-heading text-[12px] font-semibold tracking-[0.16em] text-sticker-blue uppercase">
         GLOSSARY
       </p>
-      <h1 className="mt-2 font-heading text-3xl tracking-tight">概念词典</h1>
-      <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-muted-foreground">
+      <h1 className="mt-2 font-heading text-4xl tracking-tight">概念词典</h1>
+      <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-foreground/75">
         16
         个成电人天天挂在嘴边、却很少有人正式解释过的词。点开词条看完整说法，相关链接会把你送回对应分类。
       </p>
-      <p className="mt-2 font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+      <p className="mt-2 font-heading text-[12px] font-semibold tracking-[0.14em] text-sticker-pink uppercase">
         <span className="tabular-nums">{glossary.length}</span> 个词条
       </p>
 
@@ -97,15 +97,15 @@ export function GlossaryView() {
         ) : null}
       </div>
 
-      <div className="mt-5 flex flex-wrap gap-1.5">
+      <div className="mt-5 flex flex-wrap gap-3">
         <button
           type="button"
           onClick={() => setGroup(null)}
           className={cn(
-            "inline-flex h-7 items-center gap-1.5 rounded-full border px-3 text-[12px] transition-colors",
+            "inline-flex h-8 items-center gap-1.5 rounded-full sticker-chip px-3 font-heading text-[12px] font-semibold transition-transform hover:-translate-y-0.5",
             group === null
-              ? "border-foreground bg-foreground text-background"
-              : "border-border bg-transparent text-foreground hover:bg-muted"
+              ? "bg-primary text-primary-foreground [--sticker-shadow:var(--sticker-blue)]"
+              : "[--sticker-shadow:var(--sticker-yellow)]"
           )}
         >
           全部
@@ -121,10 +121,10 @@ export function GlossaryView() {
               type="button"
               onClick={() => setGroup(item)}
               className={cn(
-                "inline-flex h-7 items-center gap-1.5 rounded-full border px-3 text-[12px] transition-colors",
+                "inline-flex h-8 items-center gap-1.5 rounded-full sticker-chip px-3 font-heading text-[12px] font-semibold transition-transform hover:-translate-y-0.5",
                 selected
-                  ? "border-foreground bg-foreground text-background"
-                  : "border-border bg-transparent text-foreground hover:bg-muted"
+                  ? "bg-primary text-primary-foreground [--sticker-shadow:var(--sticker-blue)]"
+                  : "[--sticker-shadow:var(--sticker-cyan)]"
               )}
             >
               {item}
@@ -159,7 +159,7 @@ export function GlossaryView() {
       ) : (
         <div
           key={`${group ?? "all"}:${query}`}
-          className="mt-8 grid animate-in gap-4 duration-200 fade-in-0 md:grid-cols-2"
+          className="mt-8 grid animate-in gap-6 duration-200 fade-in-0 md:grid-cols-2"
         >
           {filtered.map((item) => (
             <TermCard key={item.id} term={item} expanded={term === item.id} />

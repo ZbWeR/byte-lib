@@ -74,6 +74,7 @@ export function useStageNav({
   onEnter,
 }: UseStageNavOptions) {
   const stageRef = useRef<HTMLElement | null>(null)
+  const shiftRef = useRef<HTMLDivElement | null>(null)
   const accRef = useRef(0)
   const lastStepAtRef = useRef(0)
   const idleTimerRef = useRef(0)
@@ -92,7 +93,7 @@ export function useStageNav({
   }, [index, onEnter])
 
   const setShiftX = useCallback((value: number, withTransition: boolean) => {
-    const el = stageRef.current
+    const el = shiftRef.current
     if (!el) {
       return
     }
@@ -249,11 +250,10 @@ export function useStageNav({
   }, [count, enabled, setIndex, step])
 
   useEffect(() => {
-    const el = stageRef.current
+    const el = shiftRef.current
     if (!el) {
       return
     }
-
     const isChrome = (target: EventTarget | null) =>
       target instanceof Element &&
       Boolean(target.closest("[data-stage-chrome]"))
@@ -372,5 +372,5 @@ export function useStageNav({
     }
   }, [])
 
-  return { stageRef, step }
+  return { stageRef, shiftRef, step }
 }

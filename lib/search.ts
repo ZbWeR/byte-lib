@@ -53,7 +53,7 @@ export type SearchTerm = {
 
 export type SearchNav = {
   kind: "nav"
-  id: "home" | "glossary" | "theme"
+  id: "home" | "glossary"
   haystack: string
   label: string
 }
@@ -139,12 +139,6 @@ export const searchNav: SearchNav[] = [
         },
       ]
     : []),
-  {
-    kind: "nav",
-    id: "theme",
-    label: "切换外观",
-    haystack: "切换外观 主题 深色 浅色 暗色 dark light theme",
-  },
 ]
 
 const FEATURED_TITLES = [

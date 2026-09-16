@@ -25,8 +25,8 @@ export function TermCard({ term, expanded }: TermCardProps) {
       data-term-card=""
       data-term-id={term.id}
       className={cn(
-        "rounded-3xl border border-border/70 bg-card p-5 surface-shadow transition-all duration-[var(--dur-micro)]",
-        expanded && "ring-1 ring-border"
+        "rounded-[28px] sticker bg-card p-5 sticker-pop",
+        expanded && "rotate-[-1deg]"
       )}
     >
       <button
@@ -39,7 +39,7 @@ export function TermCard({ term, expanded }: TermCardProps) {
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <h2 className="text-[15px] leading-snug font-medium">
+            <h2 className="text-[17px] leading-snug font-semibold">
               {term.term}
             </h2>
             {term.en ? (
@@ -59,7 +59,7 @@ export function TermCard({ term, expanded }: TermCardProps) {
             ))}
           </div>
         ) : null}
-        <p className="mt-3 line-clamp-2 text-[13px] leading-relaxed text-muted-foreground">
+        <p className="mt-3 line-clamp-2 text-[14.5px] leading-relaxed text-foreground/75">
           {term.summary}
         </p>
       </button>
@@ -71,7 +71,7 @@ export function TermCard({ term, expanded }: TermCardProps) {
         )}
       >
         <div className="overflow-hidden">
-          <div className="space-y-3 pt-4 text-[13.5px] leading-relaxed text-muted-foreground">
+          <div className="space-y-3 pt-4 text-[15px] leading-relaxed text-foreground/75">
             {term.detail.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
@@ -87,7 +87,7 @@ export function TermCard({ term, expanded }: TermCardProps) {
                     onClick={() =>
                       window.open(link.url, "_blank", "noopener,noreferrer")
                     }
-                    className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-muted/40 py-1 pr-3 pl-1 text-[12px] transition-colors hover:bg-muted"
+                    className="inline-flex items-center gap-2 rounded-full sticker-chip py-1 pr-3 pl-1 font-heading text-[12px] font-semibold transition-transform hover:-translate-y-0.5"
                   >
                     <Favicon
                       url={link.url}

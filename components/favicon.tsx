@@ -50,7 +50,7 @@ export function Favicon({
   return (
     <div
       className={cn(
-        "grid place-items-center overflow-hidden rounded-2xl border border-border/60 bg-muted/40",
+        "grid place-items-center overflow-hidden rounded-2xl border-2 border-white shadow-[0_0_0_2px_var(--sticker-ink)]",
         className
       )}
     >

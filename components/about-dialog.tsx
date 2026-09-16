@@ -48,11 +48,11 @@ export function AboutDialogProvider({ children }: { children: ReactNode }) {
     <AboutDialogContext.Provider value={value}>
       {children}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-lg">
+        <DialogContent className="[--sticker-shadow:var(--sticker-cyan)] sm:max-w-lg">
           <DialogHeader>
             <DialogTitle>关于我们</DialogTitle>
           </DialogHeader>
-          <p className="text-[13.5px] leading-[1.95] text-foreground/70">
+          <p className="text-[15px] leading-[1.95] text-foreground/80">
             “UESTC Byte Lib
             编辑组是一群来自各个学院的开源爱好者。我们秉持开源合作的精神，致力于打破「闭门造车」的传统复习方式。通过飞书云文档的协同编辑功能，我们希望为信息社会下的期末复习提供全新解决方案，让复习变得更加高效、便捷。同时，我们鼓励更多的同学加入我们的行列，一起打造完美的复习文档，共同进步。”
           </p>
@@ -62,7 +62,7 @@ export function AboutDialogProvider({ children }: { children: ReactNode }) {
               href={ZBWER_INVITE}
               target="_blank"
               rel="noreferrer"
-              className="text-[#2d9afd] underline-offset-3 hover:underline"
+              className="font-heading font-semibold text-sticker-blue underline-offset-3 hover:underline"
             >
               zbwer
             </a>{" "}

@@ -18,7 +18,7 @@ export function SiteFooter({ overlay = false }: SiteFooterProps) {
   return (
     <footer
       className={cn(
-        "px-6 py-4 text-center text-[11px] tracking-[0.08em] text-muted-foreground",
+        "px-6 py-4 text-center font-heading text-[12px] font-semibold tracking-[0.04em] text-foreground/70",
         overlay
           ? "pointer-events-none fixed inset-x-0 bottom-0 z-40"
           : "mt-auto"
@@ -30,7 +30,7 @@ export function SiteFooter({ overlay = false }: SiteFooterProps) {
           render={
             <button
               type="button"
-              className="pointer-events-auto rounded-md tracking-[0.08em] transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
+              className="pointer-events-auto tracking-[0.04em] text-foreground/55 transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
               onClick={() => setOpen(true)}
             />
           }

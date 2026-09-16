@@ -5,10 +5,8 @@ import {
   Idea01Icon,
   LibraryIcon,
   Search02Icon,
-  Sun03Icon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { useTheme } from "next-themes"
 import { useMemo, useState } from "react"
 
 import { Favicon } from "@/components/favicon"
@@ -39,7 +37,6 @@ type CommandPaletteProps = {
 
 export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
   const [query, setQuery] = useState("")
-  const { resolvedTheme, setTheme } = useTheme()
   const navigate = useNavigate()
 
   const results = useMemo(() => filterSearch(query), [query])
@@ -197,24 +194,16 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   key={item.id}
                   value={`nav:${item.id}`}
                   onSelect={() => {
-                    if (item.id === "home") {
-                      navigate(HOME_PATH)
-                    } else if (item.id === "glossary") {
+                    if (item.id === "glossary") {
                       navigate(glossaryPath())
                     } else {
-                      setTheme(resolvedTheme === "dark" ? "light" : "dark")
+                      navigate(HOME_PATH)
                     }
                     close()
                   }}
                 >
                   <HugeiconsIcon
-                    icon={
-                      item.id === "home"
-                        ? Home01Icon
-                        : item.id === "glossary"
-                          ? LibraryIcon
-                          : Sun03Icon
-                    }
+                    icon={item.id === "glossary" ? LibraryIcon : Home01Icon}
                     strokeWidth={2}
                     className="size-4"
                   />
@@ -224,7 +213,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             </CommandGroup>
           ) : null}
         </CommandList>
-        <div className="flex items-center gap-3 border-t border-border/60 px-3 py-2 text-[11px] text-muted-foreground glass">
+        <div className="flex items-center gap-3 border-t-2 border-sticker-ink/10 px-3 py-2 font-heading text-[11px] font-semibold text-muted-foreground">
           <span className="flex items-center gap-1">
             <Kbd>↵</Kbd> 打开
           </span>

@@ -25,9 +25,9 @@ function stageTransform(offset: number) {
   const abs = Math.abs(offset)
   const sign = offset === 0 ? 0 : offset > 0 ? 1 : -1
   const x = abs === 0 ? 0 : abs === 1 ? 0.86 : abs === 2 ? 1.52 : 2
-  const scale = abs === 0 ? 1 : abs === 1 ? 0.84 : abs === 2 ? 0.7 : 0.62
-  const opacity = abs === 0 ? 1 : abs === 1 ? 0.4 : abs === 2 ? 0.14 : 0
-  const blur = abs === 0 ? 0 : abs === 1 ? 3 : abs === 2 ? 6 : 8
+  const scale = abs === 0 ? 1 : abs === 1 ? 0.8 : abs === 2 ? 0.66 : 0.58
+  const opacity = abs <= 2 ? 1 : 0
+  const wash = abs === 0 ? 0 : abs === 1 ? 0.52 : 0.72
   const rotateY = abs === 0 ? 0 : abs === 1 ? -sign * 7 : -sign * 10
   const zIndex = abs === 0 ? 40 : abs === 1 ? 30 : abs === 2 ? 20 : 10
   const pointerEvents = abs <= 1 ? "auto" : "none"
@@ -36,7 +36,7 @@ function stageTransform(offset: number) {
     x: sign * x,
     scale,
     opacity,
-    blur,
+    wash,
     rotateY,
     zIndex,
     pointerEvents: pointerEvents as "auto" | "none",
@@ -83,9 +83,8 @@ export function CategoryStageCard({
           opacity: t.opacity,
           zIndex: t.zIndex,
           pointerEvents: t.pointerEvents,
-          "--stage-blur": reducedMotion ? "0px" : `${t.blur}px`,
           transition:
-            "transform var(--dur-stage) var(--ease-stage), opacity 480ms var(--ease-soft), filter 480ms var(--ease-soft)",
+            "transform var(--dur-stage) var(--ease-stage), opacity 480ms var(--ease-soft)",
         } as CSSProperties
       }
     >
@@ -93,13 +92,24 @@ export function CategoryStageCard({
         href={categoryPath(category.slug)}
         aria-label={`进入 ${category.name} 分类`}
         onClick={onCardClick}
-        style={{ animationDelay: `${enterDelay}ms` }}
-        className="relative flex min-h-full w-full animate-in flex-col rounded-2xl bg-white px-5 py-5 text-left duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring dark:bg-card"
+        style={
+          {
+            animationDelay: `${enterDelay}ms`,
+            // React treats unitless numbers as px; color-mix needs a raw number.
+            "--sticker-fade": `${1 - t.wash}`,
+          } as CSSProperties
+        }
+        className={cn(
+          "relative flex min-h-full w-full animate-in flex-col rounded-[28px] sticker bg-card px-5 py-5 text-left duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring",
+          !reducedMotion &&
+            "transition-[border-color,box-shadow] duration-[480ms] [transition-timing-function:var(--ease-soft)]",
+          classes.sticker
+        )}
       >
         <div className="flex items-start justify-between gap-3">
           <div
             className={cn(
-              "grid size-9 place-items-center rounded-xl",
+              "grid size-10 place-items-center rounded-2xl border-2 border-white shadow-[0_0_0_2px_var(--sticker-ink)]",
               classes.mono,
               classes.text
             )}
@@ -110,34 +120,37 @@ export function CategoryStageCard({
               className="size-4"
             />
           </div>
-          <p className="font-sans text-[12px] text-muted-foreground tabular-nums">
+          <p className="rounded-full sticker-chip px-2 py-0.5 font-heading text-[12px] font-semibold text-foreground tabular-nums">
             <span className="font-mono">{totalCount}</span>
             {" 篇文档"}
           </p>
         </div>
 
-        <p className="mt-4 font-sans text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+        <p className="mt-4 font-heading text-[11px] font-semibold tracking-[0.16em] text-sticker-blue uppercase">
           {category.nameEn}
         </p>
-        <h2 className="mt-1.5 font-heading text-[1.85rem] leading-[1.15] tracking-tight">
+        <h2 className="mt-1.5 font-heading text-[1.85rem] leading-[1.15] font-semibold tracking-tight">
           {category.name}
         </h2>
-        <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
+        <p className="mt-2 text-[14.5px] leading-relaxed text-foreground/75">
           {category.tagline}
         </p>
 
-        <Separator className="mt-4 opacity-60" />
+        <Separator className="mt-4 h-0.5 rounded-full bg-sticker-ink/15" />
 
-        <p className="mt-3 font-mono text-[11px] tracking-[0.16em] text-muted-foreground">
+        <p className="mt-3 font-heading text-[11px] font-semibold tracking-[0.14em] text-sticker-pink">
           热门资料
         </p>
         <ul className="mt-2 flex flex-col gap-2">
           {previewLinks.map((link) => (
             <li key={link.id} className="flex min-w-0 items-center gap-2.5">
               <span
-                className={cn("size-1.5 shrink-0 rounded-full", classes.dot)}
+                className={cn(
+                  "size-2.5 shrink-0 rounded-full border-2 border-white shadow-[0_0_0_1.5px_var(--sticker-ink)]",
+                  classes.dot
+                )}
               />
-              <span className="truncate text-[13px] text-foreground/80">
+              <span className="truncate text-[14.5px] font-medium text-foreground">
                 {link.displayTitle ?? link.title}
               </span>
             </li>
@@ -147,6 +160,16 @@ export function CategoryStageCard({
           ) : null}
         </ul>
       </Link>
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -inset-3 z-20 rounded-[40px] bg-background"
+        style={{
+          opacity: t.wash,
+          transition: reducedMotion
+            ? "none"
+            : "opacity 480ms var(--ease-soft)",
+        }}
+      />
     </div>
   )
 }
