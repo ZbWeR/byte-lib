@@ -73,7 +73,7 @@ export function CategoryStage() {
   const [index, setIndex] = useState(0)
   const [reducedMotion, setReducedMotion] = useState(false)
 
-  const { stageRef } = useStageNav({
+  const { stageRef, shiftRef } = useStageNav({
     count: categories.length,
     index,
     setIndex,
@@ -117,7 +117,10 @@ export function CategoryStage() {
         </h1>
       </div>
 
-      <div className="relative min-h-0 flex-1 overflow-hidden [transform-style:preserve-3d]">
+      <div
+        ref={shiftRef}
+        className="relative min-h-0 flex-1 overflow-hidden [transform-style:preserve-3d]"
+      >
         <div className="absolute inset-0 [transform-style:preserve-3d]">
           {categories.map((category, i) => {
             const all = linksByCategory[category.slug] ?? []

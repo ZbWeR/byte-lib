@@ -25,9 +25,9 @@ function stageTransform(offset: number) {
   const abs = Math.abs(offset)
   const sign = offset === 0 ? 0 : offset > 0 ? 1 : -1
   const x = abs === 0 ? 0 : abs === 1 ? 0.86 : abs === 2 ? 1.52 : 2
-  const scale = abs === 0 ? 1 : abs === 1 ? 0.84 : abs === 2 ? 0.7 : 0.62
+  const scale = abs === 0 ? 1 : abs === 1 ? 0.8 : abs === 2 ? 0.66 : 0.58
   const opacity = abs <= 2 ? 1 : 0
-  const blur = abs === 0 ? 0 : abs === 1 ? 3 : abs === 2 ? 6 : 8
+  const wash = abs === 0 ? 0 : abs === 1 ? 0.52 : 0.72
   const rotateY = abs === 0 ? 0 : abs === 1 ? -sign * 7 : -sign * 10
   const zIndex = abs === 0 ? 40 : abs === 1 ? 30 : abs === 2 ? 20 : 10
   const pointerEvents = abs <= 1 ? "auto" : "none"
@@ -36,7 +36,7 @@ function stageTransform(offset: number) {
     x: sign * x,
     scale,
     opacity,
-    blur,
+    wash,
     rotateY,
     zIndex,
     pointerEvents: pointerEvents as "auto" | "none",
@@ -83,9 +83,8 @@ export function CategoryStageCard({
           opacity: t.opacity,
           zIndex: t.zIndex,
           pointerEvents: t.pointerEvents,
-          "--stage-blur": reducedMotion ? "0px" : `${t.blur}px`,
           transition:
-            "transform var(--dur-stage) var(--ease-stage), opacity 480ms var(--ease-soft), filter 480ms var(--ease-soft)",
+            "transform var(--dur-stage) var(--ease-stage), opacity 480ms var(--ease-soft)",
         } as CSSProperties
       }
     >
@@ -152,6 +151,16 @@ export function CategoryStageCard({
             <li className="text-[13px] text-muted-foreground">暂无公开文档</li>
           ) : null}
         </ul>
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-20 rounded-[25px] bg-background"
+          style={{
+            opacity: t.wash,
+            transition: reducedMotion
+              ? "none"
+              : "opacity 480ms var(--ease-soft)",
+          }}
+        />
       </Link>
     </div>
   )
