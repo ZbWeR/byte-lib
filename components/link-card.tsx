@@ -52,7 +52,7 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
       </div>
 
       {link.description ? (
-        <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-foreground/75">
+        <p className="mt-2 line-clamp-3 leading-relaxed text-foreground/90">
           {link.description}
         </p>
       ) : null}

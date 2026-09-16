@@ -56,7 +56,7 @@ export function AboutDialogProvider({ children }: { children: ReactNode }) {
             “UESTC Byte Lib
             编辑组是一群来自各个学院的开源爱好者。我们秉持开源合作的精神，致力于打破「闭门造车」的传统复习方式。通过飞书云文档的协同编辑功能，我们希望为信息社会下的期末复习提供全新解决方案，让复习变得更加高效、便捷。同时，我们鼓励更多的同学加入我们的行列，一起打造完美的复习文档，共同进步。”
           </p>
-          <p className="text-sm leading-relaxed text-muted-foreground">
+          <p className="leading-relaxed text-muted-foreground">
             😍 如果你愿意花费时间一起编辑学习文档，可以联系{" "}
             <a
               href={ZBWER_INVITE}

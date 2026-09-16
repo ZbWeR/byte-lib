@@ -132,7 +132,7 @@ export function CategoryStageCard({
         <h2 className="mt-1.5 font-heading text-3xl leading-[1.15] font-semibold tracking-tight">
           {category.name}
         </h2>
-        <p className="mt-2 text-sm leading-relaxed text-foreground/75">
+        <p className="mt-2 leading-relaxed text-foreground/75">
           {category.tagline}
         </p>
 
@@ -150,7 +150,7 @@ export function CategoryStageCard({
                   classes.dot
                 )}
               />
-              <span className="truncate text-sm font-medium text-foreground">
+              <span className="truncate font-medium text-foreground">
                 {link.displayTitle ?? link.title}
               </span>
             </li>
