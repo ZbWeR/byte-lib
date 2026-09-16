@@ -95,10 +95,10 @@ export function AppShell({ children }: { children: ReactNode }) {
         <HashRedirect />
         <div className="relative isolate flex min-h-svh flex-col">
           <div className="pointer-events-none fixed inset-0 -z-10">
-            {isHome ? (
+            {isHome || isCategory ? (
               <>
                 <FluidCursor />
-                <MemphisLayer variant="home" />
+                <MemphisLayer variant={isHome ? "home" : "page"} />
               </>
             ) : (
               <>

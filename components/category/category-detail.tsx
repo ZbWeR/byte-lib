@@ -71,7 +71,7 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
         <h1 className="font-heading text-4xl tracking-tight">
           {category.name}
         </h1>
-        <p className="max-w-2xl text-base leading-relaxed text-foreground/75">
+        <p className="max-w-3xl text-base leading-relaxed text-foreground/75">
           {category.description}
         </p>
         <p className="font-heading text-xs font-semibold tracking-[0.14em] text-sticker-pink uppercase">
