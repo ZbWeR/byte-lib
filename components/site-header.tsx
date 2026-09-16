@@ -40,18 +40,18 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
       <div
         className={cn(
           "flex h-16 items-center justify-between px-6 transition-colors duration-300 md:px-10",
-          !isHome && scrolled && "border-b border-border/70 bg-background"
+          !isHome && scrolled && "bg-background/90 backdrop-blur-md"
         )}
       >
         <Link
           href={HOME_PATH}
-          className="font-heading text-[15px] tracking-[0.04em] text-foreground transition-opacity duration-[var(--dur-micro)] outline-none hover:opacity-70 focus-visible:ring-2 focus-visible:ring-ring"
+          className="rounded-full sticker-chip px-3.5 py-1.5 font-heading text-[15px] font-semibold tracking-[0.04em] text-foreground transition-transform duration-[var(--dur-micro)] outline-none hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="回到图书馆首页"
         >
           UESTC · Byte Lib
         </Link>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
           <Tooltip>
             <TooltipTrigger
               delay={200}
@@ -65,7 +65,7 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
                 />
               }
             >
-              <HugeiconsIcon icon={Search01Icon} strokeWidth={2} />
+              <HugeiconsIcon icon={Search01Icon} strokeWidth={2.2} />
             </TooltipTrigger>
             <TooltipContent>
               搜索

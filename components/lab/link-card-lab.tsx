@@ -29,21 +29,19 @@ function VariantBlock({
   return (
     <section id={variant.id} className="scroll-mt-28">
       <div className="mb-6 max-w-2xl space-y-2">
-        <p className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+        <p className="font-heading text-[12px] font-semibold tracking-[0.16em] text-sticker-blue uppercase">
           {variant.letter}
         </p>
-        <h3 className="text-[1.65rem] font-medium tracking-tight">
-          {variant.name}
-        </h3>
-        <p className="text-[13px] leading-relaxed text-muted-foreground">
+        <h3 className="text-[1.65rem] tracking-tight">{variant.name}</h3>
+        <p className="text-[15px] leading-relaxed text-foreground/75">
           {variant.summary}
         </p>
-        <p className="text-[12px] leading-relaxed text-muted-foreground/80">
+        <p className="text-[13px] leading-relaxed text-muted-foreground">
           {variant.note}
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {samples.map((sample) => (
           <Card key={`${variant.id}-${sample.link.id}`} sample={sample} />
         ))}
@@ -57,12 +55,13 @@ export function LinkCardLab({ links }: LinkCardLabProps) {
 
   return (
     <section className="mx-auto max-w-6xl px-6 pt-28 pb-24">
-      <p className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+      <p className="font-heading text-[12px] font-semibold tracking-[0.16em] text-sticker-pink uppercase">
         Lab · 不进主导航
       </p>
-      <h1 className="mt-3 text-3xl font-medium tracking-tight">链接卡片</h1>
-      <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-muted-foreground">
-        分类页用的就是这张：两行标题，下面是文档简介，左下字数 / 阅读 / 点赞，右下更新时间。
+      <h1 className="mt-3 text-4xl tracking-tight">链接卡片</h1>
+      <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-foreground/75">
+        分类页用的就是这张：两行标题，下面是文档简介，左下字数 / 阅读 /
+        点赞，右下更新时间。
       </p>
 
       <nav className="mt-8 flex flex-wrap gap-2">

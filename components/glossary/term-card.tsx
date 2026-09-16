@@ -25,8 +25,8 @@ export function TermCard({ term, expanded }: TermCardProps) {
       data-term-card=""
       data-term-id={term.id}
       className={cn(
-        "rounded-3xl border border-border/70 bg-card p-5 surface-shadow transition-all duration-[var(--dur-micro)]",
-        expanded && "ring-1 ring-border"
+        "rounded-[28px] sticker bg-card p-5 sticker-pop",
+        expanded && "rotate-[-1deg]"
       )}
     >
       <button
@@ -87,7 +87,7 @@ export function TermCard({ term, expanded }: TermCardProps) {
                     onClick={() =>
                       window.open(link.url, "_blank", "noopener,noreferrer")
                     }
-                    className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-muted/40 py-1 pr-3 pl-1 text-[12px] transition-colors hover:bg-muted"
+                    className="inline-flex items-center gap-2 rounded-full sticker-chip py-1 pr-3 pl-1 font-heading text-[12px] font-semibold transition-transform hover:-translate-y-0.5"
                   >
                     <Favicon
                       url={link.url}

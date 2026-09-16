@@ -15,7 +15,7 @@ export function StageIndicator({ activeIndex, onSelect }: StageIndicatorProps) {
       data-stage-chrome
       className="relative z-50 flex shrink-0 justify-center pb-12"
     >
-      <div className="flex max-w-[min(92vw,28rem)] flex-wrap items-center justify-center gap-1.5 px-3 py-2">
+      <div className="flex max-w-[min(92vw,28rem)] flex-wrap items-center justify-center gap-2 rounded-full sticker-chip px-3 py-2">
         {categories.map((category, index) => {
           const active = index === activeIndex
           return (
@@ -26,10 +26,13 @@ export function StageIndicator({ activeIndex, onSelect }: StageIndicatorProps) {
               aria-current={active}
               onClick={() => onSelect(index)}
               className={cn(
-                "rounded-full transition-all duration-300",
+                "rounded-full border-2 border-white transition-all duration-300",
                 active
-                  ? cn("h-1.5 w-6", accentClasses[category.accent].dot)
-                  : "size-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/60"
+                  ? cn(
+                      "h-2.5 w-7 shadow-[0_0_0_2px_var(--sticker-ink)]",
+                      accentClasses[category.accent].dot
+                    )
+                  : "size-2.5 bg-muted-foreground/25 hover:bg-sticker-pink/70"
               )}
             />
           )

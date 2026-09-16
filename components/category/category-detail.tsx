@@ -61,25 +61,25 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
       </div>
 
       <div className="mt-8 space-y-3">
-        <p className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+        <p className="font-heading text-[12px] font-semibold tracking-[0.16em] text-sticker-blue uppercase">
           <span className="tabular-nums">
             {String(index + 1).padStart(2, "0")}
           </span>
           <span className="mx-2">·</span>
           {category.nameEn}
         </p>
-        <h1 className="font-heading text-3xl tracking-tight">
+        <h1 className="font-heading text-4xl tracking-tight">
           {category.name}
         </h1>
-        <p className="max-w-2xl text-[13px] leading-relaxed text-muted-foreground">
+        <p className="max-w-2xl text-[15px] leading-relaxed text-foreground/75">
           {category.description}
         </p>
-        <p className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+        <p className="font-heading text-[12px] font-semibold tracking-[0.14em] text-sticker-pink uppercase">
           <span className="tabular-nums">{allLinks.length}</span> 篇文档
         </p>
       </div>
 
-      <div className="mt-8 flex flex-wrap gap-2">
+      <div className="mt-8 flex flex-wrap gap-3">
         {categories.map((item) => {
           const current = item.slug === slug
           return (
@@ -87,10 +87,10 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
               key={item.slug}
               href={categoryPath(item.slug)}
               className={cn(
-                "flex items-center gap-2 rounded-full border px-3 py-1.5 text-[13px] transition-all",
+                "flex items-center gap-2 rounded-full sticker-chip px-3 py-1.5 font-heading text-[13px] font-semibold transition-transform hover:-translate-y-0.5",
                 current
-                  ? "border-foreground bg-foreground text-background"
-                  : "border-border/70 bg-card text-muted-foreground hover:text-foreground"
+                  ? "bg-primary text-primary-foreground [--sticker-shadow:var(--sticker-blue)]"
+                  : "text-foreground [--sticker-shadow:var(--sticker-yellow)]"
               )}
             >
               <HugeiconsIcon
@@ -104,7 +104,7 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
         })}
       </div>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {allLinks.map((link) => (
           <LinkCard
             key={link.id}

@@ -94,12 +94,15 @@ export function CategoryStageCard({
         aria-label={`进入 ${category.name} 分类`}
         onClick={onCardClick}
         style={{ animationDelay: `${enterDelay}ms` }}
-        className="relative flex min-h-full w-full animate-in flex-col rounded-2xl bg-white px-5 py-5 text-left duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring dark:bg-card"
+        className={cn(
+          "relative flex min-h-full w-full animate-in flex-col rounded-[28px] sticker px-5 py-5 text-left duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring",
+          classes.sticker
+        )}
       >
         <div className="flex items-start justify-between gap-3">
           <div
             className={cn(
-              "grid size-9 place-items-center rounded-xl",
+              "grid size-10 place-items-center rounded-2xl border-2 border-white shadow-[0_0_0_2px_var(--sticker-ink)]",
               classes.mono,
               classes.text
             )}
@@ -110,13 +113,13 @@ export function CategoryStageCard({
               className="size-4"
             />
           </div>
-          <p className="font-sans text-[12px] text-muted-foreground tabular-nums">
+          <p className="rounded-full sticker-chip px-2 py-0.5 font-heading text-[12px] font-semibold text-foreground tabular-nums">
             <span className="font-mono">{totalCount}</span>
             {" 篇文档"}
           </p>
         </div>
 
-        <p className="mt-4 font-sans text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+        <p className="mt-4 font-heading text-[11px] font-semibold tracking-[0.16em] text-sticker-blue uppercase">
           {category.nameEn}
         </p>
         <h2 className="mt-1.5 font-heading text-[1.85rem] leading-[1.15] font-semibold tracking-tight">
@@ -126,16 +129,19 @@ export function CategoryStageCard({
           {category.tagline}
         </p>
 
-        <Separator className="mt-4 opacity-60" />
+        <Separator className="mt-4 h-0.5 rounded-full bg-sticker-ink/15" />
 
-        <p className="mt-3 font-mono text-[11px] tracking-[0.16em] text-muted-foreground">
+        <p className="mt-3 font-heading text-[11px] font-semibold tracking-[0.14em] text-sticker-pink">
           热门资料
         </p>
         <ul className="mt-2 flex flex-col gap-2">
           {previewLinks.map((link) => (
             <li key={link.id} className="flex min-w-0 items-center gap-2.5">
               <span
-                className={cn("size-1.5 shrink-0 rounded-full", classes.dot)}
+                className={cn(
+                  "size-2.5 shrink-0 rounded-full border-2 border-white shadow-[0_0_0_1.5px_var(--sticker-ink)]",
+                  classes.dot
+                )}
               />
               <span className="truncate text-[14.5px] font-medium text-foreground">
                 {link.displayTitle ?? link.title}
