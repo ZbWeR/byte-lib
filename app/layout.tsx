@@ -29,7 +29,10 @@ export default function RootLayout({
     <html
       lang="zh-CN"
       suppressHydrationWarning
-      className={cn("overflow-x-hidden font-sans antialiased", fontMono.variable)}
+      className={cn(
+        "overflow-x-hidden font-sans antialiased",
+        fontMono.variable
+      )}
     >
       <body className="overflow-x-hidden">
         <ThemeProvider>
