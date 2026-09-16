@@ -44,7 +44,7 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
       >
         <Link
           href={HOME_PATH}
-          className="rounded-full sticker-chip px-3.5 py-1.5 font-heading text-[15px] font-semibold tracking-[0.04em] text-foreground transition-transform duration-[var(--dur-micro)] outline-none hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-ring"
+          className="rounded-full sticker-chip px-3.5 py-1.5 font-heading text-base font-semibold tracking-[0.04em] text-foreground transition-transform duration-[var(--dur-micro)] outline-none hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="回到图书馆首页"
         >
           UESTC · Byte Lib

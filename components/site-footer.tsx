@@ -18,7 +18,7 @@ export function SiteFooter({ overlay = false }: SiteFooterProps) {
   return (
     <footer
       className={cn(
-        "px-6 py-4 text-center font-heading text-[12px] font-semibold tracking-[0.04em] text-foreground/70",
+        "px-6 py-4 text-center font-heading text-xs font-semibold tracking-[0.04em] text-foreground/70",
         overlay
           ? "pointer-events-none fixed inset-x-0 bottom-0 z-40"
           : "mt-auto"

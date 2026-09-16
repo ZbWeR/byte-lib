@@ -80,10 +80,10 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                 strokeWidth={2}
                 className="size-6 text-muted-foreground/60"
               />
-              <p className="text-[13px] text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 没有找到「{query}」相关的内容
               </p>
-              <p className="text-[12px] text-muted-foreground/80">
+              <p className="text-xs text-muted-foreground/80">
                 试试搜索：
                 {SUGGESTIONS.map((hint, i) => (
                   <span key={hint}>
@@ -118,7 +118,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                     className="size-4"
                   />
                   <span>{item.category.name}</span>
-                  <span className="ml-auto font-mono text-[11px] text-muted-foreground tabular-nums">
+                  <span className="ml-auto font-mono text-xs text-muted-foreground tabular-nums">
                     {item.count} 篇文档
                   </span>
                 </CommandItem>
@@ -153,7 +153,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                     <span className="truncate">
                       {item.link.displayTitle ?? item.link.title}
                     </span>
-                    <span className="ml-auto font-mono text-[11px] text-muted-foreground tabular-nums">
+                    <span className="ml-auto font-mono text-xs text-muted-foreground tabular-nums">
                       {formatCompactUv(item.link.uv) ?? item.host}
                     </span>
                   </CommandItem>
@@ -179,7 +179,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                     className="size-4"
                   />
                   <span>{item.term.term}</span>
-                  <span className="ml-auto text-[11px] text-muted-foreground">
+                  <span className="ml-auto text-xs text-muted-foreground">
                     {item.term.group}
                   </span>
                 </CommandItem>
@@ -213,7 +213,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             </CommandGroup>
           ) : null}
         </CommandList>
-        <div className="flex items-center gap-3 border-t-2 border-sticker-ink/10 px-3 py-2 font-heading text-[11px] font-semibold text-muted-foreground">
+        <div className="flex items-center gap-3 border-t-2 border-sticker-ink/10 px-3 py-2 font-heading text-xs font-semibold text-muted-foreground">
           <span className="flex items-center gap-1">
             <Kbd>↵</Kbd> 打开
           </span>

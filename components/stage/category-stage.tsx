@@ -112,7 +112,7 @@ export function CategoryStage() {
           />
           <LogoOrnaments />
         </div>
-        <h1 className="mx-auto mt-3 font-heading text-[12px] font-semibold tracking-[0.14em] text-foreground uppercase">
+        <h1 className="mx-auto mt-3 font-heading text-xs font-semibold tracking-[0.14em] text-foreground uppercase">
           <span className="relative inline-block px-1">
             <span
               aria-hidden
