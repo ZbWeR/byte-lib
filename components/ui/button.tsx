@@ -11,11 +11,11 @@ const buttonVariants = cva(
         default:
           "border-white bg-primary text-primary-foreground shadow-[0_0_0_2.5px_var(--sticker-ink),4px_4px_0_var(--sticker-blue)] hover:-translate-x-px hover:-translate-y-px hover:shadow-[0_0_0_2.5px_var(--sticker-ink),6px_6px_0_var(--sticker-blue)]",
         outline:
-          "border-white bg-background text-foreground shadow-[0_0_0_2.5px_var(--sticker-ink),3px_3px_0_var(--sticker-yellow)] hover:-translate-y-px",
+          "border-white bg-background text-foreground shadow-[0_0_0_2.5px_var(--sticker-ink)] hover:-translate-y-px",
         secondary:
           "border-white bg-secondary text-secondary-foreground shadow-[0_0_0_2.5px_var(--sticker-ink),3px_3px_0_var(--sticker-pink)] hover:-translate-y-px",
         ghost:
-          "border-transparent shadow-none hover:border-white hover:bg-white hover:shadow-[0_0_0_2px_var(--sticker-ink),3px_3px_0_var(--sticker-yellow)] dark:hover:bg-card",
+          "border-transparent shadow-none hover:border-white hover:bg-white hover:shadow-[0_0_0_2px_var(--sticker-ink)] dark:hover:bg-card",
         destructive:
           "border-white bg-destructive/10 text-destructive shadow-[0_0_0_2.5px_var(--sticker-ink),3px_3px_0_#ff8aa0] hover:bg-destructive/20",
         link: "border-transparent text-sticker-blue underline-offset-4 hover:underline",

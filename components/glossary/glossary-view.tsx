@@ -103,9 +103,7 @@ export function GlossaryView() {
           onClick={() => setGroup(null)}
           className={cn(
             "inline-flex h-8 items-center gap-1.5 rounded-full sticker-chip px-3 font-heading text-xs font-semibold transition-transform hover:-translate-y-0.5",
-            group === null
-              ? "bg-primary text-primary-foreground [--sticker-shadow:var(--sticker-blue)]"
-              : "[--sticker-shadow:var(--sticker-yellow)]"
+            group === null && "bg-primary text-primary-foreground"
           )}
         >
           全部
@@ -122,9 +120,7 @@ export function GlossaryView() {
               onClick={() => setGroup(item)}
               className={cn(
                 "inline-flex h-8 items-center gap-1.5 rounded-full sticker-chip px-3 font-heading text-xs font-semibold transition-transform hover:-translate-y-0.5",
-                selected
-                  ? "bg-primary text-primary-foreground [--sticker-shadow:var(--sticker-blue)]"
-                  : "[--sticker-shadow:var(--sticker-cyan)]"
+                selected && "bg-primary text-primary-foreground"
               )}
             >
               {item}

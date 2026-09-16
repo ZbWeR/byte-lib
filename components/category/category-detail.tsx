@@ -89,8 +89,8 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
               className={cn(
                 "flex items-center gap-2 rounded-full sticker-chip px-3 py-1.5 font-heading text-sm font-semibold transition-transform hover:-translate-y-0.5",
                 current
-                  ? "bg-primary text-primary-foreground [--sticker-shadow:var(--sticker-blue)]"
-                  : "text-foreground [--sticker-shadow:var(--sticker-yellow)]"
+                  ? "bg-primary text-primary-foreground"
+                  : "text-foreground"
               )}
             >
               <HugeiconsIcon
