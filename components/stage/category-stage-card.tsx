@@ -26,7 +26,7 @@ function stageTransform(offset: number) {
   const sign = offset === 0 ? 0 : offset > 0 ? 1 : -1
   const x = abs === 0 ? 0 : abs === 1 ? 0.86 : abs === 2 ? 1.52 : 2
   const scale = abs === 0 ? 1 : abs === 1 ? 0.84 : abs === 2 ? 0.7 : 0.62
-  const opacity = abs === 0 ? 1 : abs === 1 ? 0.4 : abs === 2 ? 0.14 : 0
+  const opacity = abs <= 2 ? 1 : 0
   const blur = abs === 0 ? 0 : abs === 1 ? 3 : abs === 2 ? 6 : 8
   const rotateY = abs === 0 ? 0 : abs === 1 ? -sign * 7 : -sign * 10
   const zIndex = abs === 0 ? 40 : abs === 1 ? 30 : abs === 2 ? 20 : 10
@@ -95,7 +95,7 @@ export function CategoryStageCard({
         onClick={onCardClick}
         style={{ animationDelay: `${enterDelay}ms` }}
         className={cn(
-          "relative flex min-h-full w-full animate-in flex-col rounded-[28px] sticker px-5 py-5 text-left duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring",
+          "relative flex min-h-full w-full animate-in flex-col rounded-[28px] sticker bg-card px-5 py-5 text-left duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring",
           classes.sticker
         )}
       >

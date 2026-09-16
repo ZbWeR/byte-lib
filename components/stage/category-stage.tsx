@@ -1,15 +1,11 @@
 "use client"
 
 import Image from "next/image"
-import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
 import { useEffect, useState } from "react"
 
 import { usePaletteOpen } from "@/components/palette-open"
 import { CategoryStageCard } from "@/components/stage/category-stage-card"
-import { StageIndicator } from "@/components/stage/stage-indicator"
 import { CursorMark, SparkleMark } from "@/components/sticker-deco"
-import { Button } from "@/components/ui/button"
 import { useNavigate } from "@/hooks/use-navigate"
 import { useStageNav, wrapOffset } from "@/hooks/use-stage-nav"
 import { categories, linksByCategory } from "@/lib/data/library"
@@ -77,7 +73,7 @@ export function CategoryStage() {
   const [index, setIndex] = useState(0)
   const [reducedMotion, setReducedMotion] = useState(false)
 
-  const { stageRef, step } = useStageNav({
+  const { stageRef } = useStageNav({
     count: categories.length,
     index,
     setIndex,
@@ -101,7 +97,7 @@ export function CategoryStage() {
   return (
     <section
       ref={stageRef}
-      className="group relative flex h-svh touch-none flex-col overflow-hidden overscroll-none [--card-h:min(420px,calc(100svh-26rem))] [--card-top:3.25rem] [--card-w:380px] [perspective:1800px] max-[900px]:[--card-w:min(380px,82vw)]"
+      className="relative flex h-svh touch-none flex-col overflow-hidden overscroll-none [--card-h:min(420px,calc(100svh-26rem))] [--card-top:3.25rem] [--card-w:380px] [perspective:1800px] max-[900px]:[--card-w:min(380px,82vw)]"
     >
       <div className="relative z-10 mx-auto w-full shrink-0 px-6 pt-16 pb-2 text-center sm:pt-20">
         <div className="relative mx-auto w-[min(28rem,86vw)] sm:w-[min(32rem,68vw)]">
@@ -141,32 +137,7 @@ export function CategoryStage() {
             )
           })}
         </div>
-
-        <Button
-          type="button"
-          variant="outline"
-          size="icon-lg"
-          data-stage-chrome
-          aria-label="上一个分类"
-          onClick={() => step(-1)}
-          className="absolute top-[calc(var(--card-top)+var(--card-h)/2)] left-6 z-50 -translate-y-1/2 rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        >
-          <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={2.4} />
-        </Button>
-        <Button
-          type="button"
-          variant="outline"
-          size="icon-lg"
-          data-stage-chrome
-          aria-label="下一个分类"
-          onClick={() => step(1)}
-          className="absolute top-[calc(var(--card-top)+var(--card-h)/2)] right-6 z-50 -translate-y-1/2 rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        >
-          <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2.4} />
-        </Button>
       </div>
-
-      <StageIndicator activeIndex={index} onSelect={setIndex} />
     </section>
   )
 }
