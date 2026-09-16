@@ -1,13 +1,11 @@
 import type { Metadata } from "next"
-import { Geist_Mono, Inter } from "next/font/google"
+import { Geist_Mono } from "next/font/google"
 
 import "./globals.css"
 import { AppShell } from "@/components/app-shell"
 import { ThemeProvider } from "@/components/theme-provider"
 import { catalog } from "@/lib/data/catalog"
 import { cn } from "@/lib/utils"
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -31,11 +29,7 @@ export default function RootLayout({
     <html
       lang="zh-CN"
       suppressHydrationWarning
-      className={cn(
-        "overflow-x-hidden font-sans antialiased",
-        fontMono.variable,
-        inter.variable
-      )}
+      className={cn("overflow-x-hidden font-sans antialiased", fontMono.variable)}
     >
       <body className="overflow-x-hidden">
         <ThemeProvider>

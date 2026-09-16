@@ -6,11 +6,11 @@
 
 @theme inline {
   --font-heading:
-    "Songti SC", "STSong", "SimSun", "Noto Serif CJK SC", "Noto Serif SC",
-    "Source Han Serif SC", Georgia, "Times New Roman", serif;
+    "Hannotate SC", "Hannotate TC", "PingFang SC", "Hiragino Sans GB",
+    sans-serif;
   --font-sans:
-    var(--font-inter), "PingFang SC", "HarmonyOS Sans SC", "Hiragino Sans GB",
-    "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    "Kaiti SC", "STKaiti", "KaiTi", "Iowan Old Style", Palatino, "Songti SC",
+    "Noto Serif SC", serif;
   --color-cat-lime: var(--accent-lime);
   --color-cat-teal: var(--accent-teal);
   --color-cat-sky: var(--accent-sky);
@@ -58,7 +58,7 @@
 }
 
 :root {
-  --background: #f1f3f3;
+  --background: #fafafa;
   --foreground: oklch(0.153 0.006 107.1);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.153 0.006 107.1);
@@ -148,10 +148,18 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background font-sans text-foreground;
   }
   html {
     @apply font-sans;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
   }
 }
 
