@@ -3,7 +3,6 @@ import type { AccentKey } from "@/lib/data/types"
 type AccentClasses = {
   text: string
   ring: string
-  glow: string
   wash: string
   dot: string
   highlight: string
@@ -16,7 +15,6 @@ export const accentClasses: Record<AccentKey, AccentClasses> = {
   lime: {
     text: "text-cat-lime",
     ring: "group-hover:border-cat-lime/40",
-    glow: "bg-cat-lime/25",
     wash: "from-cat-lime/[0.12]",
     dot: "bg-cat-lime",
     highlight: "ring-cat-lime",
@@ -27,7 +25,6 @@ export const accentClasses: Record<AccentKey, AccentClasses> = {
   teal: {
     text: "text-cat-teal",
     ring: "group-hover:border-cat-teal/40",
-    glow: "bg-cat-teal/25",
     wash: "from-cat-teal/[0.12]",
     dot: "bg-cat-teal",
     highlight: "ring-cat-teal",
@@ -38,7 +35,6 @@ export const accentClasses: Record<AccentKey, AccentClasses> = {
   sky: {
     text: "text-cat-sky",
     ring: "group-hover:border-cat-sky/40",
-    glow: "bg-cat-sky/25",
     wash: "from-cat-sky/[0.12]",
     dot: "bg-cat-sky",
     highlight: "ring-cat-sky",
@@ -49,7 +45,6 @@ export const accentClasses: Record<AccentKey, AccentClasses> = {
   violet: {
     text: "text-cat-violet",
     ring: "group-hover:border-cat-violet/40",
-    glow: "bg-cat-violet/25",
     wash: "from-cat-violet/[0.12]",
     dot: "bg-cat-violet",
     highlight: "ring-cat-violet",
@@ -60,7 +55,6 @@ export const accentClasses: Record<AccentKey, AccentClasses> = {
   amber: {
     text: "text-cat-amber",
     ring: "group-hover:border-cat-amber/40",
-    glow: "bg-cat-amber/25",
     wash: "from-cat-amber/[0.12]",
     dot: "bg-cat-amber",
     highlight: "ring-cat-amber",
@@ -71,7 +65,6 @@ export const accentClasses: Record<AccentKey, AccentClasses> = {
   rose: {
     text: "text-cat-rose",
     ring: "group-hover:border-cat-rose/40",
-    glow: "bg-cat-rose/25",
     wash: "from-cat-rose/[0.12]",
     dot: "bg-cat-rose",
     highlight: "ring-cat-rose",

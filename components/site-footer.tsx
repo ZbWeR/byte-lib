@@ -30,7 +30,7 @@ export function SiteFooter({ overlay = false }: SiteFooterProps) {
           render={
             <button
               type="button"
-              className="pointer-events-auto rounded-full sticker-chip px-3 py-1 tracking-[0.04em] transition-transform outline-none hover:-translate-y-0.5 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
+              className="pointer-events-auto tracking-[0.04em] text-foreground/55 transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
               onClick={() => setOpen(true)}
             />
           }

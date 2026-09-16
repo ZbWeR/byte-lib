@@ -6,7 +6,6 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { useEffect, useState } from "react"
 
 import { AboutTrigger } from "@/components/about-dialog"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Kbd } from "@/components/ui/kbd"
 import {
@@ -72,7 +71,6 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
               <Kbd>⌘K</Kbd>
             </TooltipContent>
           </Tooltip>
-          <ThemeToggle />
           <AboutTrigger />
         </div>
       </div>

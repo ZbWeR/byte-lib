@@ -112,8 +112,14 @@ export function CategoryStage() {
           />
           <LogoOrnaments />
         </div>
-        <h1 className="mx-auto mt-3 inline-flex rounded-full sticker-chip px-3 py-1 font-heading text-[12px] font-semibold tracking-[0.14em] text-foreground uppercase">
-          UESTC COMMUNITY LIBRARY
+        <h1 className="mx-auto mt-3 font-heading text-[12px] font-semibold tracking-[0.14em] text-foreground uppercase">
+          <span className="relative inline-block px-1">
+            <span
+              aria-hidden
+              className="absolute inset-x-[-0.18em] top-[0.46em] h-[0.58em] -rotate-[1.4deg] rounded-[1px] bg-sticker-yellow"
+            />
+            <span className="relative">UESTC COMMUNITY LIBRARY</span>
+          </span>
         </h1>
       </div>
 
