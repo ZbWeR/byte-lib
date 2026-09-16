@@ -185,11 +185,28 @@
 }
 
 @utility sticker {
+  --sticker-fade: 1;
   background-color: var(--card);
-  border: 3px solid #fff;
+  border: 3px solid
+    color-mix(
+      in oklab,
+      #fff calc(var(--sticker-fade) * 100%),
+      var(--background)
+    );
   box-shadow:
-    0 0 0 3px var(--sticker-ink),
-    6px 6px 0 0 var(--sticker-shadow, var(--sticker-pink));
+    0 0 0 3px
+      color-mix(
+        in oklab,
+        var(--sticker-ink) calc(var(--sticker-fade) * 100%),
+        var(--background)
+      ),
+    6px 6px 0 0
+      color-mix(
+        in oklab,
+        var(--sticker-shadow, var(--sticker-pink))
+          calc(var(--sticker-fade) * 100%),
+        var(--background)
+      );
 }
 
 @utility sticker-lg {

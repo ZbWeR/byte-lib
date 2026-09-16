@@ -92,9 +92,16 @@ export function CategoryStageCard({
         href={categoryPath(category.slug)}
         aria-label={`进入 ${category.name} 分类`}
         onClick={onCardClick}
-        style={{ animationDelay: `${enterDelay}ms` }}
+        style={
+          {
+            animationDelay: `${enterDelay}ms`,
+            "--sticker-fade": 1 - t.wash,
+          } as CSSProperties
+        }
         className={cn(
           "relative flex min-h-full w-full animate-in flex-col rounded-[28px] sticker bg-card px-5 py-5 text-left duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring",
+          !reducedMotion &&
+            "transition-[border-color,box-shadow] duration-[480ms] [transition-timing-function:var(--ease-soft)]",
           classes.sticker
         )}
       >
@@ -153,7 +160,7 @@ export function CategoryStageCard({
         </ul>
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-20 rounded-[25px] bg-background"
+          className="pointer-events-none absolute -inset-[3px] z-20 rounded-[28px] bg-background"
           style={{
             opacity: t.wash,
             transition: reducedMotion
