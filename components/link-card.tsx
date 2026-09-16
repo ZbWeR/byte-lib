@@ -39,7 +39,7 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
       <div className="flex items-start justify-between gap-3">
         <h3
           title={title}
-          className="line-clamp-2 text-[15px] leading-snug font-medium"
+          className="line-clamp-2 text-[17px] leading-snug font-semibold"
         >
           {title}
         </h3>
@@ -51,7 +51,7 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
       </div>
 
       {link.description ? (
-        <p className="mt-2 line-clamp-3 text-[13px] leading-relaxed text-muted-foreground">
+        <p className="mt-2 line-clamp-3 text-[14.5px] leading-relaxed text-foreground/75">
           {link.description}
         </p>
       ) : null}

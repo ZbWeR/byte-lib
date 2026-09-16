@@ -119,10 +119,10 @@ export function CategoryStageCard({
         <p className="mt-4 font-sans text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
           {category.nameEn}
         </p>
-        <h2 className="mt-1.5 font-heading text-[1.85rem] leading-[1.15] tracking-tight">
+        <h2 className="mt-1.5 font-heading text-[1.85rem] leading-[1.15] font-semibold tracking-tight">
           {category.name}
         </h2>
-        <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
+        <p className="mt-2 text-[14.5px] leading-relaxed text-foreground/75">
           {category.tagline}
         </p>
 
@@ -137,7 +137,7 @@ export function CategoryStageCard({
               <span
                 className={cn("size-1.5 shrink-0 rounded-full", classes.dot)}
               />
-              <span className="truncate text-[13px] text-foreground/80">
+              <span className="truncate text-[14.5px] font-medium text-foreground">
                 {link.displayTitle ?? link.title}
               </span>
             </li>

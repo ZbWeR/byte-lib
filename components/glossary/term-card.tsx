@@ -39,7 +39,7 @@ export function TermCard({ term, expanded }: TermCardProps) {
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <h2 className="text-[15px] leading-snug font-medium">
+            <h2 className="text-[17px] leading-snug font-semibold">
               {term.term}
             </h2>
             {term.en ? (
@@ -59,7 +59,7 @@ export function TermCard({ term, expanded }: TermCardProps) {
             ))}
           </div>
         ) : null}
-        <p className="mt-3 line-clamp-2 text-[13px] leading-relaxed text-muted-foreground">
+        <p className="mt-3 line-clamp-2 text-[14.5px] leading-relaxed text-foreground/75">
           {term.summary}
         </p>
       </button>
@@ -71,7 +71,7 @@ export function TermCard({ term, expanded }: TermCardProps) {
         )}
       >
         <div className="overflow-hidden">
-          <div className="space-y-3 pt-4 text-[13.5px] leading-relaxed text-muted-foreground">
+          <div className="space-y-3 pt-4 text-[15px] leading-relaxed text-foreground/75">
             {term.detail.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
