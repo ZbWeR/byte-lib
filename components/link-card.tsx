@@ -47,7 +47,7 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
         <HugeiconsIcon
           icon={ArrowUpRight01Icon}
           strokeWidth={2}
-          className="mt-0.5 size-4 shrink-0 text-muted-foreground/50 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+          className="mt-0.5 size-4 shrink-0 text-sticker-pink opacity-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
         />
       </div>
 
