@@ -93,7 +93,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     <TooltipProvider>
       <AboutDialogProvider>
         <HashRedirect />
-        <div className="relative isolate flex min-h-svh flex-col">
+        <div className="relative isolate flex min-h-svh w-full min-w-0 flex-col">
           <div className="pointer-events-none fixed inset-0 -z-10">
             {isHome || isCategory ? (
               <>
@@ -115,7 +115,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           />
 
           <PaletteOpenContext.Provider value={paletteOpen}>
-            <div className="flex min-h-0 flex-1 flex-col">{children}</div>
+            <div className="flex min-h-0 w-full min-w-0 flex-1 flex-col">
+              {children}
+            </div>
           </PaletteOpenContext.Provider>
 
           <SiteFooter overlay={isHome} />

@@ -32,12 +32,12 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "group relative flex flex-col rounded-[28px] sticker bg-card p-6 transition-all duration-[var(--dur-micro)] sticker-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+        "group relative flex min-w-0 flex-col rounded-[28px] sticker bg-card p-6 transition-all duration-[var(--dur-micro)] sticker-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
         classes.sticker,
         highlighted && ["outline-none", classes.highlight, "ring-4"]
       )}
     >
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex min-w-0 items-start justify-between gap-3">
         <h3
           title={title}
           className="min-w-0 flex-1 truncate text-lg leading-snug font-semibold"
