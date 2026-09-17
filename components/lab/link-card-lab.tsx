@@ -59,7 +59,7 @@ export function LinkCardLab({ links }: LinkCardLabProps) {
         Lab · 不进主导航
       </p>
       <h1 className="mt-3 text-4xl tracking-tight">链接卡片</h1>
-      <p className="mt-3 max-w-2xl text-base leading-relaxed text-foreground/75">
+      <p className="mt-3 max-w-3xl text-base leading-relaxed text-foreground/75">
         分类页用的就是这张：两行标题，下面是文档简介，左下字数 / 阅读 /
         点赞，右下更新时间。
       </p>

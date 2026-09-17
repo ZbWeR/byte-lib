@@ -61,7 +61,7 @@ export function GlossaryView() {
         GLOSSARY
       </p>
       <h1 className="mt-2 font-heading text-4xl tracking-tight">概念词典</h1>
-      <p className="mt-3 max-w-2xl text-base leading-relaxed text-foreground/75">
+      <p className="mt-3 max-w-3xl text-base leading-relaxed text-foreground/75">
         16
         个成电人天天挂在嘴边、却很少有人正式解释过的词。点开词条看完整说法，相关链接会把你送回对应分类。
       </p>
