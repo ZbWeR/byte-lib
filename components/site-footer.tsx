@@ -1,11 +1,14 @@
 "use client"
 
+import Link from "next/link"
+
 import { useAboutDialog } from "@/components/about-dialog"
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { FRIENDS_PATH } from "@/lib/paths"
 import { cn } from "@/lib/utils"
 
 type SiteFooterProps = {
@@ -24,21 +27,32 @@ export function SiteFooter({ overlay = false }: SiteFooterProps) {
           : "mt-auto"
       )}
     >
-      <Tooltip>
-        <TooltipTrigger
-          delay={200}
-          render={
-            <button
-              type="button"
-              className="pointer-events-auto tracking-[0.04em] text-foreground/55 transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
-              onClick={() => setOpen(true)}
-            />
-          }
+      <div className="pointer-events-auto inline-flex items-center gap-3">
+        <Tooltip>
+          <TooltipTrigger
+            delay={200}
+            render={
+              <button
+                type="button"
+                className="tracking-[0.04em] text-foreground/55 transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
+                onClick={() => setOpen(true)}
+              />
+            }
+          >
+            © 2023 UESTC Byte Lib.
+          </TooltipTrigger>
+          <TooltipContent side="top">关于我们</TooltipContent>
+        </Tooltip>
+        <span className="text-foreground/20" aria-hidden>
+          ·
+        </span>
+        <Link
+          href={FRIENDS_PATH}
+          className="tracking-[0.04em] text-foreground/55 transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
         >
-          © 2023 UESTC Byte Lib.
-        </TooltipTrigger>
-        <TooltipContent side="top">关于我们</TooltipContent>
-      </Tooltip>
+          友情链接
+        </Link>
+      </div>
     </footer>
   )
 }

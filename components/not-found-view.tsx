@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation"
 import { PawMark, SparkleMark } from "@/components/sticker-deco"
 import { buttonVariants } from "@/components/ui/button"
 import { SHOW_GLOSSARY } from "@/lib/features"
-import { glossaryPath, HOME_PATH } from "@/lib/paths"
+import { FRIENDS_PATH, glossaryPath, HOME_PATH } from "@/lib/paths"
 
 export function NotFoundView() {
   const pathname = usePathname()
@@ -29,6 +29,12 @@ export function NotFoundView() {
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link href={HOME_PATH} className={buttonVariants()}>
             回到图书馆
+          </Link>
+          <Link
+            href={FRIENDS_PATH}
+            className={buttonVariants({ variant: "outline" })}
+          >
+            友情链接
           </Link>
           {SHOW_GLOSSARY ? (
             <Link

@@ -63,13 +63,14 @@ pnpm format      # prettier --write
 
 ## 路由
 
-分类、词典都是独立的 Next.js 页面，地址可直接分享：
+分类、词典、友情链接都是独立的 Next.js 页面，地址可直接分享：
 
 | 地址                       | 视图                     |
 | -------------------------- | ------------------------ |
 | `/`                        | 分类舞台（首页）         |
 | `/c/<slug>`                | 分类详情                 |
 | `/c/<slug>?focus=<linkId>` | 分类详情，并高亮某条链接 |
+| `/friends`                 | 友情链接                 |
 | `/glossary`                | 概念词典                 |
 | `/glossary?term=<termId>`  | 概念词典，并展开某个词条 |
 
@@ -93,6 +94,7 @@ app/
   layout.tsx            字体、主题、AppShell 外壳
   page.tsx              首页分类舞台
   c/[slug]/page.tsx     学院分类详情页
+  friends/page.tsx      友情链接
   glossary/page.tsx     概念词典
   globals.css           设计令牌：分类强调色、glass / surface-shadow、动效、reduced-motion
 components/
@@ -106,6 +108,7 @@ app/api/icon/route.ts   favicon 代理：读到上游真实状态码，查不到
   stage/                分类舞台：容器、卡片、指示器
   category/             分类详情页
   glossary/             概念词典
+  friends/              友情链接
   ui/                   shadcn 组件（未改动）
 hooks/
   use-stage-nav.ts      滚轮 / 键盘 / 拖拽导航
@@ -125,6 +128,7 @@ lib/
 - `college-meta.ts` — 学院英文名、tagline、强调色
 - `categories.ts` / `links.ts` — 概念词典仍在引用的旧站外链接
 - `glossary.ts` — 16 个概念词条，含别名、分组、详细释义，以及指向具体链接的 `relatedLinkIds`
+- `friends.ts` — 友情链接名单；申请方式和回链文案写在 `/friends` 页面上
 
 单独刷新课程目录：
 

@@ -22,9 +22,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-
-const ZBWER_INVITE =
-  "https://www.feishu.cn/invitation/page/add_contact/?token=23bm5ca7-2bb6-4c0b-be1e-2dd880f67acd"
+import { ZBWER_INVITE } from "@/lib/contact"
 
 type AboutDialogContextValue = {
   setOpen: (open: boolean) => void

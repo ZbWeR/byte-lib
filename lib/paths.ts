@@ -2,6 +2,7 @@ import { categoryBySlug, isAllCategorySlug } from "@/lib/data/library"
 import { SHOW_GLOSSARY } from "@/lib/features"
 
 export const HOME_PATH = "/"
+export const FRIENDS_PATH = "/friends"
 
 export function categoryPath(slug: string, focus?: string) {
   const path = `/c/${slug}`
@@ -36,6 +37,10 @@ export function pathFromLegacyHash(hash: string): string | null {
       return HOME_PATH
     }
     return glossaryPath(params.get("term") ?? undefined)
+  }
+
+  if (path === "friends") {
+    return FRIENDS_PATH
   }
 
   if (path.startsWith("c/")) {
