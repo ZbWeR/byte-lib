@@ -6,7 +6,6 @@ import {
   Add01Icon,
   ArrowLeft01Icon,
   ArrowUpRight01Icon,
-  CheckmarkCircle01Icon,
   Copy01Icon,
   Link01Icon,
   Tick01Icon,
@@ -14,7 +13,6 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react"
 
 import { FriendCard } from "@/components/friends/friend-card"
-import { SparkleMark } from "@/components/sticker-deco"
 import { Badge } from "@/components/ui/badge"
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
@@ -35,7 +33,6 @@ const APPLY_ITEMS = [
   { label: "站点网址", hint: "能公开打开的 https 链接" },
   { label: "一句话简介", hint: "建议 20 字内，说明这是谁的站" },
   { label: "Logo 链接", hint: "正方形图标最好，没有也可以" },
-  { label: "回链页面", hint: "你们挂上 Byte Lib 的那一页" },
 ] as const
 
 function CopyButton({ value, label }: { value: string; label: string }) {
@@ -66,9 +63,9 @@ function ContactAvatar() {
   const [failed, setFailed] = useState(false)
 
   return (
-    <div className="grid size-16 shrink-0 place-items-center overflow-hidden rounded-2xl border-2 border-white bg-secondary shadow-[0_0_0_2px_var(--sticker-ink)]">
+    <div className="grid size-12 shrink-0 place-items-center overflow-hidden rounded-2xl border-2 border-white bg-secondary shadow-[0_0_0_2px_var(--sticker-ink)]">
       {failed ? (
-        <span className="font-heading text-xl font-semibold">
+        <span className="font-heading text-lg font-semibold">
           {Array.from(ZBWER_NAME)[0]}
         </span>
       ) : (
@@ -76,8 +73,8 @@ function ContactAvatar() {
         <img
           src={ZBWER_AVATAR}
           alt=""
-          width={64}
-          height={64}
+          width={48}
+          height={48}
           referrerPolicy="no-referrer"
           className="size-full object-cover"
           onError={() => setFailed(true)}
@@ -198,76 +195,61 @@ export function FriendsView() {
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2 lg:items-stretch">
-        <div className="flex flex-col gap-6">
-          <article className="relative rounded-[28px] sticker bg-card p-6 [--sticker-shadow:var(--sticker-pink)]">
-            <SparkleMark className="absolute -top-3 -right-2 size-6 text-sticker-yellow" />
-            <Badge variant="secondary">怎么联系</Badge>
-            <a
-              href={ZBWER_INVITE}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`飞书加好友 ${ZBWER_NAME}`}
-              className="group mt-5 flex items-center gap-4 rounded-[20px] outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            >
-              <ContactAvatar />
-              <div className="min-w-0 flex-1">
-                <h3 className="text-lg leading-snug font-semibold">
-                  {ZBWER_NAME}
-                </h3>
-                <p className="mt-1 font-heading text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-                  飞书加好友
-                </p>
-              </div>
-              <HugeiconsIcon
-                icon={ArrowUpRight01Icon}
-                strokeWidth={2}
-                className="size-4 shrink-0 text-sticker-pink opacity-70 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
-              />
-            </a>
-          </article>
+        <article className="rounded-[28px] sticker bg-card p-6 [--sticker-shadow:var(--sticker-cyan)]">
+          <Badge>需要提供</Badge>
+          <ol className="mt-4 space-y-3">
+            {APPLY_ITEMS.map((item, index) => (
+              <li key={item.label} className="flex gap-3">
+                <span className="grid size-7 shrink-0 place-items-center rounded-full sticker-chip font-heading text-xs font-semibold tabular-nums">
+                  {index + 1}
+                </span>
+                <div className="min-w-0">
+                  <p className="font-heading text-sm font-semibold">
+                    {item.label}
+                  </p>
+                  <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">
+                    {item.hint}
+                  </p>
+                </div>
+              </li>
+            ))}
+            <li className="flex items-center gap-3">
+              <span className="grid size-7 shrink-0 place-items-center rounded-full sticker-chip font-heading text-xs font-semibold tabular-nums">
+                {APPLY_ITEMS.length + 1}
+              </span>
+              <a
+                href={ZBWER_INVITE}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`飞书加好友 ${ZBWER_NAME}`}
+                className="group flex min-w-0 flex-1 items-center gap-3 rounded-[16px] outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <ContactAvatar />
+                <div className="min-w-0 flex-1">
+                  <p className="font-heading text-sm font-semibold">
+                    {ZBWER_NAME}
+                  </p>
+                  <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">
+                    飞书加好友
+                  </p>
+                </div>
+                <HugeiconsIcon
+                  icon={ArrowUpRight01Icon}
+                  strokeWidth={2}
+                  className="size-4 shrink-0 text-sticker-pink opacity-70 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+                />
+              </a>
+            </li>
+          </ol>
+        </article>
 
-          <article className="rounded-[28px] sticker bg-card p-6 [--sticker-shadow:var(--sticker-cyan)]">
-            <Badge>需要提供</Badge>
-            <ol className="mt-4 space-y-3">
-              {APPLY_ITEMS.map((item, index) => (
-                <li key={item.label} className="flex gap-3">
-                  <span className="grid size-7 shrink-0 place-items-center rounded-full sticker-chip font-heading text-xs font-semibold tabular-nums">
-                    {index + 1}
-                  </span>
-                  <div className="min-w-0">
-                    <p className="font-heading text-sm font-semibold">
-                      {item.label}
-                    </p>
-                    <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">
-                      {item.hint}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </article>
-        </div>
-
-        <article className="flex flex-col rounded-[28px] sticker bg-card p-6 [--sticker-shadow:var(--sticker-blue)]">
+        <article className="rounded-[28px] sticker bg-card p-6 [--sticker-shadow:var(--sticker-blue)]">
           <Badge variant="outline">请先挂上我们</Badge>
           <h3 className="mt-4 text-lg font-semibold">Byte Lib 的链接信息</h3>
-          <p className="mt-2 text-base leading-relaxed text-foreground/80">
-            把下面三行贴到你的友链页。核对回链时我们会打开你给的页面看一眼。
-          </p>
           <div className="mt-4">
             <InfoRow label="名称" value={`${SITE_NAME} · ${SITE_TAGLINE}`} />
             <InfoRow label="网址" value={SITE_URL} mono />
             <InfoRow label="简介" value={SITE_BLURB} />
-          </div>
-          <div className="mt-auto flex items-start gap-3 pt-6">
-            <HugeiconsIcon
-              icon={CheckmarkCircle01Icon}
-              strokeWidth={2}
-              className="mt-0.5 size-5 shrink-0 text-sticker-blue"
-            />
-            <p className="text-sm leading-relaxed text-foreground/75">
-              优先考虑面向大学生的开源知识站、校园指南和课程资料库。内容需可公开访问、没有骚扰和诱导跳转。
-            </p>
           </div>
         </article>
       </div>
