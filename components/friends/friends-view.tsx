@@ -63,9 +63,9 @@ function ContactAvatar() {
   const [failed, setFailed] = useState(false)
 
   return (
-    <div className="grid size-12 shrink-0 place-items-center overflow-hidden rounded-2xl border-2 border-white bg-secondary shadow-[0_0_0_2px_var(--sticker-ink)]">
+    <div className="grid size-7 shrink-0 place-items-center overflow-hidden rounded-full sticker-chip">
       {failed ? (
-        <span className="font-heading text-lg font-semibold">
+        <span className="font-heading text-xs font-semibold">
           {Array.from(ZBWER_NAME)[0]}
         </span>
       ) : (
@@ -73,8 +73,8 @@ function ContactAvatar() {
         <img
           src={ZBWER_AVATAR}
           alt=""
-          width={48}
-          height={48}
+          width={28}
+          height={28}
           referrerPolicy="no-referrer"
           className="size-full object-cover"
           onError={() => setFailed(true)}
@@ -221,16 +221,16 @@ export function FriendsView() {
                 href={ZBWER_INVITE}
                 target="_blank"
                 rel="noreferrer"
-                aria-label={`飞书加好友 ${ZBWER_NAME}`}
-                className="group flex min-w-0 flex-1 items-center gap-3 rounded-[16px] outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                aria-label={`添加飞书并留言 ${ZBWER_NAME}`}
+                className="group -mx-1.5 flex min-w-0 flex-1 items-center gap-3 px-1.5 py-1 transition-all outline-none hover:-translate-y-0.5 hover:bg-secondary/80 focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <ContactAvatar />
                 <div className="min-w-0 flex-1">
-                  <p className="font-heading text-sm font-semibold">
+                  <p className="font-heading text-sm font-semibold transition-colors group-hover:text-sticker-pink">
                     {ZBWER_NAME}
                   </p>
-                  <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">
-                    飞书加好友
+                  <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground transition-colors group-hover:text-foreground/80">
+                    添加飞书并留言
                   </p>
                 </div>
                 <HugeiconsIcon
