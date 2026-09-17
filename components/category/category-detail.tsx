@@ -77,7 +77,7 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
   const index = categories.findIndex((item) => item.slug === slug)
 
   return (
-    <section className="mx-auto max-w-6xl px-6 pt-24 pb-14 md:pt-28 md:pb-24">
+    <section className="mx-auto w-full max-w-6xl min-w-0 px-6 pt-24 pb-14 md:pt-28 md:pb-24">
       <div className="flex items-center gap-3">
         <Link href={HOME_PATH} className={buttonVariants({ variant: "ghost" })}>
           <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={2} />
@@ -119,20 +119,20 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
               return null
             }
             return (
-              <section key={item.slug}>
-                <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+              <section key={item.slug} className="min-w-0">
+                <div className="mb-5 flex min-w-0 flex-wrap items-end justify-between gap-3">
                   <Link
                     href={categoryPath(item.slug)}
-                    className="group rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="group min-w-0 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
-                    <p className="font-heading text-xs font-semibold tracking-[0.16em] text-sticker-blue uppercase">
+                    <p className="font-heading text-xs font-semibold tracking-[0.16em] break-words text-sticker-blue uppercase">
                       {item.nameEn}
                     </p>
                     <h2 className="mt-1 font-heading text-2xl tracking-tight group-hover:underline group-hover:decoration-2 group-hover:underline-offset-4">
                       {item.name}
                     </h2>
                   </Link>
-                  <p className="font-heading text-xs font-semibold tracking-[0.14em] text-sticker-pink uppercase">
+                  <p className="shrink-0 font-heading text-xs font-semibold tracking-[0.14em] text-sticker-pink uppercase">
                     <span className="tabular-nums">{groupLinks.length}</span>{" "}
                     篇文档
                   </p>

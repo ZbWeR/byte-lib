@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowDown01Icon, Tick02Icon } from "@hugeicons/core-free-icons"
+import { ArrowDown01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { useEffect, useState } from "react"
 
@@ -121,39 +121,16 @@ export function CategoryChips({ slug }: { slug: string }) {
           <nav
             data-base-ui-swipe-ignore=""
             aria-label="学院分类"
-            className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto overscroll-contain px-3 pt-1 pb-[max(1.25rem,env(safe-area-inset-bottom))]"
+            className="flex min-h-0 flex-1 flex-wrap content-start gap-2.5 overflow-y-auto overscroll-contain px-4 pt-2 pb-[max(1.25rem,env(safe-area-inset-bottom))]"
           >
-            {CHIP_ITEMS.map((item) => {
-              const current = item.slug === slug
-              return (
-                <Link
-                  key={item.slug}
-                  href={categoryPath(item.slug)}
-                  aria-current={current ? "page" : undefined}
-                  onClick={() => setOpen(false)}
-                  className={cn(
-                    "flex h-12 items-center gap-3 rounded-2xl px-3 font-heading text-sm font-semibold transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                    current
-                      ? "bg-primary text-primary-foreground"
-                      : "text-foreground hover:bg-muted"
-                  )}
-                >
-                  <HugeiconsIcon
-                    icon={categoryIcon(item.slug)}
-                    strokeWidth={2}
-                    className="size-4 shrink-0"
-                  />
-                  <span className="min-w-0 flex-1 truncate">{item.name}</span>
-                  {current ? (
-                    <HugeiconsIcon
-                      icon={Tick02Icon}
-                      strokeWidth={2}
-                      className="size-4 shrink-0"
-                    />
-                  ) : null}
-                </Link>
-              )
-            })}
+            {CHIP_ITEMS.map((item) => (
+              <CategoryChip
+                key={item.slug}
+                item={item}
+                current={item.slug === slug}
+                onSelect={() => setOpen(false)}
+              />
+            ))}
           </nav>
         </DrawerContent>
       </Drawer>
