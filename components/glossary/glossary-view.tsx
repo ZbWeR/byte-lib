@@ -57,15 +57,15 @@ export function GlossaryView() {
 
   return (
     <section className="mx-auto max-w-5xl px-6 pt-28 pb-24">
-      <p className="font-heading text-[12px] font-semibold tracking-[0.16em] text-sticker-blue uppercase">
+      <p className="font-heading text-xs font-semibold tracking-[0.16em] text-sticker-blue uppercase">
         GLOSSARY
       </p>
       <h1 className="mt-2 font-heading text-4xl tracking-tight">概念词典</h1>
-      <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-foreground/75">
+      <p className="mt-3 max-w-2xl text-base leading-relaxed text-foreground/75">
         16
         个成电人天天挂在嘴边、却很少有人正式解释过的词。点开词条看完整说法，相关链接会把你送回对应分类。
       </p>
-      <p className="mt-2 font-heading text-[12px] font-semibold tracking-[0.14em] text-sticker-pink uppercase">
+      <p className="mt-2 font-heading text-xs font-semibold tracking-[0.14em] text-sticker-pink uppercase">
         <span className="tabular-nums">{glossary.length}</span> 个词条
       </p>
 
@@ -102,14 +102,12 @@ export function GlossaryView() {
           type="button"
           onClick={() => setGroup(null)}
           className={cn(
-            "inline-flex h-8 items-center gap-1.5 rounded-full sticker-chip px-3 font-heading text-[12px] font-semibold transition-transform hover:-translate-y-0.5",
-            group === null
-              ? "bg-primary text-primary-foreground [--sticker-shadow:var(--sticker-blue)]"
-              : "[--sticker-shadow:var(--sticker-yellow)]"
+            "inline-flex h-8 items-center gap-1.5 rounded-full sticker-chip px-3 font-heading text-xs font-semibold transition-transform hover:-translate-y-0.5",
+            group === null && "bg-primary text-primary-foreground"
           )}
         >
           全部
-          <span className="font-mono text-[11px] tabular-nums">
+          <span className="font-mono text-xs tabular-nums">
             {glossary.length}
           </span>
         </button>
@@ -121,14 +119,12 @@ export function GlossaryView() {
               type="button"
               onClick={() => setGroup(item)}
               className={cn(
-                "inline-flex h-8 items-center gap-1.5 rounded-full sticker-chip px-3 font-heading text-[12px] font-semibold transition-transform hover:-translate-y-0.5",
-                selected
-                  ? "bg-primary text-primary-foreground [--sticker-shadow:var(--sticker-blue)]"
-                  : "[--sticker-shadow:var(--sticker-cyan)]"
+                "inline-flex h-8 items-center gap-1.5 rounded-full sticker-chip px-3 font-heading text-xs font-semibold transition-transform hover:-translate-y-0.5",
+                selected && "bg-primary text-primary-foreground"
               )}
             >
               {item}
-              <span className="font-mono text-[11px] tabular-nums">
+              <span className="font-mono text-xs tabular-nums">
                 {counts.get(item) ?? 0}
               </span>
             </button>
@@ -143,8 +139,8 @@ export function GlossaryView() {
             strokeWidth={1.5}
             className="size-10 text-muted-foreground/50"
           />
-          <p className="mt-4 text-[15px] font-medium">没有匹配的词条</p>
-          <p className="mt-1 text-[13px] text-muted-foreground">
+          <p className="mt-4 text-base font-medium">没有匹配的词条</p>
+          <p className="mt-1 text-sm text-muted-foreground">
             换个说法，或者把筛选清掉再看看。
           </p>
           <Button

@@ -44,10 +44,27 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
       >
         <Link
           href={HOME_PATH}
-          className="rounded-full sticker-chip px-3.5 py-1.5 font-heading text-[15px] font-semibold tracking-[0.04em] text-foreground transition-transform duration-[var(--dur-micro)] outline-none hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-ring"
+          className="group font-heading text-base font-semibold tracking-[0.04em] text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="回到图书馆首页"
         >
-          UESTC · Byte Lib
+          UESTC ·{" "}
+          <span className="relative inline-block">
+            Byte Lib
+            <svg
+              aria-hidden
+              viewBox="0 0 88 8"
+              preserveAspectRatio="none"
+              className="pointer-events-none absolute inset-x-[-0.08em] -bottom-[0.18em] h-[0.32em] w-[calc(100%+0.16em)] origin-left scale-x-0 text-sticker-yellow transition-transform duration-[var(--dur-micro)] group-hover:scale-x-100"
+            >
+              <path
+                d="M1.2 5.1c18.4-2.6 35.2 2.2 52.8.2C66.4 4.2 76.8 2.4 86.6 4.6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3.2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </span>
         </Link>
 
         <div className="flex items-center gap-2">

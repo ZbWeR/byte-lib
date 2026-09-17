@@ -39,11 +39,11 @@ export function TermCard({ term, expanded }: TermCardProps) {
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <h2 className="text-[17px] leading-snug font-semibold">
+            <h2 className="text-lg leading-snug font-semibold">
               {term.term}
             </h2>
             {term.en ? (
-              <p className="mt-1 font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+              <p className="mt-1 font-mono text-xs tracking-[0.18em] text-muted-foreground uppercase">
                 {term.en}
               </p>
             ) : null}
@@ -53,13 +53,13 @@ export function TermCard({ term, expanded }: TermCardProps) {
         {term.alias && term.alias.length > 0 ? (
           <div className="mt-3 flex flex-wrap gap-1.5">
             {term.alias.map((alias) => (
-              <Badge key={alias} variant="outline" className="text-[11px]">
+              <Badge key={alias} variant="outline">
                 {alias}
               </Badge>
             ))}
           </div>
         ) : null}
-        <p className="mt-3 line-clamp-2 text-[14.5px] leading-relaxed text-foreground/75">
+        <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-foreground/75">
           {term.summary}
         </p>
       </button>
@@ -71,7 +71,7 @@ export function TermCard({ term, expanded }: TermCardProps) {
         )}
       >
         <div className="overflow-hidden">
-          <div className="space-y-3 pt-4 text-[15px] leading-relaxed text-foreground/75">
+          <div className="space-y-3 pt-4 text-base leading-relaxed text-foreground/75">
             {term.detail.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
@@ -87,7 +87,7 @@ export function TermCard({ term, expanded }: TermCardProps) {
                     onClick={() =>
                       window.open(link.url, "_blank", "noopener,noreferrer")
                     }
-                    className="inline-flex items-center gap-2 rounded-full sticker-chip py-1 pr-3 pl-1 font-heading text-[12px] font-semibold transition-transform hover:-translate-y-0.5"
+                    className="inline-flex items-center gap-2 rounded-full sticker-chip py-1 pr-3 pl-1 font-heading text-xs font-semibold transition-transform hover:-translate-y-0.5"
                   >
                     <Favicon
                       url={link.url}

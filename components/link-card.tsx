@@ -40,7 +40,7 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
       <div className="flex items-start justify-between gap-3">
         <h3
           title={title}
-          className="line-clamp-2 text-[17px] leading-snug font-semibold"
+          className="min-w-0 flex-1 truncate text-lg leading-snug font-semibold"
         >
           {title}
         </h3>
@@ -52,7 +52,7 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
       </div>
 
       {link.description ? (
-        <p className="mt-2 line-clamp-3 text-[14.5px] leading-relaxed text-foreground/75">
+        <p className="mt-2 line-clamp-3 leading-relaxed text-foreground/90">
           {link.description}
         </p>
       ) : null}
@@ -64,7 +64,7 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
             <TooltipTrigger
               delay={200}
               render={
-                <span className="ml-auto shrink-0 font-mono text-[11px] leading-none text-muted-foreground tabular-nums" />
+                <span className="ml-auto shrink-0 font-mono text-xs leading-none text-muted-foreground tabular-nums" />
               }
             >
               {age}

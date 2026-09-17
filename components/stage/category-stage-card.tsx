@@ -120,25 +120,25 @@ export function CategoryStageCard({
               className="size-4"
             />
           </div>
-          <p className="rounded-full sticker-chip px-2 py-0.5 font-heading text-[12px] font-semibold text-foreground tabular-nums">
+          <p className="rounded-full sticker-chip px-2 py-0.5 font-heading text-xs font-semibold text-foreground tabular-nums">
             <span className="font-mono">{totalCount}</span>
             {" 篇文档"}
           </p>
         </div>
 
-        <p className="mt-4 font-heading text-[11px] font-semibold tracking-[0.16em] text-sticker-blue uppercase">
+        <p className="mt-4 font-heading text-xs font-semibold tracking-[0.16em] text-sticker-blue uppercase">
           {category.nameEn}
         </p>
-        <h2 className="mt-1.5 font-heading text-[1.85rem] leading-[1.15] font-semibold tracking-tight">
+        <h2 className="mt-1.5 font-heading text-3xl leading-[1.15] font-semibold tracking-tight">
           {category.name}
         </h2>
-        <p className="mt-2 text-[14.5px] leading-relaxed text-foreground/75">
+        <p className="mt-2 leading-relaxed text-foreground/75">
           {category.tagline}
         </p>
 
         <Separator className="mt-4 h-0.5 rounded-full bg-sticker-ink/15" />
 
-        <p className="mt-3 font-heading text-[11px] font-semibold tracking-[0.14em] text-sticker-pink">
+        <p className="mt-3 font-heading text-xs font-semibold tracking-[0.14em] text-sticker-pink">
           热门资料
         </p>
         <ul className="mt-2 flex flex-col gap-2">
@@ -150,13 +150,13 @@ export function CategoryStageCard({
                   classes.dot
                 )}
               />
-              <span className="truncate text-[14.5px] font-medium text-foreground">
+              <span className="truncate font-medium text-foreground">
                 {link.displayTitle ?? link.title}
               </span>
             </li>
           ))}
           {previewLinks.length === 0 ? (
-            <li className="text-[13px] text-muted-foreground">暂无公开文档</li>
+            <li className="text-sm text-muted-foreground">暂无公开文档</li>
           ) : null}
         </ul>
       </Link>
