@@ -9,7 +9,16 @@ import { useEffect, useMemo, useState } from "react"
 import { LinkCard } from "@/components/link-card"
 import { buttonVariants } from "@/components/ui/button"
 import { categoryIcon } from "@/lib/category-icons"
-import { categories, categoryBySlug, linksByCategory } from "@/lib/data/library"
+import {
+  ALL_CATEGORY_SLUG,
+  allCategory,
+  categories,
+  isAllCategorySlug,
+  linksByCategory,
+  linksForCategory,
+  resolveCategory,
+} from "@/lib/data/library"
+import type { AccentKey, LibraryLink } from "@/lib/data/types"
 import { categoryPath, HOME_PATH } from "@/lib/paths"
 import { cn } from "@/lib/utils"
 
@@ -17,14 +26,43 @@ type CategoryDetailProps = {
   slug: string
 }
 
+const CHIP_ITEMS = [
+  { slug: ALL_CATEGORY_SLUG, name: allCategory.name },
+  ...categories.map((item) => ({ slug: item.slug, name: item.name })),
+]
+
+function LinkGrid({
+  items,
+  accentFor,
+  highlighted,
+}: {
+  items: LibraryLink[]
+  accentFor: (link: LibraryLink) => AccentKey
+  highlighted: string | null
+}) {
+  return (
+    <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      {items.map((link) => (
+        <LinkCard
+          key={link.id}
+          link={link}
+          accent={accentFor(link)}
+          highlighted={highlighted === link.id}
+        />
+      ))}
+    </div>
+  )
+}
+
 export function CategoryDetail({ slug }: CategoryDetailProps) {
-  const category = categoryBySlug.get(slug)
+  const category = resolveCategory(slug)
   const searchParams = useSearchParams()
   const focus = searchParams.get("focus")
   const [expiredFocus, setExpiredFocus] = useState<string | null>(null)
   const highlighted = focus && expiredFocus !== focus ? focus : null
+  const isAll = isAllCategorySlug(slug)
 
-  const allLinks = useMemo(() => linksByCategory[slug] ?? [], [slug])
+  const allLinks = useMemo(() => linksForCategory(slug), [slug])
 
   useEffect(() => {
     if (!focus) {
@@ -63,7 +101,7 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
       <div className="mt-8 space-y-3">
         <p className="font-heading text-xs font-semibold tracking-[0.16em] text-sticker-blue uppercase">
           <span className="tabular-nums">
-            {String(index + 1).padStart(2, "0")}
+            {isAll ? "ALL" : String(index + 1).padStart(2, "0")}
           </span>
           <span className="mx-2">·</span>
           {category.nameEn}
@@ -80,12 +118,13 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
       </div>
 
       <div className="mt-8 flex flex-wrap gap-3">
-        {categories.map((item) => {
+        {CHIP_ITEMS.map((item) => {
           const current = item.slug === slug
           return (
             <Link
               key={item.slug}
               href={categoryPath(item.slug)}
+              aria-current={current ? "page" : undefined}
               className={cn(
                 "flex items-center gap-2 rounded-full sticker-chip px-3 py-1.5 font-heading text-sm font-semibold transition-transform hover:-translate-y-0.5",
                 current
@@ -104,16 +143,50 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
         })}
       </div>
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-        {allLinks.map((link) => (
-          <LinkCard
-            key={link.id}
-            link={link}
-            accent={category.accent}
-            highlighted={highlighted === link.id}
+      {isAll ? (
+        <div className="mt-10 space-y-14">
+          {categories.map((item) => {
+            const groupLinks = linksByCategory[item.slug] ?? []
+            if (groupLinks.length === 0) {
+              return null
+            }
+            return (
+              <section key={item.slug}>
+                <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+                  <Link
+                    href={categoryPath(item.slug)}
+                    className="group rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    <p className="font-heading text-xs font-semibold tracking-[0.16em] text-sticker-blue uppercase">
+                      {item.nameEn}
+                    </p>
+                    <h2 className="mt-1 font-heading text-2xl tracking-tight group-hover:underline group-hover:decoration-2 group-hover:underline-offset-4">
+                      {item.name}
+                    </h2>
+                  </Link>
+                  <p className="font-heading text-xs font-semibold tracking-[0.14em] text-sticker-pink uppercase">
+                    <span className="tabular-nums">{groupLinks.length}</span>{" "}
+                    篇文档
+                  </p>
+                </div>
+                <LinkGrid
+                  items={groupLinks}
+                  accentFor={() => item.accent}
+                  highlighted={highlighted}
+                />
+              </section>
+            )
+          })}
+        </div>
+      ) : (
+        <div className="mt-10">
+          <LinkGrid
+            items={allLinks}
+            accentFor={() => category.accent}
+            highlighted={highlighted}
           />
-        ))}
-      </div>
+        </div>
+      )}
     </section>
   )
 }

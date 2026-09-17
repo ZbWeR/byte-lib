@@ -15,6 +15,7 @@ import {
 } from "@hugeicons/core-free-icons"
 
 const categoryIcons = {
+  all: LibraryIcon,
   general: BookOpen02Icon,
   cs: CpuIcon,
   medicine: StethoscopeIcon,
