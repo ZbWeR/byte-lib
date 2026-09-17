@@ -5,10 +5,10 @@ import Link from "next/link"
 import {
   Add01Icon,
   ArrowLeft01Icon,
+  ArrowUpRight01Icon,
   CheckmarkCircle01Icon,
   Copy01Icon,
   Link01Icon,
-  Message01Icon,
   Tick01Icon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
@@ -22,7 +22,9 @@ import {
   SITE_NAME,
   SITE_TAGLINE,
   SITE_URL,
+  ZBWER_AVATAR,
   ZBWER_INVITE,
+  ZBWER_NAME,
 } from "@/lib/contact"
 import { friends } from "@/lib/data/friends"
 import { HOME_PATH } from "@/lib/paths"
@@ -35,14 +37,6 @@ const APPLY_ITEMS = [
   { label: "Logo 链接", hint: "正方形图标最好，没有也可以" },
   { label: "回链页面", hint: "你们挂上 Byte Lib 的那一页" },
 ] as const
-
-const APPLY_TEMPLATE = `友链申请：<站点名称>
-
-- 站点名称：
-- 站点网址：
-- 一句话简介：
-- Logo 链接（可选）：
-- 回链页面：`
 
 function CopyButton({ value, label }: { value: string; label: string }) {
   const [copied, setCopied] = useState(false)
@@ -68,34 +62,28 @@ function CopyButton({ value, label }: { value: string; label: string }) {
   )
 }
 
-function CopyTextButton({
-  value,
-  idle,
-  done = "已复制",
-}: {
-  value: string
-  idle: string
-  done?: string
-}) {
-  const [copied, setCopied] = useState(false)
+function ContactAvatar() {
+  const [failed, setFailed] = useState(false)
 
   return (
-    <Button
-      type="button"
-      variant="outline"
-      onClick={async () => {
-        try {
-          await navigator.clipboard.writeText(value)
-          setCopied(true)
-          window.setTimeout(() => setCopied(false), 1600)
-        } catch {
-          setCopied(false)
-        }
-      }}
-    >
-      <HugeiconsIcon icon={copied ? Tick01Icon : Copy01Icon} strokeWidth={2} />
-      {copied ? done : idle}
-    </Button>
+    <div className="grid size-16 shrink-0 place-items-center overflow-hidden rounded-2xl border-2 border-white bg-secondary shadow-[0_0_0_2px_var(--sticker-ink)]">
+      {failed ? (
+        <span className="font-heading text-xl font-semibold">
+          {Array.from(ZBWER_NAME)[0]}
+        </span>
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={ZBWER_AVATAR}
+          alt=""
+          width={64}
+          height={64}
+          referrerPolicy="no-referrer"
+          className="size-full object-cover"
+          onError={() => setFailed(true)}
+        />
+      )}
+    </div>
   )
 }
 
@@ -214,23 +202,28 @@ export function FriendsView() {
           <article className="relative rounded-[28px] sticker bg-card p-6 [--sticker-shadow:var(--sticker-pink)]">
             <SparkleMark className="absolute -top-3 -right-2 size-6 text-sticker-yellow" />
             <Badge variant="secondary">怎么联系</Badge>
-            <h3 className="mt-4 text-lg font-semibold">飞书找到 zbwer</h3>
-            <p className="mt-2 text-base leading-relaxed text-foreground/80">
-              加好友后发一条消息即可，标题写成「友链申请：站点名」。我们不是 24
-              小时值班，过几天没回可以再戳一下。
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <a
-                href={ZBWER_INVITE}
-                target="_blank"
-                rel="noreferrer"
-                className={buttonVariants()}
-              >
-                <HugeiconsIcon icon={Message01Icon} strokeWidth={2} />
-                飞书联系 zbwer
-              </a>
-              <CopyTextButton value={APPLY_TEMPLATE} idle="复制申请模板" />
-            </div>
+            <a
+              href={ZBWER_INVITE}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`飞书加好友 ${ZBWER_NAME}`}
+              className="group mt-5 flex items-center gap-4 rounded-[20px] outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <ContactAvatar />
+              <div className="min-w-0 flex-1">
+                <h3 className="text-lg leading-snug font-semibold">
+                  {ZBWER_NAME}
+                </h3>
+                <p className="mt-1 font-heading text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+                  飞书加好友
+                </p>
+              </div>
+              <HugeiconsIcon
+                icon={ArrowUpRight01Icon}
+                strokeWidth={2}
+                className="size-4 shrink-0 text-sticker-pink opacity-70 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+              />
+            </a>
           </article>
 
           <article className="rounded-[28px] sticker bg-card p-6 [--sticker-shadow:var(--sticker-cyan)]">

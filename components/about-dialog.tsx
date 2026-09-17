@@ -22,7 +22,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { ZBWER_INVITE } from "@/lib/contact"
+import { ZBWER_INVITE, ZBWER_NAME } from "@/lib/contact"
 
 type AboutDialogContextValue = {
   setOpen: (open: boolean) => void
@@ -62,7 +62,7 @@ export function AboutDialogProvider({ children }: { children: ReactNode }) {
               rel="noreferrer"
               className="font-heading font-semibold text-sticker-blue underline-offset-3 hover:underline"
             >
-              zbwer
+              {ZBWER_NAME}
             </a>{" "}
             加入我们哦~
           </p>
