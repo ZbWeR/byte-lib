@@ -213,16 +213,13 @@ export function FriendsView() {
                 </div>
               </li>
             ))}
-            <li className="flex items-center gap-3">
-              <span className="grid size-7 shrink-0 place-items-center rounded-full sticker-chip font-heading text-xs font-semibold tabular-nums">
-                {APPLY_ITEMS.length + 1}
-              </span>
+            <li>
               <a
                 href={ZBWER_INVITE}
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`添加飞书并留言 ${ZBWER_NAME}`}
-                className="group -mx-1.5 flex min-w-0 flex-1 items-center gap-3 px-1.5 py-1 transition-all outline-none hover:-translate-y-0.5 hover:bg-secondary/80 focus-visible:ring-2 focus-visible:ring-ring"
+                className="group flex items-center gap-3 transition-all outline-none hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <ContactAvatar />
                 <div className="min-w-0 flex-1">
