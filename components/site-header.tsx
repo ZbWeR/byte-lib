@@ -44,25 +44,27 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
       >
         <Link
           href={HOME_PATH}
-          className="group relative inline-flex -rotate-[1.4deg] items-center px-4 py-1.5 font-heading text-base font-semibold tracking-[0.04em] text-foreground outline-none transition-colors duration-[var(--dur-micro)] focus-visible:ring-2 focus-visible:ring-ring"
+          className="group font-heading text-base font-semibold tracking-[0.04em] text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="回到图书馆首页"
         >
-          <svg
-            aria-hidden
-            viewBox="0 0 180 40"
-            preserveAspectRatio="none"
-            overflow="visible"
-            className="absolute -inset-x-1.5 -inset-y-0.5 text-card transition-colors duration-[var(--dur-micro)] group-hover:text-sticker-yellow"
-          >
-            <path
-              d="M21.4 4.8c-9.2-.6-17.8 4.8-18.8 14.1-1.1 9.8 5.4 17.6 16.6 18.4 8.2.6 22.4-1.8 34.8.8 14.2 3 31.6-1.2 46.2.6 13.6 1.6 28.8 2.4 42.4.2 11.8-1.8 22.8-7.4 23.6-16.8.9-10.6-8.4-17.8-20.2-18.6-12.4-.8-27.2 2.6-41.6.4-15.2-2.4-31.4 1.4-46.8-1.2C44.2 1.4 31.2 5.4 21.4 4.8Z"
-              fill="currentColor"
-              stroke="var(--sticker-ink)"
-              strokeWidth="2.8"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <span className="relative">UESTC · Byte Lib</span>
+          UESTC ·{" "}
+          <span className="relative inline-block">
+            Byte Lib
+            <svg
+              aria-hidden
+              viewBox="0 0 88 8"
+              preserveAspectRatio="none"
+              className="pointer-events-none absolute inset-x-[-0.08em] -bottom-[0.18em] h-[0.32em] w-[calc(100%+0.16em)] origin-left scale-x-0 text-sticker-yellow transition-transform duration-[var(--dur-micro)] group-hover:scale-x-100"
+            >
+              <path
+                d="M1.2 5.1c18.4-2.6 35.2 2.2 52.8.2C66.4 4.2 76.8 2.4 86.6 4.6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3.2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </span>
         </Link>
 
         <div className="flex items-center gap-2">

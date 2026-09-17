@@ -40,7 +40,7 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
       <div className="flex items-start justify-between gap-3">
         <h3
           title={title}
-          className="line-clamp-2 text-lg leading-snug font-semibold"
+          className="min-w-0 flex-1 truncate text-lg leading-snug font-semibold"
         >
           {title}
         </h3>
