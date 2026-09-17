@@ -9,7 +9,6 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react"
 import { useMemo, useState } from "react"
 
-import { Favicon } from "@/components/favicon"
 import {
   Command,
   CommandDialog,
@@ -21,14 +20,12 @@ import {
 } from "@/components/ui/command"
 import { Kbd } from "@/components/ui/kbd"
 import { useNavigate } from "@/hooks/use-navigate"
-import { categoryBySlug } from "@/lib/data/library"
 import { categoryIcon } from "@/lib/category-icons"
 import { SHOW_GLOSSARY } from "@/lib/features"
-import { formatCompactUv } from "@/lib/format"
 import { categoryPath, glossaryPath, HOME_PATH } from "@/lib/paths"
 import { filterSearch } from "@/lib/search"
 
-const SUGGESTIONS = ["计网", "毛概", "操作系统"] as const
+const SUGGESTIONS = ["计算机", "医学院", "公共"] as const
 
 type CommandPaletteProps = {
   open: boolean
@@ -41,10 +38,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
 
   const results = useMemo(() => filterSearch(query), [query])
   const total =
-    results.categories.length +
-    results.links.length +
-    results.terms.length +
-    results.nav.length
+    results.categories.length + results.terms.length + results.nav.length
 
   const close = () => {
     onOpenChange(false)
@@ -61,14 +55,12 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         }
       }}
       title="搜索"
-      description={SHOW_GLOSSARY ? "搜索课程、学院或概念" : "搜索课程或学院"}
+      description={SHOW_GLOSSARY ? "搜索学院或概念" : "搜索学院"}
       className="sm:max-w-xl"
     >
       <Command shouldFilter={false} className="rounded-3xl bg-transparent">
         <CommandInput
-          placeholder={
-            SHOW_GLOSSARY ? "搜索课程、学院或概念…" : "搜索课程或学院…"
-          }
+          placeholder={SHOW_GLOSSARY ? "搜索学院或概念…" : "搜索学院…"}
           value={query}
           onValueChange={setQuery}
         />
@@ -115,50 +107,16 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   <HugeiconsIcon
                     icon={categoryIcon(item.category.slug)}
                     strokeWidth={2}
-                    className="size-4"
+                    className="size-4 shrink-0"
                   />
-                  <span>{item.category.name}</span>
-                  <span className="ml-auto font-mono text-[11px] text-muted-foreground tabular-nums">
+                  <span className="min-w-0 flex-1 truncate">
+                    {item.category.name}
+                  </span>
+                  <span className="shrink-0 font-mono text-[11px] text-muted-foreground tabular-nums">
                     {item.count} 篇文档
                   </span>
                 </CommandItem>
               ))}
-            </CommandGroup>
-          ) : null}
-
-          {results.links.length > 0 ? (
-            <CommandGroup heading="课程">
-              {results.links.map((item) => {
-                const category = categoryBySlug.get(item.link.categorySlug)
-                return (
-                  <CommandItem
-                    key={item.id}
-                    value={`link:${item.id}`}
-                    onSelect={() => {
-                      window.open(
-                        item.link.url,
-                        "_blank",
-                        "noopener,noreferrer"
-                      )
-                      close()
-                    }}
-                  >
-                    <Favicon
-                      url={item.link.url}
-                      title={item.link.displayTitle ?? item.link.title}
-                      accent={category?.accent ?? "lime"}
-                      categorySlug={item.link.categorySlug}
-                      className="size-6 rounded-lg p-0.5"
-                    />
-                    <span className="truncate">
-                      {item.link.displayTitle ?? item.link.title}
-                    </span>
-                    <span className="ml-auto font-mono text-[11px] text-muted-foreground tabular-nums">
-                      {formatCompactUv(item.link.uv) ?? item.host}
-                    </span>
-                  </CommandItem>
-                )
-              })}
             </CommandGroup>
           ) : null}
 
@@ -176,10 +134,12 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   <HugeiconsIcon
                     icon={Idea01Icon}
                     strokeWidth={2}
-                    className="size-4"
+                    className="size-4 shrink-0"
                   />
-                  <span>{item.term.term}</span>
-                  <span className="ml-auto text-[11px] text-muted-foreground">
+                  <span className="min-w-0 flex-1 truncate">
+                    {item.term.term}
+                  </span>
+                  <span className="shrink-0 text-[11px] text-muted-foreground">
                     {item.term.group}
                   </span>
                 </CommandItem>
@@ -205,7 +165,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   <HugeiconsIcon
                     icon={item.id === "glossary" ? LibraryIcon : Home01Icon}
                     strokeWidth={2}
-                    className="size-4"
+                    className="size-4 shrink-0"
                   />
                   <span>{item.label}</span>
                 </CommandItem>
