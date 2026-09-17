@@ -38,6 +38,18 @@ export type LibraryLink = {
   keywords?: string[]
 }
 
+export type FriendLink = {
+  id: string
+  name: string
+  nameEn?: string
+  url: string
+  description: string
+  accent: AccentKey
+  /** 站点图标；没有时卡片用名称首字兜底 */
+  logoUrl?: string
+  github?: string
+}
+
 export type GlossaryGroup = "学业" | "升学" | "竞赛" | "校园" | "技术"
 
 export type GlossaryTerm = {

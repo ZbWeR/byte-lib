@@ -22,9 +22,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-
-const ZBWER_INVITE =
-  "https://www.feishu.cn/invitation/page/add_contact/?token=23bm5ca7-2bb6-4c0b-be1e-2dd880f67acd"
+import { ZBWER_INVITE, ZBWER_NAME } from "@/lib/contact"
 
 type AboutDialogContextValue = {
   setOpen: (open: boolean) => void
@@ -64,7 +62,7 @@ export function AboutDialogProvider({ children }: { children: ReactNode }) {
               rel="noreferrer"
               className="font-heading font-semibold text-sticker-blue underline-offset-3 hover:underline"
             >
-              zbwer
+              {ZBWER_NAME}
             </a>{" "}
             加入我们哦~
           </p>

@@ -4,6 +4,7 @@ import {
   Home01Icon,
   Idea01Icon,
   LibraryIcon,
+  Link01Icon,
   Search02Icon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
@@ -22,7 +23,12 @@ import { Kbd } from "@/components/ui/kbd"
 import { useNavigate } from "@/hooks/use-navigate"
 import { categoryIcon } from "@/lib/category-icons"
 import { SHOW_GLOSSARY } from "@/lib/features"
-import { categoryPath, glossaryPath, HOME_PATH } from "@/lib/paths"
+import {
+  categoryPath,
+  FRIENDS_PATH,
+  glossaryPath,
+  HOME_PATH,
+} from "@/lib/paths"
 import { filterSearch } from "@/lib/search"
 
 const SUGGESTIONS = ["计算机", "医学院", "公共"] as const
@@ -156,6 +162,8 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   onSelect={() => {
                     if (item.id === "glossary") {
                       navigate(glossaryPath())
+                    } else if (item.id === "friends") {
+                      navigate(FRIENDS_PATH)
                     } else {
                       navigate(HOME_PATH)
                     }
@@ -163,7 +171,13 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   }}
                 >
                   <HugeiconsIcon
-                    icon={item.id === "glossary" ? LibraryIcon : Home01Icon}
+                    icon={
+                      item.id === "glossary"
+                        ? LibraryIcon
+                        : item.id === "friends"
+                          ? Link01Icon
+                          : Home01Icon
+                    }
                     strokeWidth={2}
                     className="size-4 shrink-0"
                   />

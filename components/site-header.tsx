@@ -13,7 +13,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { HOME_PATH } from "@/lib/paths"
+import { FRIENDS_PATH, HOME_PATH } from "@/lib/paths"
 import { cn } from "@/lib/utils"
 
 type SiteHeaderProps = {
@@ -45,7 +45,7 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
         <Link
           href={HOME_PATH}
           className="group font-heading text-base font-semibold tracking-[0.04em] text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          aria-label="回到图书馆首页"
+          aria-label="回到首页"
         >
           UESTC ·{" "}
           <span className="relative inline-block">
@@ -67,7 +67,16 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
           </span>
         </Link>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
+          <Link
+            href={FRIENDS_PATH}
+            className={cn(
+              "inline-flex h-10 items-center rounded-2xl px-3 font-heading text-sm font-semibold tracking-[0.04em] text-foreground/55 transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring",
+              pathname === FRIENDS_PATH && "text-foreground"
+            )}
+          >
+            友链
+          </Link>
           <Tooltip>
             <TooltipTrigger
               delay={200}

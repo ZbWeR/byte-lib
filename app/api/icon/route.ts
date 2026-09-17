@@ -1,3 +1,4 @@
+import { friends } from "@/lib/data/friends"
 import { links as wikiLinks } from "@/lib/data/library"
 import { links as portalLinks } from "@/lib/data/links"
 
@@ -18,7 +19,7 @@ import { links as portalLinks } from "@/lib/data/links"
  * 既做白名单校验，也用来还原真正要请求的上游域名。
  */
 const ALLOWED_HOSTS = new Map<string, string>()
-for (const link of [...wikiLinks, ...portalLinks]) {
+for (const link of [...wikiLinks, ...portalLinks, ...friends]) {
   try {
     const hostname = new URL(link.url).hostname.toLowerCase()
     ALLOWED_HOSTS.set(hostname.replace(/^www\./, ""), hostname)

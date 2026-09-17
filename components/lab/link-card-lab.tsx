@@ -72,7 +72,7 @@ export function LinkCardLab({ links }: LinkCardLabProps) {
             "rounded-full"
           )}
         >
-          回图书馆
+          回首页
         </Link>
       </nav>
 

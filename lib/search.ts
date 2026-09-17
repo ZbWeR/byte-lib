@@ -29,7 +29,7 @@ export type SearchTerm = {
 
 export type SearchNav = {
   kind: "nav"
-  id: "home" | "glossary"
+  id: "home" | "glossary" | "friends"
   haystack: string
   label: string
 }
@@ -94,8 +94,14 @@ export const searchNav: SearchNav[] = [
   {
     kind: "nav",
     id: "home",
-    label: "返回图书馆首页",
-    haystack: "返回图书馆首页 图书馆 首页 home stage 舞台",
+    label: "返回首页",
+    haystack: "返回首页 图书馆 首页 home stage 舞台",
+  },
+  {
+    kind: "nav",
+    id: "friends",
+    label: "打开友情链接",
+    haystack: "打开友情链接 friends 友链 交换链接 友链申请 ac-wiki 友情链接",
   },
   ...(SHOW_GLOSSARY
     ? [
