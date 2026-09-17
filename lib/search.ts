@@ -94,8 +94,8 @@ export const searchNav: SearchNav[] = [
   {
     kind: "nav",
     id: "home",
-    label: "返回图书馆首页",
-    haystack: "返回图书馆首页 图书馆 首页 home stage 舞台",
+    label: "返回首页",
+    haystack: "返回首页 图书馆 首页 home stage 舞台",
   },
   {
     kind: "nav",

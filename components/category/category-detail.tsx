@@ -89,10 +89,10 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
       <div className="flex flex-wrap items-center gap-3">
         <Link href={HOME_PATH} className={buttonVariants({ variant: "ghost" })}>
           <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={2} />
-          图书馆
+          首页
         </Link>
         <p className="text-sm text-muted-foreground">
-          图书馆
+          首页
           <span className="mx-1.5 text-muted-foreground/50">/</span>
           <span className="text-foreground">{category.name}</span>
         </p>

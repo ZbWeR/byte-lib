@@ -45,7 +45,7 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
         <Link
           href={HOME_PATH}
           className="group font-heading text-base font-semibold tracking-[0.04em] text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          aria-label="回到图书馆首页"
+          aria-label="回到首页"
         >
           UESTC ·{" "}
           <span className="relative inline-block">

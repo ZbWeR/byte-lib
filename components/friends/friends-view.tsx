@@ -134,10 +134,10 @@ export function FriendsView() {
       <div className="flex flex-wrap items-center gap-3">
         <Link href={HOME_PATH} className={buttonVariants({ variant: "ghost" })}>
           <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={2} />
-          图书馆
+          首页
         </Link>
         <p className="text-sm text-muted-foreground">
-          图书馆
+          首页
           <span className="mx-1.5 text-muted-foreground/50">/</span>
           <span className="text-foreground">友情链接</span>
         </p>
@@ -165,29 +165,36 @@ export function FriendsView() {
           href="#apply"
           className="group relative flex flex-col rounded-[28px] sticker bg-card p-6 [--sticker-shadow:var(--sticker-yellow)] sticker-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
         >
-          <div className="flex items-start justify-between gap-3">
-            <div className="grid size-12 place-items-center rounded-2xl border-2 border-white bg-secondary shadow-[0_0_0_2px_var(--sticker-ink)]">
+          <div className="flex items-start gap-4">
+            <div className="grid size-12 shrink-0 place-items-center rounded-2xl border-2 border-white bg-secondary shadow-[0_0_0_2px_var(--sticker-ink)]">
               <HugeiconsIcon
                 icon={Add01Icon}
                 strokeWidth={2.2}
                 className="size-5"
               />
             </div>
-            <HugeiconsIcon
-              icon={Link01Icon}
-              strokeWidth={2}
-              className="size-4 text-sticker-blue opacity-70"
-            />
+            <div className="min-w-0 flex-1">
+              <div className="flex items-start justify-between gap-3">
+                <h2 className="text-lg leading-snug font-semibold">
+                  你的站点？
+                </h2>
+                <HugeiconsIcon
+                  icon={Link01Icon}
+                  strokeWidth={2}
+                  className="mt-0.5 size-4 shrink-0 text-sticker-pink opacity-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+                />
+              </div>
+              <p className="mt-1 font-heading text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+                交换友链
+              </p>
+            </div>
           </div>
-          <h2 className="mt-4 text-lg leading-snug font-semibold">
-            你的站点？
-          </h2>
-          <p className="mt-2 text-base leading-relaxed text-foreground/80">
+          <p className="mt-4 text-base leading-relaxed text-foreground/80">
             高校知识站、校园生活指南、开源学习项目，只要对同学有用，都欢迎来交换。
           </p>
-          <p className="mt-auto pt-6 font-heading text-xs font-semibold tracking-[0.08em] text-sticker-pink">
-            看申请指引 →
-          </p>
+          <div className="mt-auto flex flex-wrap items-center gap-2 pt-6">
+            <Badge variant="outline">看申请指引</Badge>
+          </div>
         </a>
       </div>
 
@@ -202,74 +209,74 @@ export function FriendsView() {
         </p>
       </div>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-2">
-        <article className="relative rounded-[28px] sticker bg-card p-6 [--sticker-shadow:var(--sticker-pink)]">
-          <SparkleMark className="absolute -top-3 -right-2 size-6 text-sticker-yellow" />
-          <Badge variant="secondary">怎么联系</Badge>
-          <h3 className="mt-4 text-lg font-semibold">飞书找到 zbwer</h3>
+      <div className="mt-8 grid gap-6 lg:grid-cols-2 lg:items-stretch">
+        <div className="flex flex-col gap-6">
+          <article className="relative rounded-[28px] sticker bg-card p-6 [--sticker-shadow:var(--sticker-pink)]">
+            <SparkleMark className="absolute -top-3 -right-2 size-6 text-sticker-yellow" />
+            <Badge variant="secondary">怎么联系</Badge>
+            <h3 className="mt-4 text-lg font-semibold">飞书找到 zbwer</h3>
+            <p className="mt-2 text-base leading-relaxed text-foreground/80">
+              加好友后发一条消息即可，标题写成「友链申请：站点名」。我们不是 24
+              小时值班，过几天没回可以再戳一下。
+            </p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <a
+                href={ZBWER_INVITE}
+                target="_blank"
+                rel="noreferrer"
+                className={buttonVariants()}
+              >
+                <HugeiconsIcon icon={Message01Icon} strokeWidth={2} />
+                飞书联系 zbwer
+              </a>
+              <CopyTextButton value={APPLY_TEMPLATE} idle="复制申请模板" />
+            </div>
+          </article>
+
+          <article className="rounded-[28px] sticker bg-card p-6 [--sticker-shadow:var(--sticker-cyan)]">
+            <Badge>需要提供</Badge>
+            <ol className="mt-4 space-y-3">
+              {APPLY_ITEMS.map((item, index) => (
+                <li key={item.label} className="flex gap-3">
+                  <span className="grid size-7 shrink-0 place-items-center rounded-full sticker-chip font-heading text-xs font-semibold tabular-nums">
+                    {index + 1}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="font-heading text-sm font-semibold">
+                      {item.label}
+                    </p>
+                    <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">
+                      {item.hint}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </article>
+        </div>
+
+        <article className="flex flex-col rounded-[28px] sticker bg-card p-6 [--sticker-shadow:var(--sticker-blue)]">
+          <Badge variant="outline">请先挂上我们</Badge>
+          <h3 className="mt-4 text-lg font-semibold">Byte Lib 的链接信息</h3>
           <p className="mt-2 text-base leading-relaxed text-foreground/80">
-            加好友后发一条消息即可，标题写成「友链申请：站点名」。我们不是 24
-            小时值班，过几天没回可以再戳一下。
+            把下面三行贴到你的友链页。核对回链时我们会打开你给的页面看一眼。
           </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a
-              href={ZBWER_INVITE}
-              target="_blank"
-              rel="noreferrer"
-              className={buttonVariants()}
-            >
-              <HugeiconsIcon icon={Message01Icon} strokeWidth={2} />
-              飞书联系 zbwer
-            </a>
-            <CopyTextButton value={APPLY_TEMPLATE} idle="复制申请模板" />
+          <div className="mt-4">
+            <InfoRow label="名称" value={`${SITE_NAME} · ${SITE_TAGLINE}`} />
+            <InfoRow label="网址" value={SITE_URL} mono />
+            <InfoRow label="简介" value={SITE_BLURB} />
+          </div>
+          <div className="mt-auto flex items-start gap-3 pt-6">
+            <HugeiconsIcon
+              icon={CheckmarkCircle01Icon}
+              strokeWidth={2}
+              className="mt-0.5 size-5 shrink-0 text-sticker-blue"
+            />
+            <p className="text-sm leading-relaxed text-foreground/75">
+              优先考虑面向大学生的开源知识站、校园指南和课程资料库。内容需可公开访问、没有骚扰和诱导跳转。
+            </p>
           </div>
         </article>
-
-        <article className="rounded-[28px] sticker bg-card p-6 [--sticker-shadow:var(--sticker-cyan)]">
-          <Badge>需要提供</Badge>
-          <ol className="mt-4 space-y-3">
-            {APPLY_ITEMS.map((item, index) => (
-              <li key={item.label} className="flex gap-3">
-                <span className="grid size-7 shrink-0 place-items-center rounded-full sticker-chip font-heading text-xs font-semibold tabular-nums">
-                  {index + 1}
-                </span>
-                <div className="min-w-0">
-                  <p className="font-heading text-sm font-semibold">
-                    {item.label}
-                  </p>
-                  <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">
-                    {item.hint}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </article>
-      </div>
-
-      <article className="mt-6 rounded-[28px] sticker bg-card p-6 [--sticker-shadow:var(--sticker-blue)]">
-        <Badge variant="outline">请先挂上我们</Badge>
-        <h3 className="mt-4 text-lg font-semibold">Byte Lib 的链接信息</h3>
-        <p className="mt-2 max-w-2xl text-base leading-relaxed text-foreground/80">
-          把下面三行贴到你的友链页。核对回链时我们会打开你给的页面看一眼。
-        </p>
-
-        <div className="mt-4">
-          <InfoRow label="名称" value={`${SITE_NAME} · ${SITE_TAGLINE}`} />
-          <InfoRow label="网址" value={SITE_URL} mono />
-          <InfoRow label="简介" value={SITE_BLURB} />
-        </div>
-      </article>
-
-      <div className="mt-8 flex items-start gap-3 rounded-[28px] bg-accent/70 px-5 py-4">
-        <HugeiconsIcon
-          icon={CheckmarkCircle01Icon}
-          strokeWidth={2}
-          className="mt-0.5 size-5 shrink-0 text-sticker-blue"
-        />
-        <p className="text-sm leading-relaxed text-foreground/75">
-          优先考虑面向大学生的开源知识站、校园指南和课程资料库。内容需可公开访问、没有骚扰和诱导跳转。申请消息里直接贴模板也行，点右上角复制。
-        </p>
       </div>
     </section>
   )
