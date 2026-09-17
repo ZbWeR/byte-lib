@@ -133,9 +133,9 @@ export function FriendsView() {
           FRIENDS
         </p>
         <h1 className="font-heading text-4xl tracking-tight">友情链接</h1>
-        <p className="max-w-2xl text-base leading-relaxed text-foreground/75">
-          馆外也有值得一逛的站点。我们先放上
-          Ac-Wiki，后面会慢慢把互相挂链的朋友请进来。
+        <p className="max-w-3xl text-base leading-relaxed text-foreground/75">
+          馆外也有值得一逛的站点。眼下先请上
+          Ac-Wiki，互换友链的朋友会陆续请来。
         </p>
         <p className="font-heading text-xs font-semibold tracking-[0.14em] text-sticker-pink uppercase">
           <span className="tabular-nums">{friends.length}</span> 个站点
@@ -188,9 +188,9 @@ export function FriendsView() {
           APPLY
         </p>
         <h2 className="font-heading text-3xl tracking-tight">想出现在这一页</h2>
-        <p className="max-w-2xl text-base leading-relaxed text-foreground/75">
-          先在你的站点挂上 Byte
-          Lib，再按模板把信息发给我们。人工核对，不保证一定收录，也不做付费交换。
+        <p className="max-w-3xl text-base leading-relaxed text-foreground/75">
+          请先在你的站点挂上 Byte
+          Lib，再按模板把信息发给我们。人工核对，不保证收录，也不做付费交换。
         </p>
       </div>
 
