@@ -111,16 +111,17 @@ export function CategoryChips({ slug }: { slug: string }) {
           </DrawerTrigger>
         </div>
 
-        <DrawerContent>
-          <DrawerHeader>
+        <DrawerContent className="max-h-[min(26rem,58dvh)] [--drawer-content-max-height:min(26rem,58dvh)]">
+          <DrawerHeader className="shrink-0">
             <DrawerTitle>切换分类</DrawerTitle>
             <DrawerDescription>
               当前为{currentItem.name}，点一项即可查看对应文档。
             </DrawerDescription>
           </DrawerHeader>
           <nav
+            data-base-ui-swipe-ignore=""
             aria-label="学院分类"
-            className="flex flex-col gap-1 overflow-y-auto px-3 pt-2 pb-[max(1.25rem,env(safe-area-inset-bottom))]"
+            className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto overscroll-contain px-3 pt-1 pb-[max(1.25rem,env(safe-area-inset-bottom))]"
           >
             {CHIP_ITEMS.map((item) => {
               const current = item.slug === slug

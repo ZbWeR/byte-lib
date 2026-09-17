@@ -77,7 +77,7 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
   const index = categories.findIndex((item) => item.slug === slug)
 
   return (
-    <section className="mx-auto max-w-6xl px-4 pt-24 pb-14 md:px-6 md:pt-28 md:pb-24">
+    <section className="mx-auto max-w-6xl px-6 pt-24 pb-14 md:pt-28 md:pb-24">
       <div className="flex items-center gap-3">
         <Link href={HOME_PATH} className={buttonVariants({ variant: "ghost" })}>
           <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={2} />
