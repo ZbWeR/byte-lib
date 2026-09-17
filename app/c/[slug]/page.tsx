@@ -3,12 +3,19 @@ import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
 import { CategoryDetail } from "@/components/category/category-detail"
-import { categories, categoryBySlug } from "@/lib/data/library"
+import {
+  ALL_CATEGORY_SLUG,
+  categories,
+  resolveCategory,
+} from "@/lib/data/library"
 
 export const dynamicParams = false
 
 export function generateStaticParams() {
-  return categories.map((category) => ({ slug: category.slug }))
+  return [
+    { slug: ALL_CATEGORY_SLUG },
+    ...categories.map((category) => ({ slug: category.slug })),
+  ]
 }
 
 export async function generateMetadata({
@@ -17,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const { slug } = await params
-  const category = categoryBySlug.get(slug)
+  const category = resolveCategory(slug)
   if (!category) {
     return { title: "未收录" }
   }
@@ -33,7 +40,7 @@ export default async function CategoryPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  if (!categoryBySlug.has(slug)) {
+  if (!resolveCategory(slug)) {
     notFound()
   }
 

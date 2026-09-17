@@ -1,4 +1,4 @@
-import { categoryBySlug } from "@/lib/data/library"
+import { categoryBySlug, isAllCategorySlug } from "@/lib/data/library"
 import { SHOW_GLOSSARY } from "@/lib/features"
 
 export const HOME_PATH = "/"
@@ -40,7 +40,7 @@ export function pathFromLegacyHash(hash: string): string | null {
 
   if (path.startsWith("c/")) {
     const slug = path.slice(2)
-    if (slug && categoryBySlug.has(slug)) {
+    if (slug && (isAllCategorySlug(slug) || categoryBySlug.has(slug))) {
       return categoryPath(slug, params.get("focus") ?? undefined)
     }
   }

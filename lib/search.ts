@@ -1,5 +1,5 @@
 import { glossary } from "@/lib/data/glossary"
-import { categories, links } from "@/lib/data/library"
+import { allCategory, categories, links } from "@/lib/data/library"
 import type { Category, GlossaryTerm, LibraryLink } from "@/lib/data/types"
 import { SHOW_GLOSSARY } from "@/lib/features"
 
@@ -65,12 +65,16 @@ const linkCountBySlug = links.reduce<Record<string, number>>((acc, link) => {
   return acc
 }, {})
 
-export const searchCategories: SearchCategory[] = categories.map(
-  (category) => ({
+function categorySearchEntry(
+  category: Category,
+  count: number,
+  extraHaystack = ""
+): SearchCategory {
+  return {
     kind: "category",
     id: category.slug,
     category,
-    count: linkCountBySlug[category.slug] ?? 0,
+    count,
     haystack: [
       category.name,
       category.nameEn,
@@ -78,11 +82,23 @@ export const searchCategories: SearchCategory[] = categories.map(
       category.description,
       category.tags.join(" "),
       category.slug,
+      extraHaystack,
     ]
       .join(" ")
       .toLowerCase(),
-  })
-)
+  }
+}
+
+export const searchCategories: SearchCategory[] = [
+  categorySearchEntry(
+    allCategory,
+    links.length,
+    "所有学院 全部分类 馆藏 通览 entire library"
+  ),
+  ...categories.map((category) =>
+    categorySearchEntry(category, linkCountBySlug[category.slug] ?? 0)
+  ),
+]
 
 export const searchLinks: SearchLink[] = links.map((link) => {
   const host = displayHost(link.url)
