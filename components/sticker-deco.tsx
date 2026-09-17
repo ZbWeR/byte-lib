@@ -218,13 +218,13 @@ export function MemphisLayer({
         <ChipMark className="size-10 rotate-[-18deg]" />
       </span>
       <span
-        className="memphis-float absolute right-[4%] bottom-[22%] max-md:bottom-[12%] max-md:size-8"
+        className="memphis-float absolute right-[4%] bottom-[22%] max-md:hidden"
         style={{ animationDelay: "1.6s" }}
       >
         <CodeMark className="w-14 rotate-[12deg]" />
       </span>
       <span
-        className="memphis-wiggle absolute bottom-[16%] left-[10%] text-sticker-blue"
+        className="memphis-wiggle absolute bottom-[16%] left-[10%] text-sticker-blue max-md:hidden"
         style={{ animationDelay: "0.4s" }}
       >
         <PawMark className="size-8 rotate-[-12deg]" />

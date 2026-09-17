@@ -32,7 +32,7 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "group relative flex flex-col rounded-[28px] sticker bg-card p-6 transition-all duration-[var(--dur-micro)] sticker-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+        "group relative flex flex-col rounded-[24px] sticker bg-card p-5 transition-all duration-[var(--dur-micro)] sticker-pop focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none sm:rounded-[28px] sm:p-6",
         classes.sticker,
         highlighted && ["outline-none", classes.highlight, "ring-4"]
       )}
@@ -40,14 +40,14 @@ export function LinkCard({ link, accent, highlighted }: LinkCardProps) {
       <div className="flex items-start justify-between gap-3">
         <h3
           title={title}
-          className="min-w-0 flex-1 truncate text-lg leading-snug font-semibold"
+          className="min-w-0 flex-1 truncate text-base leading-snug font-semibold sm:text-lg"
         >
           {title}
         </h3>
         <HugeiconsIcon
           icon={ArrowUpRight01Icon}
           strokeWidth={2}
-          className="mt-0.5 size-4 shrink-0 text-sticker-pink opacity-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+          className="mt-0.5 size-4 shrink-0 text-sticker-pink opacity-70 transition-all sm:opacity-0 sm:group-hover:translate-x-0.5 sm:group-hover:-translate-y-0.5 sm:group-hover:opacity-100"
         />
       </div>
 

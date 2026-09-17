@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Geist_Mono } from "next/font/google"
 import Script from "next/script"
 
@@ -20,6 +20,12 @@ export const metadata: Metadata = {
     template: "%s · UESTC Byte Lib",
   },
   description: `${catalog.stats.collegeCount} 个学院、${catalog.stats.docCount} 篇期末复习文档，按学院收录成电人自己整理的飞书笔记。`,
+}
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 }
 
 export default function RootLayout({

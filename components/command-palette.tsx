@@ -173,7 +173,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             </CommandGroup>
           ) : null}
         </CommandList>
-        <div className="flex items-center gap-3 border-t-2 border-sticker-ink/10 px-3 py-2 font-heading text-xs font-semibold text-muted-foreground">
+        <div className="hidden items-center gap-3 border-t-2 border-sticker-ink/10 px-3 py-2 font-heading text-xs font-semibold text-muted-foreground sm:flex">
           <span className="flex items-center gap-1">
             <Kbd>↵</Kbd> 打开
           </span>

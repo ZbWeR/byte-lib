@@ -107,6 +107,22 @@ export function FluidCursor({
       TRANSPARENT: transparent,
     }
 
+    const isMobileFluid =
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.matchMedia("(max-width: 768px)").matches
+    const saveData =
+      "connection" in navigator &&
+      Boolean(
+        (navigator as Navigator & { connection?: { saveData?: boolean } })
+          .connection?.saveData
+      )
+    if (isMobileFluid || saveData) {
+      config.DYE_RESOLUTION = Math.min(config.DYE_RESOLUTION, 256)
+      config.SIM_RESOLUTION = Math.min(config.SIM_RESOLUTION, 64)
+      config.SHADING = false
+      config.SPLAT_FORCE = Math.min(config.SPLAT_FORCE, 4000)
+    }
+
     // Get WebGL context (WebGL1 or WebGL2)
     const { gl, ext } = getWebGLContext(canvas)
     if (!gl || !ext) return
@@ -1007,7 +1023,8 @@ export function FluidCursor({
     }
 
     function scaleByPixelRatio(input: number) {
-      const pixelRatio = window.devicePixelRatio || 1
+      const dpr = window.devicePixelRatio || 1
+      const pixelRatio = isMobileFluid ? Math.min(dpr, 1.25) : Math.min(dpr, 2)
       return Math.floor(input * pixelRatio)
     }
 

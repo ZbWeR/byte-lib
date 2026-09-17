@@ -53,7 +53,7 @@ function CommandDialog({
       </DialogHeader>
       <DialogContent
         className={cn(
-          "top-1/3 translate-y-0 overflow-hidden rounded-[28px]! border-4 border-white p-0 shadow-[0_0_0_3px_var(--sticker-ink),8px_8px_0_var(--sticker-blue)]",
+          "top-[max(0.75rem,env(safe-area-inset-top,0px))] max-h-[min(36rem,calc(100dvh-1.5rem))] translate-y-0 overflow-hidden rounded-[28px]! border-4 border-white p-0 shadow-[0_0_0_3px_var(--sticker-ink),8px_8px_0_var(--sticker-blue)] sm:top-1/3 sm:max-h-[min(36rem,calc(100dvh-8rem))]",
           className
         )}
         showCloseButton={showCloseButton}
@@ -74,7 +74,7 @@ function CommandInput({
         <CommandPrimitive.Input
           data-slot="command-input"
           className={cn(
-            "w-full text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+            "w-full text-base outline-hidden disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
             className
           )}
           {...props}

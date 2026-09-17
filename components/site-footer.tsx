@@ -18,10 +18,10 @@ export function SiteFooter({ overlay = false }: SiteFooterProps) {
   return (
     <footer
       className={cn(
-        "px-6 py-4 text-center font-heading text-xs font-semibold tracking-[0.04em] text-foreground/70",
+        "px-4 py-3 text-center font-heading text-xs font-semibold tracking-[0.04em] text-foreground/70 sm:px-6 sm:py-4",
         overlay
-          ? "pointer-events-none fixed inset-x-0 bottom-0 z-40"
-          : "mt-auto"
+          ? "pointer-events-none fixed inset-x-0 bottom-0 z-40 pb-[max(0.75rem,env(safe-area-inset-bottom,0px))]"
+          : "mt-auto pb-[max(1rem,env(safe-area-inset-bottom,0px))]"
       )}
     >
       <Tooltip>

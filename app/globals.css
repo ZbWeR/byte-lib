@@ -115,14 +115,17 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50 no-scrollbar;
+    @apply no-scrollbar border-border outline-ring/50;
   }
   body {
     @apply bg-background font-sans text-base text-foreground;
+    -webkit-tap-highlight-color: transparent;
   }
   html {
     @apply font-sans;
     color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
   h1,
   h2,
@@ -185,11 +188,25 @@
     box-shadow var(--dur-micro) var(--ease-soft);
 }
 
-.sticker-pop:hover {
-  transform: translate(-2px, -2px) rotate(-1deg);
-  box-shadow:
-    0 0 0 3px var(--sticker-ink),
-    9px 9px 0 0 var(--sticker-shadow, var(--sticker-pink));
+@media (hover: hover) and (pointer: fine) {
+  .sticker-pop:hover {
+    transform: translate(-2px, -2px) rotate(-1deg);
+    box-shadow:
+      0 0 0 3px var(--sticker-ink),
+      9px 9px 0 0 var(--sticker-shadow, var(--sticker-pink));
+  }
+}
+
+@utility page-gutter {
+  padding-inline: 1rem;
+  padding-top: calc(5.25rem + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+
+  @media (min-width: 640px) {
+    padding-inline: 1.5rem;
+    padding-top: 7rem;
+    padding-bottom: 6rem;
+  }
 }
 
 @utility surface-shadow {

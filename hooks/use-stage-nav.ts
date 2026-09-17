@@ -250,7 +250,7 @@ export function useStageNav({
   }, [count, enabled, setIndex, step])
 
   useEffect(() => {
-    const el = shiftRef.current
+    const el = stageRef.current
     if (!el) {
       return
     }

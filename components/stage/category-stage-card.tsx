@@ -73,7 +73,7 @@ export function CategoryStageCard({
       aria-current={active ? "true" : undefined}
       className={cn(
         "stage-card-face absolute top-[calc(var(--card-top)+var(--card-h)/2)] left-1/2 h-[var(--card-h)] w-[var(--card-w)]",
-        t.abs >= 2 && "max-[900px]:hidden"
+        t.abs >= 2 && "max-md:hidden"
       )}
       style={
         {
@@ -100,7 +100,7 @@ export function CategoryStageCard({
           } as CSSProperties
         }
         className={cn(
-          "relative flex min-h-full w-full animate-in flex-col rounded-[28px] sticker bg-card px-5 py-5 text-left duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring",
+          "relative flex h-full min-h-0 w-full animate-in flex-col overflow-hidden rounded-[24px] sticker bg-card px-4 py-4 text-left duration-500 fade-in-0 outline-none [animation-fill-mode:backwards] slide-in-from-bottom-3 focus-visible:ring-2 focus-visible:ring-ring sm:rounded-[28px] sm:px-5 sm:py-5",
           !reducedMotion &&
             "transition-[border-color,box-shadow] duration-[480ms] [transition-timing-function:var(--ease-soft)]",
           classes.sticker
@@ -126,24 +126,31 @@ export function CategoryStageCard({
           </p>
         </div>
 
-        <p className="mt-4 font-heading text-xs font-semibold tracking-[0.16em] text-sticker-blue uppercase">
+        <p className="mt-3 truncate font-heading text-xs font-semibold tracking-[0.16em] text-sticker-blue uppercase sm:mt-4">
           {category.nameEn}
         </p>
-        <h2 className="mt-1.5 font-heading text-3xl leading-[1.15] font-semibold tracking-tight">
+        <h2 className="mt-1 font-heading text-2xl leading-[1.15] font-semibold tracking-tight sm:mt-1.5 sm:text-3xl">
           {category.name}
         </h2>
-        <p className="mt-2 leading-relaxed text-foreground/75">
+        <p className="mt-2 line-clamp-2 leading-relaxed text-foreground/75 [@media(max-height:32rem)]:hidden">
           {category.tagline}
         </p>
 
-        <Separator className="mt-4 h-0.5 rounded-full bg-sticker-ink/15" />
+        <Separator className="mt-3 h-0.5 rounded-full bg-sticker-ink/15 sm:mt-4" />
 
         <p className="mt-3 font-heading text-xs font-semibold tracking-[0.14em] text-sticker-pink">
           热门资料
         </p>
-        <ul className="mt-2 flex flex-col gap-2">
-          {previewLinks.map((link) => (
-            <li key={link.id} className="flex min-w-0 items-center gap-2.5">
+        <ul className="mt-2 flex min-h-0 flex-1 flex-col gap-2 overflow-hidden">
+          {previewLinks.map((link, i) => (
+            <li
+              key={link.id}
+              className={cn(
+                "flex min-w-0 items-center gap-2.5",
+                i >= 3 && "max-md:hidden",
+                i >= 2 && "[@media(max-height:32rem)]:hidden"
+              )}
+            >
               <span
                 className={cn(
                   "size-2.5 shrink-0 rounded-full border-2 border-white shadow-[0_0_0_1.5px_var(--sticker-ink)]",
@@ -165,9 +172,7 @@ export function CategoryStageCard({
         className="pointer-events-none absolute -inset-3 z-20 rounded-[40px] bg-background"
         style={{
           opacity: t.wash,
-          transition: reducedMotion
-            ? "none"
-            : "opacity 480ms var(--ease-soft)",
+          transition: reducedMotion ? "none" : "opacity 480ms var(--ease-soft)",
         }}
       />
     </div>

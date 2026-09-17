@@ -35,16 +35,16 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
   }, [])
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <div
-        className={cn(
-          "flex h-16 items-center justify-between px-6 transition-colors duration-300 md:px-10",
-          !isHome && scrolled && "bg-background/90 backdrop-blur-md"
-        )}
-      >
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top,0px)]",
+        !isHome && scrolled && "bg-background/90 backdrop-blur-md"
+      )}
+    >
+      <div className="flex h-14 items-center justify-between px-4 transition-colors duration-300 sm:h-16 sm:px-6 md:px-10">
         <Link
           href={HOME_PATH}
-          className="group font-heading text-base font-semibold tracking-[0.04em] text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="group font-heading text-sm font-semibold tracking-[0.04em] text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring sm:text-base"
           aria-label="回到图书馆首页"
         >
           UESTC ·{" "}
@@ -85,7 +85,7 @@ export function SiteHeader({ pathname, onSearch }: SiteHeaderProps) {
             </TooltipTrigger>
             <TooltipContent>
               搜索
-              <Kbd>⌘K</Kbd>
+              <Kbd className="max-sm:hidden">⌘K</Kbd>
             </TooltipContent>
           </Tooltip>
           <AboutTrigger />

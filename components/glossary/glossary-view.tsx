@@ -56,11 +56,13 @@ export function GlossaryView() {
   }
 
   return (
-    <section className="mx-auto max-w-5xl px-6 pt-28 pb-24">
+    <section className="mx-auto max-w-5xl page-gutter">
       <p className="font-heading text-xs font-semibold tracking-[0.16em] text-sticker-blue uppercase">
         GLOSSARY
       </p>
-      <h1 className="mt-2 font-heading text-4xl tracking-tight">概念词典</h1>
+      <h1 className="mt-2 font-heading text-3xl tracking-tight sm:text-4xl">
+        概念词典
+      </h1>
       <p className="mt-3 max-w-2xl text-base leading-relaxed text-foreground/75">
         16
         个成电人天天挂在嘴边、却很少有人正式解释过的词。点开词条看完整说法，相关链接会把你送回对应分类。
@@ -102,7 +104,7 @@ export function GlossaryView() {
           type="button"
           onClick={() => setGroup(null)}
           className={cn(
-            "inline-flex h-8 items-center gap-1.5 rounded-full sticker-chip px-3 font-heading text-xs font-semibold transition-transform hover:-translate-y-0.5",
+            "inline-flex h-9 items-center gap-1.5 rounded-full sticker-chip px-3 font-heading text-xs font-semibold transition-transform sm:h-8 sm:hover:-translate-y-0.5",
             group === null && "bg-primary text-primary-foreground"
           )}
         >
@@ -119,7 +121,7 @@ export function GlossaryView() {
               type="button"
               onClick={() => setGroup(item)}
               className={cn(
-                "inline-flex h-8 items-center gap-1.5 rounded-full sticker-chip px-3 font-heading text-xs font-semibold transition-transform hover:-translate-y-0.5",
+                "inline-flex h-9 items-center gap-1.5 rounded-full sticker-chip px-3 font-heading text-xs font-semibold transition-transform sm:h-8 sm:hover:-translate-y-0.5",
                 selected && "bg-primary text-primary-foreground"
               )}
             >

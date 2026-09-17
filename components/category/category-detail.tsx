@@ -41,7 +41,7 @@ function LinkGrid({
   highlighted: string | null
 }) {
   return (
-    <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+    <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
       {items.map((link) => (
         <LinkCard
           key={link.id}
@@ -85,7 +85,7 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
   const index = categories.findIndex((item) => item.slug === slug)
 
   return (
-    <section className="mx-auto max-w-6xl px-6 pt-28 pb-24">
+    <section className="mx-auto max-w-6xl page-gutter">
       <div className="flex flex-wrap items-center gap-3">
         <Link href={HOME_PATH} className={buttonVariants({ variant: "ghost" })}>
           <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={2} />
@@ -106,7 +106,7 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
           <span className="mx-2">·</span>
           {category.nameEn}
         </p>
-        <h1 className="font-heading text-4xl tracking-tight">
+        <h1 className="font-heading text-3xl tracking-tight sm:text-4xl">
           {category.name}
         </h1>
         <p className="max-w-3xl text-base leading-relaxed text-foreground/75">
@@ -117,7 +117,7 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
         </p>
       </div>
 
-      <div className="mt-8 flex flex-wrap gap-3">
+      <div className="-mx-4 mt-8 flex touch-pan-x gap-2 overflow-x-auto overscroll-x-contain px-4 pb-1 sm:mx-0 sm:touch-auto sm:flex-wrap sm:gap-3 sm:overflow-visible sm:px-0">
         {CHIP_ITEMS.map((item) => {
           const current = item.slug === slug
           return (
@@ -126,10 +126,11 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
               href={categoryPath(item.slug)}
               aria-current={current ? "page" : undefined}
               className={cn(
-                "flex items-center gap-2 rounded-full sticker-chip px-3 py-1.5 font-heading text-sm font-semibold transition-transform hover:-translate-y-0.5",
+                "flex shrink-0 items-center gap-2 rounded-full sticker-chip px-3 py-2 font-heading text-sm font-semibold transition-transform sm:py-1.5",
                 current
                   ? "bg-primary text-primary-foreground"
-                  : "text-foreground"
+                  : "text-foreground",
+                "sm:hover:-translate-y-0.5"
               )}
             >
               <HugeiconsIcon

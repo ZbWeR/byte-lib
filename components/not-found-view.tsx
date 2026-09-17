@@ -12,11 +12,11 @@ export function NotFoundView() {
   const pathname = usePathname()
 
   return (
-    <section className="flex flex-1 flex-col items-center justify-center px-6 pt-28 pb-16 text-center">
-      <div className="relative rounded-[32px] sticker px-10 py-12 [--sticker-shadow:var(--sticker-yellow)]">
+    <section className="flex flex-1 flex-col items-center justify-center page-gutter text-center">
+      <div className="relative rounded-[28px] sticker px-6 py-8 [--sticker-shadow:var(--sticker-yellow)] sm:rounded-[32px] sm:px-10 sm:py-12">
         <SparkleMark className="absolute -top-3 -left-2 size-6 text-sticker-pink" />
         <PawMark className="mx-auto size-12" />
-        <h1 className="mt-6 font-heading text-3xl tracking-tight">
+        <h1 className="mt-6 font-heading text-2xl tracking-tight sm:text-3xl">
           这一页还没有被收录
         </h1>
         <p className="mt-3 max-w-md text-base leading-relaxed text-foreground/75">

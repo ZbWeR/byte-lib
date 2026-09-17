@@ -11,6 +11,7 @@ import { useStageNav, wrapOffset } from "@/hooks/use-stage-nav"
 import { categories, linksByCategory } from "@/lib/data/library"
 import type { LibraryLink } from "@/lib/data/types"
 import { categoryPath } from "@/lib/paths"
+import { cn } from "@/lib/utils"
 
 function popularity(link: LibraryLink) {
   return (link.likeCount ?? 0) * 1000 + (link.uv ?? 0) * 10 + (link.pv ?? 0)
@@ -97,10 +98,10 @@ export function CategoryStage() {
   return (
     <section
       ref={stageRef}
-      className="relative flex h-svh touch-none flex-col overflow-hidden overscroll-none [--card-h:min(420px,calc(100svh-26rem))] [--card-top:3.25rem] [--card-w:380px] [perspective:1800px] max-[900px]:[--card-w:min(380px,82vw)]"
+      className="relative flex h-svh touch-none flex-col overflow-hidden overscroll-none select-none [--card-h:min(26.25rem,calc(100svh-26rem))] [--card-top:3.25rem] [--card-w:23.75rem] [perspective:1800px] max-md:[--card-h:min(24rem,calc(100svh-15.5rem))] max-md:[--card-top:0.6rem] max-md:[--card-w:min(22.5rem,calc(100vw-3.25rem))] max-md:[perspective:1200px] max-sm:[--card-h:min(22rem,calc(100svh-13.75rem))] [@media(max-height:32rem)]:[--card-h:min(18rem,calc(100svh-9.5rem))] [@media(max-height:32rem)]:[--card-top:0.25rem]"
     >
-      <div className="relative z-10 mx-auto w-full shrink-0 px-6 pt-16 pb-2 text-center sm:pt-20">
-        <div className="relative mx-auto w-[min(28rem,86vw)] sm:w-[min(32rem,68vw)]">
+      <div className="relative z-10 mx-auto w-full shrink-0 px-4 pt-[calc(3.5rem+env(safe-area-inset-top,0px))] pb-1 text-center sm:px-6 sm:pt-[calc(5rem+env(safe-area-inset-top,0px))] sm:pb-2">
+        <div className="relative mx-auto w-[min(18rem,70vw)] sm:w-[min(28rem,86vw)] md:w-[min(32rem,68vw)]">
           <Image
             src="/iuestc-byte-lib.png"
             alt="iUESTC Byte Lib"
@@ -108,11 +109,13 @@ export function CategoryStage() {
             height={580}
             priority
             unoptimized
-            className="relative h-auto w-full drop-shadow-[6px_8px_0_rgba(255,90,165,0.28)] select-none"
+            className="relative mx-auto h-auto max-h-[14vh] w-full object-contain drop-shadow-[6px_8px_0_rgba(255,90,165,0.28)] select-none sm:max-h-none"
           />
-          <LogoOrnaments />
+          <div className="max-sm:hidden">
+            <LogoOrnaments />
+          </div>
         </div>
-        <h1 className="mx-auto mt-3 font-heading text-base font-semibold tracking-[0.14em] text-foreground uppercase">
+        <h1 className="mx-auto mt-2 px-3 font-heading text-[0.68rem] font-semibold tracking-[0.12em] text-foreground uppercase sm:mt-3 sm:text-base sm:tracking-[0.14em] [@media(max-height:32rem)]:hidden">
           <span className="relative inline-block px-1">
             <span
               aria-hidden
@@ -146,6 +149,34 @@ export function CategoryStage() {
             )
           })}
         </div>
+      </div>
+
+      <div
+        data-stage-chrome=""
+        className="relative z-20 flex shrink-0 items-center justify-center px-2 pt-1 pb-[calc(2.75rem+env(safe-area-inset-bottom,0px))] sm:pb-[calc(3.25rem+env(safe-area-inset-bottom,0px))]"
+      >
+        {categories.map((category, i) => {
+          const current = i === index
+          return (
+            <button
+              key={category.slug}
+              type="button"
+              aria-label={`查看${category.name}`}
+              aria-current={current ? "true" : undefined}
+              onClick={() => setIndex(i)}
+              className="grid h-8 w-5 touch-manipulation place-items-center outline-none focus-visible:ring-2 focus-visible:ring-ring sm:w-8"
+            >
+              <span
+                className={cn(
+                  "h-1.5 rounded-full transition-[width,background-color] duration-300",
+                  current
+                    ? "w-5 bg-sticker-ink sm:w-6"
+                    : "w-1.5 bg-sticker-ink/25"
+                )}
+              />
+            </button>
+          )
+        })}
       </div>
     </section>
   )
