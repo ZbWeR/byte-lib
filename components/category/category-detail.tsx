@@ -33,7 +33,7 @@ function LinkGrid({
   highlighted: string | null
 }) {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
+    <div className="grid min-w-0 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
       {items.map((link) => (
         <LinkCard
           key={link.id}
