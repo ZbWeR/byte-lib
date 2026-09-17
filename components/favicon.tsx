@@ -57,7 +57,7 @@ export function Favicon({
       {failed ? (
         <span
           className={cn(
-            "flex size-full items-center justify-center rounded-[10px] text-[13px] font-medium",
+            "flex size-full items-center justify-center rounded-[10px] text-xs font-medium",
             accentClasses[accent].text,
             accentClasses[accent].mono
           )}

@@ -81,7 +81,7 @@ export function DocMeta({ link, className }: DocMetaProps) {
                   className="block size-3.5 shrink-0"
                 />
               ) : null}
-              <span className="font-mono text-[11px] leading-none tabular-nums">
+              <span className="font-mono text-xs leading-none tabular-nums">
                 {item.value}
               </span>
             </TooltipTrigger>

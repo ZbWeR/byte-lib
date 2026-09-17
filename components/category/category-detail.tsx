@@ -53,7 +53,7 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
           <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={2} />
           图书馆
         </Link>
-        <p className="text-[13px] text-muted-foreground">
+        <p className="text-sm text-muted-foreground">
           图书馆
           <span className="mx-1.5 text-muted-foreground/50">/</span>
           <span className="text-foreground">{category.name}</span>
@@ -61,7 +61,7 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
       </div>
 
       <div className="mt-8 space-y-3">
-        <p className="font-heading text-[12px] font-semibold tracking-[0.16em] text-sticker-blue uppercase">
+        <p className="font-heading text-xs font-semibold tracking-[0.16em] text-sticker-blue uppercase">
           <span className="tabular-nums">
             {String(index + 1).padStart(2, "0")}
           </span>
@@ -71,10 +71,10 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
         <h1 className="font-heading text-4xl tracking-tight">
           {category.name}
         </h1>
-        <p className="max-w-2xl text-[15px] leading-relaxed text-foreground/75">
+        <p className="max-w-3xl text-base leading-relaxed text-foreground/75">
           {category.description}
         </p>
-        <p className="font-heading text-[12px] font-semibold tracking-[0.14em] text-sticker-pink uppercase">
+        <p className="font-heading text-xs font-semibold tracking-[0.14em] text-sticker-pink uppercase">
           <span className="tabular-nums">{allLinks.length}</span> 篇文档
         </p>
       </div>
@@ -87,10 +87,10 @@ export function CategoryDetail({ slug }: CategoryDetailProps) {
               key={item.slug}
               href={categoryPath(item.slug)}
               className={cn(
-                "flex items-center gap-2 rounded-full sticker-chip px-3 py-1.5 font-heading text-[13px] font-semibold transition-transform hover:-translate-y-0.5",
+                "flex items-center gap-2 rounded-full sticker-chip px-3 py-1.5 font-heading text-sm font-semibold transition-transform hover:-translate-y-0.5",
                 current
-                  ? "bg-primary text-primary-foreground [--sticker-shadow:var(--sticker-blue)]"
-                  : "text-foreground [--sticker-shadow:var(--sticker-yellow)]"
+                  ? "bg-primary text-primary-foreground"
+                  : "text-foreground"
               )}
             >
               <HugeiconsIcon

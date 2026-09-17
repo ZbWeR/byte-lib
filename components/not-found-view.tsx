@@ -19,7 +19,7 @@ export function NotFoundView() {
         <h1 className="mt-6 font-heading text-3xl tracking-tight">
           这一页还没有被收录
         </h1>
-        <p className="mt-3 max-w-md text-[15px] leading-relaxed text-foreground/75">
+        <p className="mt-3 max-w-md text-base leading-relaxed text-foreground/75">
           地址{" "}
           <span className="font-heading text-sm break-all text-sticker-blue">
             {pathname}
