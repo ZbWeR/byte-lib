@@ -1,0 +1,49 @@
+name: 友链申请
+description: 交换友情链接，出现在 Byte Lib 友链页
+title: "[友链] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请先在你的站点挂上我们，再提交申请。
+
+        - 名称：UESTC Byte Lib · 成电人的电子图书馆
+        - 网址：https://www.iuestc.com/
+        - 简介：成电人的电子图书馆。按学院收录同学自己整理的期末复习文档。
+  - type: input
+    id: site-name
+    attributes:
+      label: 站点名称
+      description: 出现在卡片上的名字
+    validations:
+      required: true
+  - type: input
+    id: site-url
+    attributes:
+      label: 站点网址
+      description: 能公开打开的 https 链接
+      placeholder: https://
+    validations:
+      required: true
+  - type: input
+    id: summary
+    attributes:
+      label: 一句话简介
+      description: 建议 20 字内，说明这是谁的站
+    validations:
+      required: true
+  - type: input
+    id: logo
+    attributes:
+      label: Logo 链接
+      description: 正方形图标最好，没有也可以
+      placeholder: https://
+    validations:
+      required: false
+  - type: checkboxes
+    id: hung
+    attributes:
+      label: 确认
+      options:
+        - label: 我已经在站点挂上 Byte Lib 的链接
+          required: true
