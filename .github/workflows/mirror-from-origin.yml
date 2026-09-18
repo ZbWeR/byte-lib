@@ -1,0 +1,28 @@
+name: Mirror Origin to GitHub
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: mirror-origin-to-github
+  cancel-in-progress: true
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout sync script
+        uses: actions/checkout@v4
+
+      - name: Push Origin refs to GitHub
+        env:
+          MIRROR_SOURCE_URL: https://origin.cursor.com/git/zbwer/byte-lib.git
+          MIRROR_DEST_URL: https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          MIRROR_WORKFLOW_PATH: .github/workflows/mirror-from-origin.yml
+          MIRROR_DEFAULT_BRANCH: main
+        run: bash scripts/mirror-from-origin.sh
