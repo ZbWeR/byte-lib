@@ -201,7 +201,7 @@ export function FriendsView() {
                 href={FRIENDS_APPLY_URL}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="在 GitHub Issues 提交友链申请"
+                aria-label="在 GitHub 填写友链申请表单"
                 className="group flex items-center gap-3 transition-all outline-none hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <div className="grid size-7 shrink-0 place-items-center overflow-hidden rounded-full sticker-chip">
@@ -212,7 +212,7 @@ export function FriendsView() {
                     GitHub Issues
                   </p>
                   <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground transition-colors group-hover:text-foreground/80">
-                    开一个 Issue 发申请
+                    填写申请表单
                   </p>
                 </div>
                 <HugeiconsIcon
