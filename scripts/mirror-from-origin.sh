@@ -3,10 +3,15 @@
 # Origin is the source of truth. GitHub is a downstream copy of branches and tags.
 set -euo pipefail
 
+# Origin zbwer/byte-lib is private. GitHub-hosted runners must already have
+# git credentials (origin auth login / credential helper) before this runs.
 SOURCE_URL="${MIRROR_SOURCE_URL:-https://origin.cursor.com/git/zbwer/byte-lib.git}"
 DEST_URL="${MIRROR_DEST_URL:?MIRROR_DEST_URL is required}"
 WORKFLOW_PATH="${MIRROR_WORKFLOW_PATH:-.github/workflows/mirror-from-origin.yml}"
 DEFAULT_BRANCH="${MIRROR_DEFAULT_BRANCH:-main}"
+
+export GIT_TERMINAL_PROMPT=0
+export GIT_CONFIG_COUNT="${GIT_CONFIG_COUNT:-0}"
 
 workdir="$(mktemp -d)"
 cleanup() {
@@ -14,7 +19,15 @@ cleanup() {
 }
 trap cleanup EXIT
 
-git clone --bare "$SOURCE_URL" "$workdir/source.git"
+if ! git clone --bare "$SOURCE_URL" "$workdir/source.git"; then
+  cat >&2 <<EOF
+mirror-from-origin: failed to clone Origin (private repo).
+GitHub Actions cannot read https://origin.cursor.com/git/zbwer/byte-lib.git anonymously.
+Add a GitHub Actions secret CURSOR_API_KEY (Cursor Dashboard → API keys),
+and let the workflow run \`origin auth login\` before this script.
+EOF
+  exit 128
+fi
 cd "$workdir/source.git"
 
 has_workflow=0

@@ -2,7 +2,7 @@ name: Mirror Origin to GitHub
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "7,22,37,52 * * * *"
   workflow_dispatch:
 
 concurrency:
@@ -19,10 +19,37 @@ jobs:
       - name: Checkout sync script
         uses: actions/checkout@v4
 
+      - name: Require CURSOR_API_KEY
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+        run: |
+          if [ -z "$CURSOR_API_KEY" ]; then
+            cat <<'EOF'
+          Origin zbwer/byte-lib is private. GitHub-hosted runners cannot clone it
+          without credentials. Create a Cursor API key, add it as the repository
+          secret CURSOR_API_KEY, then re-run this workflow.
+          https://github.com/ZbWeR/byte-lib/settings/secrets/actions
+          EOF
+            exit 1
+          fi
+
+      - name: Install Origin CLI
+        run: |
+          curl -fsSL https://downloads.cursor.com/origin/install.sh | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Sign in to Origin
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+        run: |
+          origin auth login --api-key "$CURSOR_API_KEY"
+          origin auth setup-git
+
       - name: Push Origin refs to GitHub
         env:
           MIRROR_SOURCE_URL: https://origin.cursor.com/git/zbwer/byte-lib.git
           MIRROR_DEST_URL: https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           MIRROR_WORKFLOW_PATH: .github/workflows/mirror-from-origin.yml
           MIRROR_DEFAULT_BRANCH: main
+          GIT_TERMINAL_PROMPT: "0"
         run: bash scripts/mirror-from-origin.sh
