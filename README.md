@@ -1,140 +1,119 @@
-# UESTC Byte Lib
+<div align="center">
 
-成电人的电子图书馆。一个纯前端的桌面端单页应用，把飞书知识库里的
-**学院分类和期末复习文档**收进一个轻量、克制的「电子图书馆」里。
+<img src="public/iuestc-byte-lib.png" alt="UESTC Byte Lib" width="440" />
 
-核心体验是 Keynote 式的分类舞台横移切换：当前分类居中完整展开，左右相邻分类以缩小、低透明度、
-轻微模糊的姿态在两侧露出，暗示「还有更多」。支持鼠标滚轮、触控板、方向键、拖拽和指示器切换，
-另有全局 `⌘K` 搜索与一个独立的概念词典。
+### 成电人的电子图书馆
 
-## 快速开始
+期末周要找的不是教材，是学长学姐已经整理过的那份复习提纲。
 
-需要 Node.js 20.9+ 和 pnpm。
+**[www.iuestc.com](https://www.iuestc.com/)**
+
+</div>
+
+---
+
+## 这是什么
+
+UESTC Byte Lib 是一个由同学自己维护的期末复习文档库。
+
+电子科大的复习资料一直散在群文件、网盘链接和私聊记录里，找的时候全靠运气，找到了也不知道是哪一年的版本。我们把这些材料集中写进一个开源的飞书知识库，再用这个站点当门面：**打开首页就能按学院翻，翻到就能读。**
+
+文档本体仍然长在飞书云文档里——可以协同编辑、可以评论、可以看修订记录；站点负责把它们排好、标清楚、让人找得到。
+
+## 现在的馆藏
+
+| 学院 / 分类 | 文档 |
+| --- | --- |
+| 医学院 | 34 |
+| 计算机学院 | 24 |
+| 公共必修课 | 9 |
+| 软件学院 | 6 |
+| 格拉斯哥 | 4 |
+| 生命学院 | 3 |
+| Others（转专业 / 就业） | 3 |
+| 电子 & 集电 | 2 |
+| 光电学院 | 2 |
+| 经管学院 | 2 |
+| 自动化学院 | 1 |
+| 信通学院 | 1 |
+
+合计 **12 个分类、91 篇文档、约 160 万字**，累计被读了 **43 万次**，来自 **23 万人次**的访问。
+
+这些数字随站点构建自动刷新，上表是最近一次同步（2026-09-02）的结果。
+
+## 你可以用它做什么
+
+**按学院翻。** 首页是一排横移的学院卡片，当前学院居中展开，左右两侧露出相邻学院的边缘。滚轮、触控板、方向键、拖拽都能翻，卡片上直接列出这个学院最热的几篇文档。
+
+**一键搜全站。** 任何页面按 `⌘K`（Windows 上是 `Ctrl+K`），或者直接敲 `/`，输入课名就能跳到对应文档，拼音首字母和英文课名也能搜到。
+
+**先判断值不值得点开。** 每张文档卡片会标出篇幅（几万字还是几千字）、多少人读过、拿了多少赞。只建了标题、正文还没写的页面会诚实地标成「占位页」，不会让你白点一次。
+
+**把一门课直接甩给同学。** 学院页、单篇文档的高亮链接都有独立网址，复制粘贴就能分享，对方打开时那篇文档会自动滚到屏幕中间并高亮。
+
+**看看别人家的站。** [友情链接页](https://www.iuestc.com/friends)收录同类的学生开源项目，也写清楚了怎么申请交换友链。
+
+## 快捷键
+
+| 操作 | 效果 |
+| --- | --- |
+| 滚轮 / 触控板 / 拖拽 | 在首页切换学院 |
+| `←` `→` `↑` `↓` | 切换学院 |
+| `1`–`9` | 直接跳到第 n 个学院 |
+| `Home` / `End` | 跳到第一个 / 最后一个学院 |
+| `Enter` / `Space` | 进入当前学院 |
+| `Esc` | 从学院页返回首页 |
+| `⌘K` / `Ctrl+K` / `/` | 打开全站搜索 |
+
+## 网址
+
+| 地址 | 内容 |
+| --- | --- |
+| `/` | 首页，学院卡片舞台 |
+| `/c/all` | 全部馆藏摊开看 |
+| `/c/<学院>` | 单个学院的文档列表 |
+| `/c/<学院>?focus=<文档>` | 学院列表，并高亮某篇文档 |
+| `/friends` | 友情链接与申请方式 |
+
+`<学院>` 就是学院的英文短名，例如 `cs`、`medicine`、`software`、`general`。
+
+## 一起来建这个图书馆
+
+**写文档**——这是最需要人的部分。编辑组是一群来自各个学院的开源爱好者，想少一点「闭门造车」的复习方式。如果你手里有整理好的笔记，或者愿意花时间把一门课的提纲补完，[在飞书上联系 zbwer](https://www.feishu.cn/invitation/page/add_contact/?token=23bm5ca7-2bb6-4c0b-be1e-2dd880f67acd&unique_id=yPMWiWxCNxL21cBbGL_W0g==) 就能加入。你在飞书知识库里新建的页面，站点下次构建就会自己收进来。
+
+**顺手改一处**——在飞书文档里直接留评论、补一段、订正一个公式，都算。
+
+**交换友链**——如果你也在做面向大学生的开源站点，去 [`/friends`](https://www.iuestc.com/friends) 看申请方式，准备好站名、网址、一句话简介和 Logo 就行。
+
+**改站点本身**——欢迎 issue 和 PR，本地跑起来只要两行命令，见下。
+
+## 本地跑起来
+
+需要 Node.js 22 和 pnpm。
 
 ```bash
 pnpm install
-pnpm dev --port 43917
+pnpm dev
 ```
 
-打开 http://localhost:43917 。唯一的服务端代码是一个取站点图标的代理
-（`app/api/icon`），它只是转发请求并读取上游状态码，没有它页面也能正常渲染，
-只是所有图标都会退化成字母图章。
+打开 http://localhost:3000 就是完整的站点。
 
-课程目录来自飞书知识空间 [UESTC Byte Lib](https://my.feishu.cn/wiki/AatBwiDa7ig7RJkzdlocLm1cnTh)
-的二级页面，由 `pnpm sync:wiki` 在每次 `pnpm build` 时刷新到 `lib/data/catalog.json`。
-本机已登录 `lark-cli` 时会直接拉取；CI / Vercel 可配置 `FEISHU_APP_ID` + `FEISHU_APP_SECRET`
-（或 `FEISHU_TENANT_ACCESS_TOKEN`）。没有凭证时沿用仓库里已提交的目录，避免把构建卡死。
-
-## 部署到 Vercel
-
-这是标准的 Next.js App Router 项目，Vercel 会按 `vercel.json` 识别框架并用 pnpm 安装依赖。
-若要在构建时刷新飞书课程目录，在项目环境变量里配置
-`FEISHU_APP_ID` 与 `FEISHU_APP_SECRET`（应用需能读取该知识空间），
-或直接提供 `FEISHU_TENANT_ACCESS_TOKEN`。不配则使用仓库里已提交的 `lib/data/catalog.json`。
-
-在 [Vercel](https://vercel.com/new) 导入本仓库即可；或在已登录 CLI 的情况下：
-
-```bash
-pnpm dlx vercel --prod --yes
-```
+课程目录来自飞书知识空间 [UESTC Byte Lib](https://my.feishu.cn/wiki/AatBwiDa7ig7RJkzdlocLm1cnTh)，由 `pnpm sync:wiki` 写入 `lib/data/catalog.json`，每次 `pnpm build` 都会先跑一遍。没有飞书凭证时会沿用仓库里已提交的目录，不会卡住构建；要在构建时真的刷新，配置 `FEISHU_APP_ID` + `FEISHU_APP_SECRET`（或 `FEISHU_TENANT_ACCESS_TOKEN`）。
 
 其它命令：
 
 ```bash
 pnpm sync:wiki   # 从飞书知识空间刷新课程目录
-pnpm build       # 先 sync:wiki，再生产构建（Turbopack）
-pnpm start       # 运行生产构建
+pnpm build       # 先同步目录，再生产构建
 pnpm typecheck   # tsc --noEmit
 pnpm lint        # eslint
 pnpm format      # prettier --write
 ```
 
-## 交互速查
+站点是 Next.js 16 App Router + React 19 + Tailwind CSS v4，UI 用 shadcn/ui（底层 Base UI），部署在 Vercel。唯一的服务端代码是两个取头像和站点图标的代理，挂了也只会让图标退化成字母图章。更细的目录结构和数据约定写在 `AGENTS.md` 和 `lib/data/types.ts` 里。
 
-| 操作                  | 效果                |
-| --------------------- | ------------------- |
-| 滚轮 / 触控板 / 拖拽  | 在首页切换分类      |
-| `←` `→` `↑` `↓`       | 切换分类            |
-| `1`–`9`               | 直接跳到第 n 个学院 |
-| `Enter` / `Space`     | 进入当前分类        |
-| `Esc`                 | 从分类详情返回首页  |
-| `⌘K` / `Ctrl+K` / `/` | 打开全局搜索        |
-| `d`                   | 切换明暗主题        |
+<div align="center">
 
-## 路由
+© 2023 UESTC Byte Lib · 由成电同学自己维护
 
-分类、词典、友情链接都是独立的 Next.js 页面，地址可直接分享：
-
-| 地址                       | 视图                     |
-| -------------------------- | ------------------------ |
-| `/`                        | 分类舞台（首页）         |
-| `/c/<slug>`                | 分类详情                 |
-| `/c/<slug>?focus=<linkId>` | 分类详情，并高亮某条链接 |
-| `/friends`                 | 友情链接                 |
-| `/glossary`                | 概念词典                 |
-| `/glossary?term=<termId>`  | 概念词典，并展开某个词条 |
-
-`<slug>` 取值来自飞书知识空间一级节点，例如 `cs` `medicine` `general` `software`。
-
-## 技术栈
-
-- **Next.js 16**（App Router，Turbopack）+ React 19
-- **Tailwind CSS v4**（CSS-first 配置，无 `tailwind.config.js`）
-- **shadcn/ui**，`base-rhea` style + `olive` baseColor，底层是 **Base UI**（非 Radix）
-- **hugeicons** 图标库，**cmdk** 命令面板，**next-themes** 主题
-- TypeScript 严格模式
-
-主题默认跟随系统 `prefers-color-scheme`，可通过顶部玻璃胶囊 header 的太阳 / 月亮按钮即时切换，
-选择保存在 `localStorage`。
-
-## 目录结构
-
-```
-app/
-  layout.tsx            字体、主题、AppShell 外壳
-  page.tsx              首页分类舞台
-  c/[slug]/page.tsx     学院分类详情页
-  friends/page.tsx      友情链接
-  glossary/page.tsx     概念词典
-  globals.css           设计令牌：分类强调色、glass / surface-shadow、动效、reduced-motion
-components/
-  app-shell.tsx         header + 氛围层 + 命令面板
-  fluid-cursor.tsx      首页液体指针背景（从 FluidCursor.vue 移植）
-  site-header.tsx       固定居中的玻璃胶囊顶栏
-  command-palette.tsx   ⌘K 全局搜索
-  link-card.tsx         链接卡片（新标签页打开）
-  favicon.tsx           favicon + 失败回退的字母 monogram
-app/api/icon/route.ts   favicon 代理：读到上游真实状态码，查不到的站点才会正确回退
-  stage/                分类舞台：容器、卡片、指示器
-  category/             分类详情页
-  glossary/             概念词典
-  friends/              友情链接
-  ui/                   shadcn 组件（未改动）
-hooks/
-  use-stage-nav.ts      滚轮 / 键盘 / 拖拽导航
-  use-navigate.ts       App Router 跳转
-lib/
-  accents.ts            AccentKey → 静态 Tailwind 类名查表
-  search.ts             命令面板检索
-  data/                 全部内容数据（分类 / 链接 / 词条）
-```
-
-## 内容数据
-
-所有内容集中在 `lib/data/`，类型定义在 `lib/data/types.ts`：
-
-- `catalog.json` — 飞书知识空间同步结果：一级节点是学院，二级节点是课程文档
-- `catalog.ts` / `library.ts` — 给站点用的目录导出（舞台、分类页、搜索都读这里）
-- `college-meta.ts` — 学院英文名、tagline、强调色
-- `categories.ts` / `links.ts` — 概念词典仍在引用的旧站外链接
-- `glossary.ts` — 16 个概念词条，含别名、分组、详细释义，以及指向具体链接的 `relatedLinkIds`
-- `friends.ts` — 友情链接名单；申请方式和回链文案写在 `/friends` 页面上
-
-单独刷新课程目录：
-
-```bash
-pnpm sync:wiki
-```
-
-课程文档在飞书知识空间里新增二级页面后，跑 `pnpm sync:wiki`（或直接 `pnpm build`）就会进站点。
-学院英文名和强调色写在 `college-meta.ts`。概念词典的相关链接仍指向 `links.ts` 里的官方入口。
+</div>
