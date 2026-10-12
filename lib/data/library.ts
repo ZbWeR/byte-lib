@@ -103,19 +103,39 @@ export const links: LibraryLink[] = wikiDocs.map((doc) => ({
   ],
 }))
 
-export const linksByCategory = links.reduce<Record<string, LibraryLink[]>>(
-  (acc, link) => {
-    ;(acc[link.categorySlug] ??= []).push(link)
-    return acc
-  },
-  {}
+function updatedAtMs(link: LibraryLink) {
+  if (!link.updatedAt) return Number.NaN
+  const value = Date.parse(link.updatedAt)
+  return Number.isFinite(value) ? value : Number.NaN
+}
+
+/** 分类页用：最近更新在前，没有更新时间的排到后面。 */
+export function sortLinksByUpdatedAt(items: LibraryLink[]) {
+  return [...items].sort((a, b) => {
+    const aTime = updatedAtMs(a)
+    const bTime = updatedAtMs(b)
+    const aOk = Number.isFinite(aTime)
+    const bOk = Number.isFinite(bTime)
+    if (aOk && bOk && aTime !== bTime) return bTime - aTime
+    if (aOk !== bOk) return aOk ? -1 : 1
+    return 0
+  })
+}
+
+export const linksByCategory = Object.fromEntries(
+  Object.entries(
+    links.reduce<Record<string, LibraryLink[]>>((acc, link) => {
+      ;(acc[link.categorySlug] ??= []).push(link)
+      return acc
+    }, {})
+  ).map(([slug, items]) => [slug, sortLinksByUpdatedAt(items)])
 )
 
 export const linkById = new Map(links.map((link) => [link.id, link]))
 
 export function linksForCategory(slug: string): LibraryLink[] {
   if (isAllCategorySlug(slug)) {
-    return links
+    return sortLinksByUpdatedAt(links)
   }
   return linksByCategory[slug] ?? []
 }
