@@ -112,7 +112,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   key={item.id}
                   value={`doc:${item.id}`}
                   onSelect={() => {
-                    navigate(categoryPath(item.link.categorySlug, item.link.id))
+                    window.open(item.link.url, "_blank", "noopener,noreferrer")
                     close()
                   }}
                 >
