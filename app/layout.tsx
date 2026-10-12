@@ -4,7 +4,7 @@ import Script from "next/script"
 
 import "./globals.css"
 import { AppShell } from "@/components/app-shell"
-import { catalog } from "@/lib/data/catalog"
+import { catalogStats } from "@/lib/data/catalog"
 import { cn } from "@/lib/utils"
 
 const UMAMI_WEBSITE_ID = "fad4a8b8-81a4-43be-9404-98fb17992674"
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: "UESTC Byte Lib · 成电人的电子图书馆",
     template: "%s · UESTC Byte Lib",
   },
-  description: `${catalog.stats.collegeCount} 个学院、${catalog.stats.docCount} 篇期末复习文档，按学院收录成电人自己整理的飞书笔记。`,
+  description: `${catalogStats.collegeCount} 个学院、${catalogStats.docCount} 篇期末复习文档，按学院收录成电人自己整理的飞书笔记。`,
 }
 
 export default function RootLayout({

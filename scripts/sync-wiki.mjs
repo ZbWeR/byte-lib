@@ -15,8 +15,9 @@
  *
  * 没有可用凭证时：若已有 catalog.json 且未设 CATALOG_SYNC_REQUIRED=1，则沿用旧文件并警告。
  *
- * 卡片简介不在本脚本里生成：正文 desc 写在 lib/data/doc-desc.json，
- * 由 catalog.ts 按文档 id 合并，避免刷新目录时冲掉人工/代理写的简介。
+ * 卡片简介不在本脚本里生成：知识空间文档的 desc 写在 lib/data/doc-desc.json，
+ * 站外投稿写在 lib/data/contributions.json，由 catalog.ts 按文档 id 合并。
+ * 本脚本只重写 catalog.json 的知识空间目录，并给投稿补统计快照。
  */
 
 import { execFile, spawnSync } from "node:child_process"
@@ -30,6 +31,7 @@ const execFileAsync = promisify(execFile)
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..")
 const OUT_FILE = join(ROOT, "lib/data/catalog.json")
+const CONTRIBUTIONS_FILE = join(ROOT, "lib/data/contributions.json")
 
 const SPACE_ID = process.env.WIKI_SPACE_ID || "7411795208001175556"
 const SPACE_NAME = "UESTC Byte Lib"
@@ -428,6 +430,10 @@ async function enrichDocs(docs, api) {
         const updatedAt = unixToIso(meta.latest_modify_time)
         if (createdAt) doc.createdAt = createdAt
         if (updatedAt) doc.updatedAt = updatedAt
+        if (meta.doc_token && meta.doc_token !== doc.nodeToken) {
+          doc.objToken = meta.doc_token
+        }
+        if (meta.doc_type) doc.objType = meta.doc_type
       }
     } catch (error) {
       log(
@@ -479,8 +485,114 @@ async function enrichDocs(docs, api) {
 
 function writeCatalog(catalog) {
   writeFileSync(OUT_FILE, `${JSON.stringify(catalog, null, 2)}\n`, "utf8")
+  const snapshots = Object.keys(catalog.contributionSnapshots ?? {}).length
   log(
-    `sync-wiki: wrote ${OUT_FILE} (${catalog.stats.collegeCount} 个学院，${catalog.stats.docCount} 篇文档，跳过空标题 ${catalog.stats.skippedUntitled})`
+    `sync-wiki: wrote ${OUT_FILE} (${catalog.stats.collegeCount} 个学院，${catalog.stats.docCount} 篇知识空间文档，投稿快照 ${snapshots}，跳过空标题 ${catalog.stats.skippedUntitled})`
+  )
+}
+
+function readExistingCatalog() {
+  if (!existsSync(OUT_FILE)) return null
+  try {
+    return JSON.parse(readFileSync(OUT_FILE, "utf8"))
+  } catch {
+    return null
+  }
+}
+
+function loadContributions() {
+  if (!existsSync(CONTRIBUTIONS_FILE)) return []
+  const payload = JSON.parse(readFileSync(CONTRIBUTIONS_FILE, "utf8"))
+  const docs = payload.docs
+  if (!Array.isArray(docs)) {
+    fail("contributions.json: docs 必须是数组")
+  }
+  return docs
+}
+
+function validateContributions(items, colleges) {
+  const slugs = new Set(colleges.map((college) => college.slug))
+  const seen = new Set()
+  for (const [index, item] of items.entries()) {
+    const id = typeof item?.id === "string" ? item.id.trim() : ""
+    const title = typeof item?.title === "string" ? item.title.trim() : ""
+    const collegeSlug =
+      typeof item?.collegeSlug === "string" ? item.collegeSlug.trim() : ""
+    if (!id || !title || !collegeSlug) {
+      fail(`contributions.json: docs[${index}] 缺少 id / title / collegeSlug`)
+    }
+    if (seen.has(id)) {
+      fail(`contributions.json: 重复 id ${id}`)
+    }
+    seen.add(id)
+    if (!slugs.has(collegeSlug)) {
+      fail(
+        `contributions.json: ${id} 的 collegeSlug "${collegeSlug}" 不在 catalog 学院列表中`
+      )
+    }
+  }
+}
+
+function snapshotFromDoc(doc) {
+  const snapshot = {}
+  if (doc.objToken) snapshot.objToken = doc.objToken
+  if (doc.objType) snapshot.objType = doc.objType
+  if (doc.createdAt) snapshot.createdAt = doc.createdAt
+  if (doc.updatedAt) snapshot.updatedAt = doc.updatedAt
+  if (doc.charCount != null) snapshot.charCount = doc.charCount
+  if (doc.pv != null) snapshot.pv = doc.pv
+  if (doc.uv != null) snapshot.uv = doc.uv
+  if (doc.likeCount != null) snapshot.likeCount = doc.likeCount
+  return snapshot
+}
+
+function draftContributionDoc(item, previous) {
+  return {
+    id: item.id,
+    title: item.title,
+    nodeToken: item.id,
+    objToken: previous.objToken || item.objToken || "",
+    objType: previous.objType || item.objType || "docx",
+    createdAt: previous.createdAt,
+    updatedAt: previous.updatedAt,
+    pv: previous.pv,
+    uv: previous.uv,
+    likeCount: previous.likeCount,
+    charCount: previous.charCount,
+  }
+}
+
+async function resolveContributionNodes(docs, api) {
+  await mapPool(docs, 4, async (doc) => {
+    if (doc.objToken) return
+    try {
+      const data = await withRetry(() =>
+        api("GET", "/wiki/v2/spaces/get_node", {
+          query: { token: doc.nodeToken },
+        })
+      )
+      const node = data.node ?? data
+      if (node.obj_token) doc.objToken = node.obj_token
+      if (node.obj_type) doc.objType = node.obj_type
+    } catch (error) {
+      log(
+        `sync-wiki: contribution node skipped for ${doc.title}: ${error instanceof Error ? error.message : error}`
+      )
+    }
+  })
+}
+
+async function enrichContributions(items, existingSnapshots, api) {
+  if (items.length === 0) return {}
+  const drafts = items.map((item) =>
+    draftContributionDoc(item, existingSnapshots[item.id] ?? {})
+  )
+  if (api) {
+    await resolveContributionNodes(drafts, api)
+    await enrichDocs(drafts, api)
+  }
+  return Object.fromEntries(
+    drafts.map((doc) => [doc.id, snapshotFromDoc(doc)])
   )
 }
 
@@ -507,12 +619,28 @@ async function main() {
   if (catalog.docs.length === 0) {
     fail("同步成功但没有可用的二级文档，请检查知识空间结构或权限")
   }
+
+  const contributions = loadContributions()
+  validateContributions(contributions, catalog.colleges)
+  const existingSnapshots = readExistingCatalog()?.contributionSnapshots ?? {}
+
   if (!skipEnrich) {
     const enriched = await enrichDocs(catalog.docs, source.api)
     catalog.stats.withStats = enriched.withStats
     catalog.stats.withCharCount = enriched.withCharCount
     log(
       `sync-wiki: enriched stats=${enriched.withStats}/${catalog.docs.length} chars=${enriched.withCharCount}/${catalog.docs.length}`
+    )
+    catalog.contributionSnapshots = await enrichContributions(
+      contributions,
+      existingSnapshots,
+      source.api
+    )
+  } else {
+    catalog.contributionSnapshots = await enrichContributions(
+      contributions,
+      existingSnapshots,
+      null
     )
   }
   writeCatalog(catalog)

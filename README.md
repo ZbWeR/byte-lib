@@ -25,7 +25,7 @@ UESTC Byte Lib 是一个由同学自己维护的期末复习文档库。
 | 学院 / 分类 | 文档 |
 | --- | --- |
 | 医学院 | 34 |
-| 计算机学院 | 24 |
+| 计算机学院 | 25 |
 | 公共必修课 | 9 |
 | 软件学院 | 6 |
 | 格拉斯哥 | 4 |
@@ -37,7 +37,7 @@ UESTC Byte Lib 是一个由同学自己维护的期末复习文档库。
 | 自动化学院 | 1 |
 | 信通学院 | 1 |
 
-合计 **12 个分类、91 篇文档、约 160 万字**，累计被读了 **43 万次**，来自 **23 万人次**的访问。
+合计 **12 个分类、92 篇文档、约 160 万字**，累计被读了 **43 万次**，来自 **23 万人次**的访问。
 
 这些数字随站点构建自动刷新，上表是最近一次同步（2026-09-02）的结果。
 
@@ -98,12 +98,12 @@ pnpm dev
 
 打开 http://localhost:3000 就是完整的站点。
 
-课程目录来自飞书知识空间 [UESTC Byte Lib](https://my.feishu.cn/wiki/AatBwiDa7ig7RJkzdlocLm1cnTh)，由 `pnpm sync:wiki` 写入 `lib/data/catalog.json`，每次 `pnpm build` 都会先跑一遍。没有飞书凭证时会沿用仓库里已提交的目录，不会卡住构建；要在构建时真的刷新，配置 `FEISHU_APP_ID` + `FEISHU_APP_SECRET`（或 `FEISHU_TENANT_ACCESS_TOKEN`）。
+课程目录有两份来源：飞书知识空间 [UESTC Byte Lib](https://my.feishu.cn/wiki/AatBwiDa7ig7RJkzdlocLm1cnTh) 由 `pnpm sync:wiki` 写入 `lib/data/catalog.json`；站外投稿写在 `lib/data/contributions.json`，构建时由 `lib/data/catalog.ts` 自动合并。每次 `pnpm build` 都会先跑一遍同步。没有飞书凭证时会沿用仓库里已提交的目录和投稿统计快照，不会卡住构建；要在构建时真的刷新，配置 `FEISHU_APP_ID` + `FEISHU_APP_SECRET`（或 `FEISHU_TENANT_ACCESS_TOKEN`）。
 
 其它命令：
 
 ```bash
-pnpm sync:wiki   # 从飞书知识空间刷新课程目录
+pnpm sync:wiki   # 从飞书知识空间刷新 catalog.json，并给投稿补统计快照
 pnpm build       # 先同步目录，再生产构建
 pnpm typecheck   # tsc --noEmit
 pnpm lint        # eslint

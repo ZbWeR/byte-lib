@@ -96,6 +96,38 @@ export type WikiDoc = {
   likeCount?: number
   /** 卡片简介：一眼看出文档主题、试卷结构与附件 */
   desc?: string
+  /** wiki = 知识空间同步；contribution = 投稿清单且尚未进入知识空间 */
+  source?: "wiki" | "contribution"
+  /** 投稿所补充的主笔记 id */
+  supplementOf?: string
+}
+
+/** 人工维护的站外投稿，id 一般是飞书 wiki node token */
+export type ContributionDoc = {
+  id: string
+  title: string
+  collegeSlug: string
+  desc?: string
+  wikiUrl?: string
+  objToken?: string
+  objType?: string
+  supplementOf?: string
+}
+
+export type ContributionFile = {
+  docs: ContributionDoc[]
+}
+
+/** sync-wiki 给投稿补的统计快照，读不到飞书时沿用上次 */
+export type ContributionSnapshot = {
+  objToken?: string
+  objType?: string
+  createdAt?: string
+  updatedAt?: string
+  charCount?: number
+  pv?: number
+  uv?: number
+  likeCount?: number
 }
 
 export type WikiCatalog = {
@@ -108,6 +140,7 @@ export type WikiCatalog = {
   }
   colleges: WikiCollege[]
   docs: WikiDoc[]
+  contributionSnapshots?: Record<string, ContributionSnapshot>
   stats: {
     collegeCount: number
     docCount: number
