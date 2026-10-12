@@ -1,7 +1,10 @@
 import { glossary } from "@/lib/data/glossary"
 import { allCategory, categories, links } from "@/lib/data/library"
-import type { Category, GlossaryTerm } from "@/lib/data/types"
+import type { Category, GlossaryTerm, LibraryLink } from "@/lib/data/types"
 import { SHOW_GLOSSARY } from "@/lib/features"
+
+/** 写进每篇文档 keywords 的站点通用词，编进索引会让「期末」「复习」命中全部馆藏。 */
+const SITEWIDE_DOC_KEYWORDS = new Set(["飞书", "复习", "期末"])
 
 export function matchesHaystack(haystack: string, query: string) {
   const tokens = query.trim().toLowerCase().split(/\s+/).filter(Boolean)
@@ -32,6 +35,13 @@ export type SearchNav = {
   id: "home" | "glossary" | "friends"
   haystack: string
   label: string
+}
+
+export type SearchDoc = {
+  kind: "doc"
+  id: string
+  haystack: string
+  link: LibraryLink
 }
 
 const linkCountBySlug = links.reduce<Record<string, number>>((acc, link) => {
@@ -90,6 +100,23 @@ export const searchTerms: SearchTerm[] = glossary.map((term) => ({
     .toLowerCase(),
 }))
 
+export const searchDocs: SearchDoc[] = links.map((link) => ({
+  kind: "doc",
+  id: link.id,
+  link,
+  haystack: [
+    link.title,
+    link.displayTitle ?? "",
+    link.description,
+    link.tags.join(" "),
+    (link.keywords ?? [])
+      .filter((keyword) => !SITEWIDE_DOC_KEYWORDS.has(keyword))
+      .join(" "),
+  ]
+    .join(" ")
+    .toLowerCase(),
+}))
+
 export const searchNav: SearchNav[] = [
   {
     kind: "nav",
@@ -122,6 +149,7 @@ export function filterSearch(query: string) {
   if (empty) {
     return {
       categories: searchCategories,
+      docs: [] as SearchDoc[],
       terms: [] as SearchTerm[],
       nav: searchNav,
     }
@@ -131,9 +159,30 @@ export function filterSearch(query: string) {
     categories: searchCategories.filter((item) =>
       matchesHaystack(item.haystack, q)
     ),
+    docs: searchDocs
+      .filter((item) => matchesHaystack(item.haystack, q))
+      .sort(compareSearchDocs(q)),
     terms: SHOW_GLOSSARY
       ? searchTerms.filter((item) => matchesHaystack(item.haystack, q))
       : [],
     nav: searchNav.filter((item) => matchesHaystack(item.haystack, q)),
   }
+}
+
+function compareSearchDocs(query: string) {
+  return (a: SearchDoc, b: SearchDoc) => {
+    const aTitle = docTitleMatches(a, query)
+    const bTitle = docTitleMatches(b, query)
+    if (aTitle !== bTitle) {
+      return aTitle ? -1 : 1
+    }
+    return (b.link.pv ?? 0) - (a.link.pv ?? 0)
+  }
+}
+
+function docTitleMatches(item: SearchDoc, query: string) {
+  return matchesHaystack(
+    [item.link.title, item.link.displayTitle ?? ""].join(" "),
+    query
+  )
 }

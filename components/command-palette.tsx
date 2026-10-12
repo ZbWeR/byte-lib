@@ -1,6 +1,7 @@
 "use client"
 
 import {
+  File01Icon,
   Home01Icon,
   Idea01Icon,
   LibraryIcon,
@@ -31,7 +32,7 @@ import {
 } from "@/lib/paths"
 import { filterSearch } from "@/lib/search"
 
-const SUGGESTIONS = ["计算机", "医学院", "公共"] as const
+const SUGGESTIONS = ["操作系统", "计网", "医学院"] as const
 
 type CommandPaletteProps = {
   open: boolean
@@ -44,7 +45,10 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
 
   const results = useMemo(() => filterSearch(query), [query])
   const total =
-    results.categories.length + results.terms.length + results.nav.length
+    results.docs.length +
+    results.categories.length +
+    results.terms.length +
+    results.nav.length
 
   const close = () => {
     onOpenChange(false)
@@ -61,12 +65,14 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         }
       }}
       title="搜索"
-      description={SHOW_GLOSSARY ? "搜索学院或概念" : "搜索学院"}
+      description={SHOW_GLOSSARY ? "搜索文档、学院或概念" : "搜索文档或学院"}
       className="sm:max-w-xl"
     >
       <Command shouldFilter={false} className="rounded-3xl bg-transparent">
         <CommandInput
-          placeholder={SHOW_GLOSSARY ? "搜索学院或概念…" : "搜索学院…"}
+          placeholder={
+            SHOW_GLOSSARY ? "搜索文档、学院或概念…" : "搜索课名或学院…"
+          }
           value={query}
           onValueChange={setQuery}
         />
@@ -98,6 +104,33 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
               </p>
             </div>
           </CommandEmpty>
+
+          {results.docs.length > 0 ? (
+            <CommandGroup heading="文档">
+              {results.docs.map((item) => (
+                <CommandItem
+                  key={item.id}
+                  value={`doc:${item.id}`}
+                  onSelect={() => {
+                    navigate(categoryPath(item.link.categorySlug, item.link.id))
+                    close()
+                  }}
+                >
+                  <HugeiconsIcon
+                    icon={File01Icon}
+                    strokeWidth={2}
+                    className="size-4 shrink-0"
+                  />
+                  <span className="min-w-0 flex-1 truncate">
+                    {item.link.displayTitle ?? item.link.title}
+                  </span>
+                  <span className="shrink-0 text-xs text-muted-foreground">
+                    {item.link.collegeName}
+                  </span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          ) : null}
 
           {results.categories.length > 0 ? (
             <CommandGroup heading="分类">
