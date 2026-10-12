@@ -456,6 +456,23 @@
       "charCount": 43009
     },
     {
+      "id": "UkQqwPkOciLjVHklzaJcWryYnic",
+      "title": "计网安补充（25-26年春版本）",
+      "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
+      "collegeSlug": "cs",
+      "collegeName": "计算机学院",
+      "wikiUrl": "https://my.feishu.cn/wiki/UkQqwPkOciLjVHklzaJcWryYnic",
+      "nodeToken": "UkQqwPkOciLjVHklzaJcWryYnic",
+      "objToken": "XjYqdCHhHo7yyGxOgQfcHyw6nmT",
+      "objType": "docx",
+      "createdAt": "2026-10-10T11:29:43.000Z",
+      "updatedAt": "2026-10-10T12:45:33.000Z",
+      "pv": 24,
+      "uv": 23,
+      "likeCount": 0,
+      "charCount": 3802
+    },
+    {
       "id": "IgSpwsg8giBPWIk20gzche56n4b",
       "title": "软件工程（评论待补充）",
       "collegeId": "UlbkwkdbXipzypkwqgtcxa3LnLh",
@@ -1631,9 +1648,9 @@
   ],
   "stats": {
     "collegeCount": 12,
-    "docCount": 91,
+    "docCount": 92,
     "skippedUntitled": 10,
-    "withStats": 91,
-    "withCharCount": 91
+    "withStats": 92,
+    "withCharCount": 92
   }
 }
