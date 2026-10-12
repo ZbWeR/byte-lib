@@ -1,0 +1,11 @@
+{
+  "docs": [
+    {
+      "id": "UkQqwPkOciLjVHklzaJcWryYnic",
+      "title": "计网安补充（25-26年春版本）",
+      "collegeSlug": "cs",
+      "desc": "针对25-26年春计网安补充（适用双A与图灵计划），说明牛伟纳出题偏应用、黄可偏课件基础，必考点仍为防火墙、TCP/IP与拒绝服务；主体补5.4 SQL注入（布尔/时间盲注、UNION手写、推理攻击）与第7章DoS（洪泛、反射放大及日志情景），并记栈溢出停车场类比；附斯托林斯第4版全球版与另一版课本、课后答案（ch1-12、ch13-24）及题库zip。",
+      "supplementOf": "M2dFwNNlTieIfvk3JC7cm4HtnDf"
+    }
+  ]
+}
